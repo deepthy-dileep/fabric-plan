@@ -1,0 +1,133 @@
+/// Calendar dimension covering January 2025 to June 2026, with year, month, quarter, half-year, and forecast flag attributes. Joined to [Fact] Sales on Date Key.
+table '[Dim] Date'
+	lineageTag: 7c231886-9555-4b80-b078-3e57819c89e2
+
+	/// Surrogate integer key in YYYYMM format — e.g. 202501 for January 2025. Hidden — used as the join column to FactSales.
+	column 'Date Key'
+		dataType: string
+		isHidden
+		lineageTag: 728bea32-04cd-499a-b572-e91822285638
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar year — 2025 or 2026.
+	column Year
+		dataType: string
+		lineageTag: 65b4c5bc-2d85-45c7-a1a7-2387c71f1adc
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Month number within the year — 1 through 12. Use this column to sort MonthName correctly in visuals.
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 022d55b8-0bb7-4eb2-b943-f703dacac7b5
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Full month name — January through June. Use in chart axes; sort by Month number.
+	column 'Month Name'
+		dataType: string
+		lineageTag: b4d4be2c-b3e7-429e-b3ed-83e8ab423997
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = User
+
+	/// Calendar quarter — Q1 through Q4.
+	column Quarter
+		dataType: string
+		lineageTag: f70d75d9-54f9-403d-819b-fafe86c3b941
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = User
+
+	/// Year and quarter combined — e.g. 2025-Q3. Used for quarterly trend analysis.
+	column 'Year Quarter'
+		dataType: string
+		lineageTag: 51ebcb02-c72e-4d02-9559-b5b6389c04eb
+		summarizeBy: none
+		sourceColumn: YearQuarter
+
+		annotation SummarizationSetBy = User
+
+	/// Year and month combined — e.g. 2025-06. Used in time-series axes and as a slicer value.
+	column 'Year Month'
+		dataType: string
+		lineageTag: b6eb0f01-3d81-4246-85a1-aa3979c8281f
+		summarizeBy: none
+		sourceColumn: YearMonth
+
+		annotation SummarizationSetBy = User
+
+	/// H1 (Jan–Jun) or H2 (Jul–Dec). Used for half-year grouping in Column Grouping demos.
+	column 'Half Year'
+		dataType: string
+		lineageTag: 8d20f718-21a4-4c89-917f-f25ebc479880
+		summarizeBy: none
+		sourceColumn: HalfYear
+
+		annotation SummarizationSetBy = User
+
+	/// Yes for all 2026 rows (Jan–Jun 2026 is the partial current-year period). Use to toggle between confirmed actuals and forward-looking estimates in variance visuals.
+	column 'Is Forecast'
+		dataType: string
+		lineageTag: 21c79d85-9a63-41c2-ba83-fddb52c50c2e
+		summarizeBy: none
+		sourceColumn: IsForecast
+
+		annotation SummarizationSetBy = User
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5487f0e2-f313-4f0f-a814-a609673bd5ef
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 8e407c76-e507-4ff8-9d4b-36e90ea45e32
+			defaultHierarchy: LocalDateTable_2897fb9d-a92b-40fc-a2f5-bd5c21062c9d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Month Short'
+		dataType: string
+		lineageTag: d01fd7ef-8184-4781-a016-00c3721b98f2
+		summarizeBy: none
+		sourceColumn: Month Short
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '[Dim] Date' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimDate.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Month", Int64.Type}}),
+				    #"Inserted First Characters" = Table.AddColumn(#"Changed Type", "Month Short", each Text.Start([MonthName], 3), type text)
+				in
+				    #"Inserted First Characters"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
