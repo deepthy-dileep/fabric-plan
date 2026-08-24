@@ -1,0 +1,145 @@
+/// Geography dimension with three-level hierarchy (Continent > Country > City) and locale/currency attributes. Provides the 12 locales and 12 currencies that drive the Inforiver Matrix Localization feature. Joined to [Fact] Sales on Geography Key.
+table '[Dim] Geography'
+	lineageTag: d54f8290-5bed-4d25-9110-b9c6e5ec11b3
+
+	/// Surrogate primary key. Hidden — used for relationship join only.
+	column 'Geography Key'
+		dataType: string
+		isHidden
+		lineageTag: ea3decc8-25d5-4d52-925e-d5d82d14a5f4
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Level 1 of the region hierarchy. Four continents: Europe, Americas, Asia Pacific, Middle East & Africa.
+	column Continent
+		dataType: string
+		lineageTag: fad17ec1-0dc0-4f94-b0c8-f7177955a58e
+		summarizeBy: none
+		sourceColumn: Continent
+
+		annotation SummarizationSetBy = User
+
+	/// Level 2 of the region hierarchy. Twelve countries across four continents — UK, Germany, France, USA, Brazil, Canada, Japan, India, Australia, China, UAE, South Africa.
+	column Country
+		dataType: string
+		lineageTag: 03a2543f-1f0b-421d-9f6f-4ff135d245c6
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = User
+
+	/// Level 3 of the region hierarchy — the leaf city node. 39 cities. Used in TopN and Column Grouping demos in Inforiver Matrix.
+	column City
+		dataType: string
+		lineageTag: 018cb5c4-0f9c-4099-97de-a071d90d10c6
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = User
+
+	/// Geographic sub-classification below continent — e.g. DACH, Gulf (GCC), East Asia. Provides an intermediate grouping for regional analysis.
+	column 'Sub Region'
+		dataType: string
+		lineageTag: 062d3bd0-2018-4550-8bf9-37eba2f94e72
+		summarizeBy: none
+		sourceColumn: SubRegion
+
+		annotation SummarizationSetBy = User
+
+	/// Primary language(s) spoken in this geography. Contextual for the Inforiver Localization demo.
+	column Language
+		dataType: string
+		lineageTag: 253b793f-2440-40f2-91e7-ffdb595e7b18
+		summarizeBy: none
+		sourceColumn: Language
+
+		annotation SummarizationSetBy = User
+
+	/// ISO 4217 currency code for this location — e.g. USD, GBP, JPY, INR. Paired with SalesAmountLocal in the fact table for the Localization demo.
+	column Currency
+		dataType: string
+		lineageTag: 4de1b326-e025-4fc2-8ff3-a9dfdc0ca9cc
+		summarizeBy: none
+		sourceColumn: Currency
+
+		annotation SummarizationSetBy = User
+
+	/// Exchange rate used to convert local currency sales to USD. Applied at dataset generation time. Update for current rates before live client demos.
+	column 'FX Rate To USD'
+		dataType: double
+		lineageTag: e58b4499-5bc9-45a7-8fb1-5b6c903e34b9
+		summarizeBy: none
+		sourceColumn: FXRateToUSD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// BCP47 locale tag — e.g. en-US, ja-JP, fr-FR. Drives the Inforiver Matrix Localization feature: number format, currency symbol, and decimal separator adapt to this value.
+	column Locale
+		dataType: string
+		lineageTag: d331b5cd-a1a4-4a5b-b974-e7647f22ce64
+		summarizeBy: none
+		sourceColumn: Locale
+
+		annotation SummarizationSetBy = User
+
+	/// Local value-added tax or goods and services tax rate. Ranges from 5% (UAE) to 20% (UK, France). Used to derive SalesAmountInclVAT in the fact table.
+	column 'VAT Rate'
+		dataType: double
+		lineageTag: c2ca7406-c4b5-48a2-9b72-088ce7b39928
+		summarizeBy: none
+		sourceColumn: VATRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Relative population and commercial activity index used to calibrate demand volumes at generation time. London = 1.50, smallest cities ~0.70. Not a report metric — provided for transparency.
+	column 'City Weight Index'
+		dataType: double
+		lineageTag: 93a0ec43-1b69-4165-b97e-a4a8239453b9
+		summarizeBy: none
+		sourceColumn: CityWeightIndex
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	hierarchy '[H] Region'
+		lineageTag: 9bbd251d-b927-4c7b-9d0d-05ce8602d96d
+
+		level Continent
+			lineageTag: 0a781281-6a10-44a3-b556-56d4111c3e24
+			column: Continent
+
+		level 'Sub Region'
+			lineageTag: ba4e2c86-797d-4e17-826d-a701a19035a7
+			column: 'Sub Region'
+
+		level Country
+			lineageTag: f0cac50c-50b7-4fc9-99fe-05c764a69840
+			column: Country
+
+		level City
+			lineageTag: bf431510-a062-400d-ab7d-00c5d48940a4
+			column: City
+
+	partition '[Dim] Geography' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimGeography.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"FXRateToUSD", type number}, {"VATRate", type number}, {"CityWeightIndex", type number}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","—","-",Replacer.ReplaceText,{"SubRegion"})
+				in
+				    #"Replaced Value"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
