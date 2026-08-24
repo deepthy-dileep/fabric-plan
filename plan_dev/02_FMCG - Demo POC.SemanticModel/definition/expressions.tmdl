@@ -1,6 +1,0 @@
-/// Path to the folder containing all CSV files. Update before deploying. Example: C:\\Users\\YourName\\Downloads\\fmcg_output
-expression DatasetFolder = "C:\\Users\\LogeshkumarSivakumar\\OneDrive - Lumel Technologies Inc\\Lumel\\Datasets\\Claude Datasets\\FMCG Basic" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-	lineageTag: da881df8-6eb8-4eee-a450-6d98dfb1d661
-
-	annotation PBI_ResultType = Text
-
