@@ -1,0 +1,151 @@
+/// 4,500 fictional B2B customer accounts across 3 segments (SMB, Mid-Market, Enterprise) and 8 industries. Row dimension for ARR and sales analysis. AcquisitionDate and ChurnDate enable cohort and retention analysis.
+table '[Dim] Customer'
+	lineageTag: 8110afd4-e7b3-4a20-a098-b9280ef7bffa
+
+	/// Surrogate key. Hidden.
+	column 'Customer Key'
+		dataType: string
+		isHidden
+		lineageTag: e9072508-6a53-475d-b640-7f080a29e086
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Fictional company name. Each name is unique.
+	column 'Customer Name'
+		dataType: string
+		lineageTag: a08cbb57-9c27-4f7e-b4ed-38948cf47701
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// SMB, Mid-Market, or Enterprise. Drives ARPU and deal cycle expectations.
+	column 'Customer Segment'
+		dataType: string
+		lineageTag: 1b783a6f-2445-43a6-96ac-83714211a549
+		summarizeBy: none
+		sourceColumn: CustomerSegment
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The vertical the customer operates in (e.g. Financial Services, Healthcare).
+	column 'Customer Industry'
+		dataType: string
+		lineageTag: cf504978-dad1-4108-aab9-4e533f7a06b1
+		summarizeBy: none
+		sourceColumn: CustomerIndustry
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Geography. Hidden.
+	column 'Geo Key'
+		dataType: string
+		isHidden
+		lineageTag: 7767d0f2-21c5-4c8c-9d4c-3232d1b67956
+		summarizeBy: none
+		sourceColumn: GeoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Annual, Multi-year (3yr), or Monthly subscription structure.
+	column 'Contract Type'
+		dataType: string
+		lineageTag: f686d04c-6946-44b9-8463-17801fc3777c
+		summarizeBy: none
+		sourceColumn: ContractType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date the customer signed their first contract. Use for cohort analysis.
+	column 'Acquisition Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b7d9bee0-1e9b-482c-b9e4-e190d8d0cdc3
+		summarizeBy: none
+		sourceColumn: AcquisitionDate
+
+		variation Variation
+			isDefault
+			relationship: 507e0d8c-a9ee-463c-9f49-308c4074a051
+			defaultHierarchy: LocalDateTable_3013041d-252d-4b99-a748-8aca9ded8940.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Date the customer cancelled. Null for active customers.
+	column 'Churn Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bebdbe60-dc57-4c96-b970-07571348e7f5
+		summarizeBy: none
+		sourceColumn: ChurnDate
+
+		variation Variation
+			isDefault
+			relationship: 9d67b318-e8ed-495a-94e8-50615a24db26
+			defaultHierarchy: LocalDateTable_34fc314f-0d0d-4f43-9130-aba92db42e05.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// True for customers with no churn date as of dataset end.
+	column 'Is Active'
+		dataType: string
+		lineageTag: a954ce6e-ec9a-4f08-8f3c-ee85a9ffa53b
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Annual recurring revenue band (e.g. $100K-$250K). Use for revenue concentration analysis.
+	column 'ARR Band'
+		dataType: string
+		lineageTag: 9e153de4-0cdb-42d1-baae-989b026f9452
+		summarizeBy: none
+		sourceColumn: ARRBand
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Net Promoter Score class: Promoter, Passive, or Detractor.
+	column 'NPS Segment'
+		dataType: string
+		lineageTag: 4eec2bc3-1871-44cc-bd31-264256e6d64b
+		summarizeBy: none
+		sourceColumn: NPS_Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy '[H] Customer Hierarchy'
+		lineageTag: 8500d8e5-3618-420f-acc5-e7a6dee3ce86
+
+		level 'Customer Segment'
+			lineageTag: 440242a8-52e4-4054-9546-edb552144119
+			column: 'Customer Segment'
+
+		level 'Customer Industry'
+			lineageTag: 7db4e647-8c83-44cc-8d06-f490ee3a95fe
+			column: 'Customer Industry'
+
+		level 'Customer Name'
+			lineageTag: a8034ed8-f998-481b-b97a-8826a4d6a758
+			column: 'Customer Name'
+
+	partition DimCustomer = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimCustomer.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"AcquisitionDate", type date}, {"ChurnDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

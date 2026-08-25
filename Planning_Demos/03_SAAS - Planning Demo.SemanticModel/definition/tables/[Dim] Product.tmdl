@@ -1,0 +1,116 @@
+/// NovaTerra's 13-product catalogue — core ERP and Finance subscriptions, analytics add-ons, professional services, and support tiers. No hardware. RevenueAccountCode links each product to its revenue account in [Dim] Account for ARR-to-P&L reconciliation.
+table '[Dim] Product'
+	lineageTag: 67b7a43b-dfac-4069-8b9c-d7a943891cc5
+
+	/// Surrogate key. Hidden.
+	column 'Product Key'
+		dataType: string
+		isHidden
+		lineageTag: 46f70027-5ed8-4a07-88ba-ed2c89dcfec3
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Full product name as sold and invoiced.
+	column 'Product Name'
+		dataType: string
+		lineageTag: adc07a9f-5f64-44ec-9405-f28a69723315
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = User
+
+	/// Commercial grouping: Core Platform, Add-on Module, Professional Services, or Support.
+	column 'Product Line'
+		dataType: string
+		lineageTag: ffd26c92-99b8-468f-adf3-61520b29927c
+		sourceColumn: ProductLine
+
+		annotation SummarizationSetBy = User
+
+	/// Functional area: ERP, Finance, FP&A, Analytics, Consolidation, Implementation, Migration, Training, Support.
+	column 'Product Module'
+		dataType: string
+		lineageTag: 16ad617f-a2b4-427a-b2a7-5bdb49c21384
+		sourceColumn: ProductModule
+
+		annotation SummarizationSetBy = User
+
+	/// Subscription (recurring monthly/annual fee) or Services (one-time project).
+	column 'Delivery Type'
+		dataType: string
+		lineageTag: 136725de-a778-43d7-8ee7-616e2728bb37
+		sourceColumn: DeliveryType
+
+		annotation SummarizationSetBy = User
+
+	/// True for products contributing to ARR. Use to filter the ARR Planning Sheet to subscription products only.
+	column 'Is Recurring'
+		dataType: string
+		lineageTag: 2a6fd0f5-136c-48c0-8750-e3a27058cfb9
+		summarizeBy: none
+		sourceColumn: IsRecurring
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Enterprise, Mid-Market, or SMB — drives ARPU expectations in sales analysis.
+	column 'Price Tier'
+		dataType: string
+		lineageTag: 115fe722-f559-404a-a525-561163d3da90
+		sourceColumn: PriceTier
+
+		annotation SummarizationSetBy = User
+
+	/// Annual recurring revenue per account — baseline contract value in USD. Actual deal values vary by ±15%.
+	column 'Base ARPU (USD)'
+		dataType: double
+		lineageTag: 72cc19c5-49df-4e98-8c05-97426601ece2
+		summarizeBy: sum
+		sourceColumn: BaseARPU_USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Links this product to its revenue account code in [Dim] Account (e.g. RR-CORE, RR-ADDON). Enables ARR-to-P&L reconciliation in the integrated planning model.
+	column 'Revenue Account Code'
+		dataType: string
+		lineageTag: 44822979-229e-47f5-ab26-13cab21393ad
+		sourceColumn: RevenueAccountCode
+
+		annotation SummarizationSetBy = User
+
+	hierarchy '[H] Product Hierarchy'
+		lineageTag: 87073b7a-889c-4be1-ad4a-08911837014f
+
+		level 'Delivery Type'
+			lineageTag: 52468cf2-6d27-433c-907a-96ff9a18bf34
+			column: 'Delivery Type'
+
+		level 'Product Module'
+			lineageTag: 6f7c2955-dd8a-4a20-85ff-65b4b74cff25
+			column: 'Product Module'
+
+		level 'Product Line'
+			lineageTag: 1b5ccb6e-d14e-462e-a89a-e17a7db5e441
+			column: 'Product Line'
+
+		level 'Product Name'
+			lineageTag: aaba6937-591e-418c-b4e0-73b8bca9d993
+			column: 'Product Name'
+
+	partition DimProduct = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimProduct.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"BaseARPU_USD", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

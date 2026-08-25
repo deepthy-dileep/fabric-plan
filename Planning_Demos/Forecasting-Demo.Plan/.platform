@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Plan",
+    "displayName": "Forecasting-Demo"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "eb3a311f-6cdf-b4e6-4474-ff79358ae562"
+  }
+}

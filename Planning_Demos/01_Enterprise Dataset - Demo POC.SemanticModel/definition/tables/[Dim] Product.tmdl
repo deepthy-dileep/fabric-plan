@@ -1,0 +1,65 @@
+table '[Dim] Product'
+	lineageTag: f9a45fd9-676e-4c8b-8bce-e68ea806b20f
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0cb9bb26-7848-42ff-8543-377bdb8f7721
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCode
+		dataType: string
+		isHidden
+		lineageTag: dd60fce6-7865-4145-980d-84f5b5cc492a
+		summarizeBy: none
+		sourceColumn: ProductCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 643017dc-bf1b-4081-8539-f68256d78603
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sub Category'
+		dataType: string
+		lineageTag: 07ce0cf7-2268-4caa-8cd7-d16d53681e1e
+		summarizeBy: none
+		sourceColumn: Sub Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Name'
+		dataType: string
+		lineageTag: 23afa876-9735-46b4-917d-c03e05c074f5
+		summarizeBy: none
+		sourceColumn: Product Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '[Dim] Product' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\DimProduct.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductKey", Int64.Type}, {"ProductCode", type text}, {"ProductCategory", type text}, {"ProductSubCategory", type text}, {"ProductName", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"ProductCategory", "Category"}, {"ProductName", "Product Name"}, {"ProductSubCategory", "Sub Category"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

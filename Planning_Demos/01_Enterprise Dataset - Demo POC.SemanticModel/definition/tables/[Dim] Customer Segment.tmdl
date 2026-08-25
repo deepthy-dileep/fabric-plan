@@ -1,0 +1,38 @@
+table '[Dim] Customer Segment'
+	lineageTag: 84949ad9-6806-43c6-bcf7-3e547fdc43d7
+
+	column SegmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ccffd070-8ca5-4280-a075-86248ef8f4a9
+		summarizeBy: none
+		sourceColumn: SegmentKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Segment Name'
+		dataType: string
+		lineageTag: 1e75d057-3986-4e64-92c4-ae80e5a7d76d
+		summarizeBy: none
+		sourceColumn: Segment Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '[Dim] Customer Segment' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\DimCustomerSegment.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SegmentKey", Int64.Type}, {"SegmentName", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"SegmentName", "Segment Name"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

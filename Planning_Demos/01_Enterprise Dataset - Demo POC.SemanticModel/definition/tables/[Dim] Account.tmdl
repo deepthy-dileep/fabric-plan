@@ -1,0 +1,215 @@
+table '[Dim] Account'
+	lineageTag: 51bcbf12-00be-4a08-8e75-4c3b21112070
+
+	column AccountKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d05aa3e0-74ba-4593-bc0f-01fcfd123c3c
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountCode
+		dataType: string
+		isHidden
+		lineageTag: c66407fd-cd52-456c-8e49-28606a02b064
+		summarizeBy: none
+		sourceColumn: AccountCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountName
+		dataType: string
+		lineageTag: 23117b3a-07b5-4d37-b2ab-7482ec03b3a4
+		summarizeBy: none
+		sourceColumn: AccountName
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountLevel
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2228209b-1060-486d-99bd-2e2edf296ae8
+		summarizeBy: sum
+		sourceColumn: AccountLevel
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentAccountKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8ae3ee61-6c8b-4e9f-b1cc-e10cc08082b9
+		summarizeBy: count
+		sourceColumn: ParentAccountKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountType
+		dataType: string
+		isHidden
+		lineageTag: a3718f88-27d8-4960-8430-3944735889b6
+		summarizeBy: none
+		sourceColumn: AccountType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Path = PATH('[Dim] Account'[AccountKey],'[Dim] Account'[ParentAccountKey])
+		isHidden
+		lineageTag: ef9ae476-1d03-4968-81f4-923255a2bd4e
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Path Length' = PATHLENGTH('[Dim] Account'[Path])
+		isHidden
+		formatString: 0
+		lineageTag: 257ab496-c566-4f88-a61e-5466a2768c5b
+		summarizeBy: sum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Level 0' =
+			LOOKUPVALUE('[Dim] Account'[AccountName],'[Dim] Account'[AccountKey], PATHITEM(
+			'[Dim] Account'[Path],1,1))
+		lineageTag: e254a049-8e8f-4621-8d87-124181d0bd6c
+		summarizeBy: none
+		sortByColumn: 'Account Level 0 Sort Key'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Level 1' =
+			LOOKUPVALUE('[Dim] Account'[AccountName],'[Dim] Account'[AccountKey], PATHITEM(
+			'[Dim] Account'[Path],2,1))
+		lineageTag: a9f7aa46-6af0-4fd0-bcd0-f9e226525058
+		summarizeBy: none
+		sortByColumn: 'Account Level 1 Sort Key'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Level 2' =
+			LOOKUPVALUE('[Dim] Account'[AccountName],'[Dim] Account'[AccountKey], PATHITEM(
+			'[Dim] Account'[Path],3,1))
+		lineageTag: ee197097-6921-4b91-93b3-8ebadd2aed87
+		summarizeBy: none
+		sortByColumn: 'Account Level 2 Sort Key'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Level 3' =
+			LOOKUPVALUE('[Dim] Account'[AccountName],'[Dim] Account'[AccountKey], PATHITEM(
+			'[Dim] Account'[Path],4,1))
+		lineageTag: 4e43080a-2ae0-4b23-b62f-a96434b47ee3
+		summarizeBy: none
+		sortByColumn: 'Account Level 3 Sort Key'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Level 0 Sort Key' =
+			LOOKUPVALUE('[Dim] Account'[Path],'[Dim] Account'[AccountKey], PATHITEM(
+			'[Dim] Account'[Path],1,1))
+		isHidden
+		lineageTag: 15255688-0ac9-4d16-bb42-5014f29d2649
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Level 1 Sort Key' =
+			LOOKUPVALUE('[Dim] Account'[AccountKey],'[Dim] Account'[AccountKey], PATHITEM(
+			'[Dim] Account'[Path],2,1))
+		isHidden
+		formatString: 0
+		lineageTag: 8f2cf9ed-3f0c-4885-a7f7-9f9761cf5110
+		summarizeBy: count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Level 2 Sort Key' =
+			LOOKUPVALUE('[Dim] Account'[AccountKey],'[Dim] Account'[AccountKey], PATHITEM(
+			'[Dim] Account'[Path],3,1))
+		isHidden
+		formatString: 0
+		lineageTag: 1f12fd24-0158-4c8a-8b6c-25d7fe539c23
+		summarizeBy: sum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Level 3 Sort Key' =
+			LOOKUPVALUE('[Dim] Account'[AccountKey],'[Dim] Account'[AccountKey], PATHITEM(
+			'[Dim] Account'[Path],4,1))
+		isHidden
+		formatString: 0
+		lineageTag: e502a6e5-df3c-484a-9a2f-7e895a423000
+		summarizeBy: sum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Account Hierarchy'
+		lineageTag: 60b009ee-5a8a-47a9-9de2-253d35c1c995
+
+		level 'Account Level 0'
+			lineageTag: 30e09d5b-e76e-430e-95ed-525f4633ef3f
+			column: 'Account Level 0'
+
+		level 'Account Level 1'
+			lineageTag: 4784ceeb-dad3-470f-b293-b8659581c89e
+			column: 'Account Level 1'
+
+		level 'Account Level 2'
+			lineageTag: 83286459-34df-4818-9a7a-42f7896b1011
+			column: 'Account Level 2'
+
+		level 'Account Level 3'
+			lineageTag: 7c315f63-15e4-4d21-bbcd-92ec2fc5c290
+			column: 'Account Level 3'
+
+	partition '[Dim] Account' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\DimAccount.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"AccountKey", Int64.Type}, {"AccountCode", type text}, {"AccountName", type text}, {"AccountLevel", Int64.Type}, {"ParentAccountKey", Int64.Type}, {"AccountType", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([AccountKey] <> null))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

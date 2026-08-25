@@ -1,0 +1,244 @@
+/// Chart of accounts for the NovaTerra P&L — five levels from Total Income down to individual payroll and revenue sub-lines. All 50 accounts participate in FactFinancial. Leaf accounts are planning input rows in the Fabric Plan Financial P&L Sheet.
+table '[Dim] Account'
+	lineageTag: 5fbe53a9-79f6-4f99-89fd-301951fd3bed
+
+	/// Surrogate key. Hidden — used for relationships only.
+	column 'Account Key'
+		dataType: string
+		lineageTag: 8414f32a-4ec4-4b66-accb-25f27b51e003
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Short code (e.g. RDPAY-ENG, NL-ENT). Unique per account row.
+	column 'Account Code'
+		dataType: string
+		lineageTag: b4622f1f-4046-4086-8db3-101af8906aa1
+		summarizeBy: none
+		sourceColumn: AccountCode
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Top-level P&L bucket: Total Income, Total Costs, or Profit & Tax.
+	column 'Level 1'
+		dataType: string
+		isHidden
+		lineageTag: ba1ddf4d-47f5-4eb0-be03-72f80c6d5334
+		summarizeBy: none
+		sourceColumn: Level1Name
+		sortByColumn: 'Level 1 Sort Key'
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sub-bucket (e.g. Revenue, COGS, Payroll, Operating Expenses).
+	column 'Level 2'
+		dataType: string
+		isHidden
+		lineageTag: 82f566dc-5470-42a5-8be2-700751af3358
+		summarizeBy: none
+		sourceColumn: Level2Name
+		sortByColumn: 'Level 2 Sort Key'
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Account group within Level 2 (e.g. Recurring Revenue, R&D Payroll).
+	column 'Level 3'
+		dataType: string
+		isHidden
+		lineageTag: 5597f496-6c57-461b-b851-e1f6e05aae3d
+		summarizeBy: none
+		sourceColumn: Level3Name
+		sortByColumn: 'Level 3 Sort Key'
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sub-group within Level 3 (e.g. Core Platform ARR, New Logo ARR). Blank for accounts above Level 4.
+	column 'Level 4'
+		dataType: string
+		isHidden
+		lineageTag: 9288b4bb-e379-4bd2-b657-f250ce63d678
+		summarizeBy: none
+		sourceColumn: Level4Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Leaf account label as it appears in the P&L (e.g. Engineering Payroll, Seat Expansion ARR).
+	column 'Account Name'
+		dataType: string
+		lineageTag: 7d8b430c-ee78-4e3b-9a02-b61d3988ef83
+		summarizeBy: none
+		sourceColumn: AccountName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Financial classification: Revenue, Non-recurring Revenue, COGS, Operating Expense, Payroll, Other Income, Financial Expense, or Tax.
+	column 'Account Type'
+		dataType: string
+		lineageTag: bddcd629-ead5-44f4-a2c2-43d342bb35ff
+		summarizeBy: none
+		sourceColumn: AccountType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Credit for income accounts; Debit for cost accounts. Determines sign convention in P&L calculations.
+	column 'Normal Balance'
+		dataType: string
+		lineageTag: f5a6949f-3f86-4431-88de-8159139e19ce
+		summarizeBy: none
+		sourceColumn: NormalBalance
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True for accounts that accept planning inputs in Fabric Plan. False for subtotal rows.
+	column 'Is Leaf Account'
+		dataType: string
+		lineageTag: d700edf9-95af-4e8a-9783-aadd61c6f4cf
+		summarizeBy: none
+		sourceColumn: IsLeafAccount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True for subtotals computed by formula in Fabric Plan sheets — not directly editable. Hidden.
+	column 'Is Calculated'
+		dataType: string
+		isHidden
+		lineageTag: 77b4f099-f752-4482-afdb-6c4b4efbe9f0
+		summarizeBy: none
+		sourceColumn: IsCalculated
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sort order for Level 1. Hidden — set as Sort By Column for Level 1.
+	column 'Level 1 Sort Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 918403d4-48c7-4c54-8d23-1ed98f16081f
+		summarizeBy: count
+		sourceColumn: Level1SortKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sort order for Level 2 within its parent. Hidden.
+	column 'Level 2 Sort Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4f3ff1cd-cbbd-48fe-8a05-52d19baed773
+		summarizeBy: count
+		sourceColumn: Level2SortKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sort order for Level 3 within its parent. Hidden.
+	column 'Level 3 Sort Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5b128a27-e412-441b-9850-69b48653adcd
+		summarizeBy: count
+		sourceColumn: Level3SortKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sort order for leaf accounts within their parent group. Hidden.
+	column 'Account Sort Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eaab6c6a-8b2c-4a2c-b0d2-c9b44a5e2c9e
+		summarizeBy: count
+		sourceColumn: AccountSortKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Pipe-delimited hierarchy path for Power BI PATH() functions. Hidden.
+	column 'Hierarchy Path'
+		dataType: string
+		isHidden
+		lineageTag: d9d3ac23-786b-4ab0-957b-0045d22a5b9d
+		summarizeBy: none
+		sourceColumn: HierarchyPath
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Composite sort key encoding the full five-level display order. Set as Sort By Column for Account Name and all Level columns.
+	column 'Hierarchy Sort Key'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e5a1250-0296-4405-9bdb-106ea2119b6f
+		summarizeBy: count
+		sourceColumn: HierarchySortKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Variance bias profile key. Hidden — used by dataset generator.
+	column 'Variance Personality'
+		dataType: string
+		isHidden
+		lineageTag: 1f47208b-553b-48d2-8332-77fbe15c86a7
+		summarizeBy: none
+		sourceColumn: VariancePersonality
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True for accounts currently in use in the planning model.
+	column 'Is Active'
+		dataType: string
+		lineageTag: 02118519-527a-4aff-80d1-d9b6a0e7ff8c
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy '[H] Account Hierarchy'
+		lineageTag: ac42a4cf-7098-4c48-891b-90236694d55f
+
+		level 'Level 1'
+			lineageTag: 658a2e30-661e-4a9a-a6d2-9c5c1ff4ef6c
+			column: 'Level 1'
+
+		level 'Level 2'
+			lineageTag: 5c5b0335-0877-4206-979d-8336c4301468
+			column: 'Level 2'
+
+		level 'Level 3'
+			lineageTag: 06db0e0a-c6a8-4c75-86e4-87599d3505ea
+			column: 'Level 3'
+
+		level 'Level 4'
+			lineageTag: 9002f989-f64a-41a9-a5f0-2c57788a8c91
+			column: 'Level 4'
+
+	partition DimAccount = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimAccount.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Level1SortKey", Int64.Type}, {"Level2SortKey", Int64.Type}, {"Level3SortKey", Int64.Type}, {"AccountSortKey", Int64.Type}, {"HierarchySortKey", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

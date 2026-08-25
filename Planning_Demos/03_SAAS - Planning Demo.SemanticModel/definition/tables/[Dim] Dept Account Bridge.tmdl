@@ -1,0 +1,46 @@
+table '[Dim] Dept Account Bridge'
+	lineageTag: 7f617c46-ee8d-434e-bfbf-fbb78709a436
+
+	column DeptKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9805e699-be9b-48a0-85d2-5639ffd6920d
+		summarizeBy: none
+		sourceColumn: DeptKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountKey
+		dataType: int64
+		formatString: 0
+		lineageTag: c3305372-b865-4959-885b-9e8479edd018
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SplitPct
+		dataType: double
+		lineageTag: 9e28be71-8417-46ee-9b27-2b0c2693ca5f
+		summarizeBy: sum
+		sourceColumn: SplitPct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition '[Dim] Dept Account Bridge' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimDeptAccountBridge.csv" ),
+				        [ Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DeptKey", Int64.Type}, {"AccountKey", Int64.Type}, {"SplitPct", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

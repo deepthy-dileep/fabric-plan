@@ -1,0 +1,111 @@
+/// 21-city geographic hierarchy across North America and Western Europe. Provides currency, language, and regional groupings for geographic P&L analysis and Fabric Plan entity mapping.
+table '[Dim] Geography'
+	lineageTag: 82dc4f37-22b3-4e9e-8aac-5ef0c07d3981
+
+	/// Surrogate key. Hidden.
+	column 'Geo Key'
+		dataType: string
+		isHidden
+		lineageTag: 40a65d3f-2d94-46ac-9b49-471d0f5dc153
+		summarizeBy: none
+		sourceColumn: GeoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Top-level region: North America or Western Europe.
+	column Region
+		dataType: string
+		lineageTag: aba29b19-e6cb-4c0f-a66f-aecae0ecf836
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Geographic cluster (e.g. US — West, DACH, UK & Ireland). Never a broad label.
+	column 'Sub Region'
+		dataType: string
+		lineageTag: ea398982-deea-41be-9553-fc9fbcb8bf9b
+		summarizeBy: none
+		sourceColumn: SubRegion
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Country name. Use in map and geographic slicers.
+	column Country
+		dataType: string
+		lineageTag: 8aa8eacc-85ba-4601-bafa-b3201961063c
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	/// City where the customer or employee is based.
+	column City
+		dataType: string
+		lineageTag: c48b0ba3-7f51-4b3f-9fb7-20f45d007c4b
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Local currency code (USD, GBP, EUR, CAD, CHF, SEK). FactFinancial amounts are in USD equivalent.
+	column Currency
+		dataType: string
+		lineageTag: a83adda4-ad8a-40bc-859a-23d1b219b281
+		summarizeBy: none
+		sourceColumn: Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Primary business language for this geography.
+	column Language
+		dataType: string
+		lineageTag: b07d75c9-1a4f-40c6-8cd7-46627f6b8df7
+		summarizeBy: none
+		sourceColumn: Language
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True for New York — NovaTerra headquarters city.
+	column 'Is HQ'
+		dataType: string
+		lineageTag: 1ae9338d-0739-4e41-a53f-9b4b3e805bb5
+		summarizeBy: none
+		sourceColumn: IsHQ
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy '[H] Region Hierarchy'
+		lineageTag: f3e6d5d2-96ec-4728-8830-e08d74c6d6d4
+
+		level Region
+			lineageTag: ce83b374-3010-406b-862d-6b3965cb57e6
+			column: Region
+
+		level 'Sub Region'
+			lineageTag: c8174d02-cf59-4bbc-ae8b-f975adf46805
+			column: 'Sub Region'
+
+		level Country
+			lineageTag: 57eb8cb9-1ef5-4e2e-91e6-cb233a9b95a0
+			column: Country
+
+		level City
+			lineageTag: 97adb792-9d67-4089-8ae2-bdf209efed8f
+			column: City
+
+	partition DimGeography = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimGeography.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Replaced Value" = Table.ReplaceValue(#"Promoted Headers","—","-",Replacer.ReplaceText,{"SubRegion"})
+				in
+				    #"Replaced Value"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,611 @@
+/// All DAX measures for NovaTerra Financial Cloud. Hidden placeholder column _ required by Power BI Desktop. All visible content is in the 12 numbered display folders. (c) 2026 Logeshkumar Sivakumar — elogu2001@outlook.com
+table Measure
+	lineageTag: 05bfd2ce-f0ac-4248-b26d-9ebc75a509ca
+
+	/// Total financial amount for the Actuals scenario in the current filter context. Foundation for all variance and profitability measures.
+	measure 'Actual Amount' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Scenario'[Scenario Name] = "Actuals" )
+		formatString: $#,##0
+		displayFolder: 00 | Base Measures
+		lineageTag: 74f96a45-976b-4942-8f06-7b4629e4e72d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total Budget amount — the annual plan locked at January each year. Denominator for all budget variance calculations.
+	measure 'Budget Amount' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Scenario'[Scenario Name] = "Budget" )
+		formatString: $#,##0
+		displayFolder: 00 | Base Measures
+		lineageTag: ffe99608-9ee3-46e5-80fa-ac1f5b172598
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total Latest Forecast amount — the rolling monthly reforecast. More current than Budget.
+	measure 'Forecast Amount' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Scenario'[Scenario Name] = "Latest Forecast" )
+		formatString: $#,##0
+		displayFolder: 00 | Base Measures
+		lineageTag: a96cf462-8ba8-40e3-8ccb-3b363b2c0bba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total Closing ARR across all products and geographies in the current filter. Primary subscription health KPI.
+	measure 'Closing ARR' = SUM('[Fact] ARR'[Closing ARR])
+		formatString: $#,##0
+		displayFolder: 00 | Base Measures
+		lineageTag: 18a63639-1939-4350-a772-457bd966ac2b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total actual fully-loaded monthly headcount cost — base salary × 1.35 employer burden. Foundation for payroll variance measures.
+	measure 'Actual Headcount Cost' = CALCULATE( SUM('[Fact] Headcount'[Fully Loaded Cost]), '[Dim] Scenario'[Scenario Name] = "Actuals" )
+		formatString: $#,##0
+		displayFolder: 00 | Base Measures
+		lineageTag: 24e22e3f-3d27-45a3-be51-48da56de2846
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Budgeted fully-loaded headcount cost. Compare to Actual Headcount Cost to measure the payroll overrun that drives the 2025-2026 adverse EBITDA narrative.
+	measure 'Budget Headcount Cost' = CALCULATE( SUM('[Fact] Headcount'[Fully Loaded Cost]), '[Dim] Scenario'[Scenario Name] = "Budget" )
+		formatString: $#,##0
+		displayFolder: 00 | Base Measures
+		lineageTag: 6731401a-cbe7-4336-baa9-35e81f076852
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total recognised recurring subscription revenue. The primary top-line metric. Rising Recurring Revenue indicates healthy new logo acquisition or expansion. Elevated post-COVID 2022 surge; moderated 2023 due to budget freeze.
+	measure 'Recurring Revenue' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Actuals" )
+		formatString: $#,##0
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: 9bac2d85-9300-4f9f-b48d-26dc17e3f991
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Implementation, migration, and training revenue. One-time and excluded from ARR. A rising mix signals over-reliance on services over subscription growth.
+	measure 'Non-Recurring Revenue' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Non-recurring Revenue", '[Dim] Scenario'[Scenario Name] = "Actuals" )
+		formatString: $#,##0
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: f0510d1e-689c-45e7-9f83-6d5bd33c8375
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total recognised revenue combining recurring subscriptions and one-time professional services.
+	measure 'Total Revenue' = [Recurring Revenue] + [Non-Recurring Revenue]
+		formatString: $#,##0
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: e36fd3ce-623c-4d79-9175-e7ec85fe3c5b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total ARR at the start of the selected month. Waterfall starting point.
+	measure 'Opening ARR' = SUM('[Fact] ARR'[Opening ARR])
+		formatString: $#,##0
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: bee23e3c-fa62-4e21-abe7-12481053c9e1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// ARR added from first-time customer logos. Elevated during post-COVID ERP surge 2022; compressed during 2022-2023 enterprise budget freeze.
+	measure 'New Logo ARR' = SUM('[Fact] ARR'[New ARR])
+		formatString: $#,##0
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: 4288f046-b702-485d-8191-a85b6c3aa562
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// ARR from existing customers expanding seats or adding modules. Elevated 2024-2025 driven by AI ERP upgrade wave and FP&A module uptake.
+	measure 'Expansion ARR' = SUM('[Fact] ARR'[Expansion ARR])
+		formatString: $#,##0
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: 3c0f869a-e634-48be-9b44-3610a7b341e6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// ARR reduction from customer downgrades — always negative. Rising 2025-2026 as budget pressure hits mid-market customers.
+	measure 'Contraction ARR' = SUM('[Fact] ARR'[Contraction ARR])
+		formatString: $#,##0
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: 2b4e7966-ab2b-447a-b9d5-fcc669873313
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// ARR lost from full customer cancellations — always negative. Elevated during 2023 SMB churn wave.
+	measure 'Churn ARR' = SUM('[Fact] ARR'[Churn ARR])
+		formatString: $#,##0
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: 3467fe9e-11a6-47af-8d92-342b2851168c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Net change in ARR from all waterfall movements. Positive means the ARR base is growing. Single most important ARR health metric.
+	measure 'Net ARR Movement' = [New Logo ARR] + [Expansion ARR] + [Contraction ARR] + [Churn ARR]
+		formatString: $#,##0
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: 4037eded-7ba9-4785-8ce9-20b26591d6b7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Net Revenue Retention — Closing ARR excluding New Logos as a proportion of Opening ARR. Values above 100% mean the existing base is growing without new logos. World-class enterprise SaaS NRR exceeds 120%.
+	measure 'NRR %' = DIVIDE( SUM('[Fact] ARR'[Closing ARR]) - SUM('[Fact] ARR'[New ARR]), SUM('[Fact] ARR'[Opening ARR]) )
+		formatString: 0.0%
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: 00970cc8-c08c-408b-8a30-7765c3dfd07b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Gross Revenue Retention — excludes expansion to isolate pure retention performance. Best-in-class enterprise SaaS GRR is above 90%.
+	measure 'Gross Retention %' = DIVIDE( SUM('[Fact] ARR'[Opening ARR]) + SUM('[Fact] ARR'[Contraction ARR]) + SUM('[Fact] ARR'[Churn ARR]), SUM('[Fact] ARR'[Opening ARR]) )
+		formatString: 0.0%
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: e07ebe22-e8cf-43f9-b5e1-4ddde2ddb4aa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Monthly ARR churn as a proportion of Opening ARR. Enterprise SaaS targets below 1% monthly. The 2023 SMB churn wave pushes this above benchmark for that period.
+	measure 'Churn Rate %' = DIVIDE( ABS(SUM('[Fact] ARR'[Churn ARR])), SUM('[Fact] ARR'[Opening ARR]) )
+		formatString: 0.0%
+		displayFolder: 01 | Subscription Revenue & ARR
+		lineageTag: 55177fb3-4bbf-4b7f-ab6c-e9d54ea2c5e4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total cost of goods sold — services delivery, subscription infrastructure, and cloud hosting. Direct cost of delivering NovaTerra's platform.
+	measure 'Total COGS' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "COGS", '[Dim] Scenario'[Scenario Name] = "Actuals" )
+		formatString: $#,##0
+		displayFolder: 02 | P&L — Costs & Margin
+		lineageTag: 13df87a0-3bfa-4ebe-95f6-0c3e42636f22
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Revenue remaining after deducting direct delivery costs. The pool available to fund Sales, R&D, G&A, and profit.
+	measure 'Gross Profit' = [Total Revenue] - [Total COGS]
+		formatString: $#,##0
+		displayFolder: 02 | P&L — Costs & Margin
+		lineageTag: c851654d-7cb7-42b8-9b88-fc4f5cef0e6a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Gross profit as a percentage of total revenue. Best-in-class enterprise SaaS gross margin is 70-80%. Values below 65% indicate infrastructure or services delivery inefficiency.
+	measure 'Gross Margin %' = DIVIDE( [Gross Profit], [Total Revenue] )
+		formatString: 0.0%
+		displayFolder: 02 | P&L — Costs & Margin
+		lineageTag: d8633b51-2964-4741-a832-05dbc3a9f5e8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total operating expenditure — sales, marketing, R&D, and G&A. Main driver of EBITDA compression 2025-2026 due to headcount over-hiring.
+	measure 'Total OpEx' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] IN { "Operating Expense", "Payroll" }, '[Dim] Scenario'[Scenario Name] = "Actuals" )
+		formatString: $#,##0
+		displayFolder: 02 | P&L — Costs & Margin
+		lineageTag: 2faf2030-27b9-46f9-a4d6-b6fdd51a064a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Earnings before interest, tax, depreciation, and amortisation. Primary profitability benchmark for enterprise SaaS investors. Always derived as Gross Profit minus Total OpEx — never summed directly from a fact column.
+	measure EBITDA = [Gross Profit] - [Total OpEx]
+		formatString: $#,##0
+		displayFolder: 02 | P&L — Costs & Margin
+		lineageTag: e18fa986-d15e-4273-a79c-8ff1b0c9d6c1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// EBITDA as a percentage of total revenue. Above 20% is considered healthy for a mature enterprise SaaS company. Negative in growth phases — should show a clear improvement trend.
+	measure 'EBITDA Margin %' = DIVIDE( [EBITDA], [Total Revenue] )
+		formatString: 0.0%
+		displayFolder: 02 | P&L — Costs & Margin
+		lineageTag: 7cc2e8d8-063f-45a8-883b-0cf6bba73d5a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total payroll cost — the largest single cost category. Primary driver of the 2025-2026 cost overrun narrative. Engineering headcount +18% above plan; Sales +12%.
+	measure 'Payroll Cost' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Payroll", '[Dim] Scenario'[Scenario Name] = "Actuals" )
+		formatString: $#,##0
+		displayFolder: 02 | P&L — Costs & Margin
+		lineageTag: 78ad55dc-490e-4412-b799-aaffa08486fc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Payroll cost as a proportion of revenue. Rising payroll intensity signals hiring faster than growth. Values above 60% indicate unsustainable cost structure.
+	measure 'Payroll % of Revenue' = DIVIDE( [Payroll Cost], [Total Revenue] )
+		formatString: 0.0%
+		displayFolder: 02 | P&L — Costs & Margin
+		lineageTag: 879e7919-88e8-4904-ba3c-919e03eefe92
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Recurring revenue versus the annual Budget. Positive means Actuals beat plan — favourable. Negative 2025-2026 as enterprise deal cycles lengthen and revenue misses budget for the first time in NovaTerra's history.
+	measure 'Revenue vs Budget' = [Recurring Revenue] - CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Budget" )
+		formatString: $#,##0
+		displayFolder: 03 | Budget Variance — P&L
+		lineageTag: 7aa2c90f-d39b-4137-9847-7e20bdba6e81
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Revenue variance as a percentage of Budget. Positive means outperformance. Use in P&L matrix conditional formatting — green for positive, red for negative years.
+	measure 'Revenue vs Budget %' = VAR _b = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Budget" ) RETURN DIVIDE( [Recurring Revenue] - _b, ABS(_b) )
+		formatString: 0.0%
+		displayFolder: 03 | Budget Variance — P&L
+		lineageTag: b803495f-4046-4033-a2e5-0be20c711b99
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Operating expense variance versus Budget. Positive means Actuals exceeded plan — adverse. Largest positive variances in R&D Payroll and Sales Compensation 2024-2026.
+	measure 'Total OpEx vs Budget' = [Total OpEx] - CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] IN { "Operating Expense", "Payroll" }, '[Dim] Scenario'[Scenario Name] = "Budget" )
+		formatString: $#,##0
+		displayFolder: 03 | Budget Variance — P&L
+		lineageTag: 4b7dac9c-ea6f-4ad9-9865-6cffcf297736
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// OpEx variance as a percentage of Budget. Values above +10% signal material budget breach. Dataset shows +9-10% overrun in 2025-2026.
+	measure 'Total OpEx vs Budget %' = VAR _b = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] IN { "Operating Expense", "Payroll" }, '[Dim] Scenario'[Scenario Name] = "Budget" ) RETURN DIVIDE( [Total OpEx] - _b, ABS(_b) )
+		formatString: 0.0%
+		displayFolder: 03 | Budget Variance — P&L
+		lineageTag: ed999123-6693-4ab6-8abe-711602df3009
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// EBITDA versus the annual Budget plan. Combines revenue shortfall and cost overrun into a single profitability impact figure. The primary CFO-level variance — answers how the business tracks against its overall profit commitment.
+	measure 'EBITDA vs Budget' = VAR _a = [EBITDA] VAR _br = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Budget" ) VAR _bc = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "COGS", '[Dim] Scenario'[Scenario Name] = "Budget" ) VAR _bo = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] IN { "Operating Expense", "Payroll" }, '[Dim] Scenario'[Scenario Name] = "Budget" ) RETURN _a - (_br - _bc - _bo)
+		formatString: $#,##0
+		displayFolder: 03 | Budget Variance — P&L
+		lineageTag: 6edd66f5-2598-446d-a4c8-3d4b8e3de58c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total headcount cost overrun across all departments. The root cause of 2025-2026 EBITDA deterioration. Positive = over-spent. Largest overruns in Engineering (DeptKey=8) and Sales NA (DeptKey=1).
+	measure 'Headcount Cost vs Budget' = [Actual Headcount Cost] - [Budget Headcount Cost]
+		formatString: $#,##0
+		displayFolder: 03 | Budget Variance — P&L
+		lineageTag: 1c72f4d3-fc32-4f0c-a8cf-276467880786
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Actual headcount minus planned headcount. Positive = over-hired versus the approved plan. Use in a bar chart by department to show where over-hiring is concentrated.
+	measure 'Headcount vs Budget' = CALCULATE( SUM('[Fact] Headcount'[Headcount]), '[Dim] Scenario'[Scenario Name] = "Actuals" ) - CALCULATE( SUM('[Fact] Headcount'[Headcount]), '[Dim] Scenario'[Scenario Name] = "Budget" )
+		formatString: #,##0
+		displayFolder: 03 | Budget Variance — P&L
+		lineageTag: ab9bad5f-dcc7-409c-a9ad-2255b0d2ebfd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Text flag for EBITDA budget variance direction. Use in conditional formatting rules: green (Favourable), red (Adverse), grey (On Plan). Shows the 2022-2024 to 2025-2026 narrative shift clearly.
+	measure 'Variance Flag' = IF( [EBITDA vs Budget] > 0, "Favourable", IF( [EBITDA vs Budget] < 0, "Adverse", "On Plan" ) )
+		formatString: @
+		displayFolder: 03 | Budget Variance — P&L
+		lineageTag: fb2cf71a-f93a-4818-9531-233bf27d1e8b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Recurring revenue versus Latest Forecast. Negative in 2025-2026 as actuals fall short even of the already-revised reforecast — signals sustained deal cycle pressure.
+	measure 'Revenue vs Forecast' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Actuals" ) - CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Latest Forecast" )
+		formatString: $#,##0
+		displayFolder: 04 | Forecast & Full Year Estimate
+		lineageTag: bcc3add5-8ff9-43c5-9a54-6789bdb1c325
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Cumulative recurring revenue from January to the selected month. Used in run-rate and full-year estimate projections.
+	measure 'YTD Revenue' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Actuals", DATESYTD('[Dim] Date'[Date]) )
+		formatString: $#,##0
+		displayFolder: 04 | Forecast & Full Year Estimate
+		lineageTag: 94db0351-a0cd-44fe-bf3d-dba3eae30560
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Full-year revenue estimate: YTD Actuals plus remaining Latest Forecast months. The most current view of where revenue will land by year end.
+	measure 'Full Year Revenue Estimate' = VAR _ytd = [YTD Revenue] VAR _elapsed = CALCULATE( DISTINCTCOUNT('[Dim] Date'[Month Number]), DATESYTD('[Dim] Date'[Date]), '[Dim] Date'[Is Forecast Period] = FALSE ) VAR _rem_fcast = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Latest Forecast", '[Dim] Date'[Is Forecast Period] = TRUE ) RETURN IF( _elapsed = 0, BLANK(), _ytd + _rem_fcast )
+		formatString: $#,##0
+		displayFolder: 04 | Forecast & Full Year Estimate
+		lineageTag: bd7c8914-07ec-4a7c-a455-548821c57953
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Gap between the full-year revenue estimate and the full-year Budget. Negative in 2025-2026. The key forward-looking variance for CFO reporting.
+	measure 'FYE vs Full Year Budget' = VAR _fye = [Full Year Revenue Estimate] VAR _bud = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Budget", ALL('[Dim] Date'[Month Number]) ) RETURN _fye - _bud
+		formatString: $#,##0
+		displayFolder: 04 | Forecast & Full Year Estimate
+		lineageTag: 494200c7-6d71-45aa-b56e-ea2a26f43bbc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Most recent month for which Actual data is available. Use in dashboard subtitles to communicate data freshness.
+	measure 'Latest Data Month' = FORMAT( CALCULATE( MAX('[Dim] Date'[Date]), '[Dim] Date'[Is Forecast Period] = FALSE ), "MMM YYYY" )
+		formatString: @
+		displayFolder: 04 | Forecast & Full Year Estimate
+		lineageTag: 10ad238c-4200-4e5b-b123-b850cf20394c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Cumulative EBITDA from January to the selected month. Use in waterfall charts to show how profitability builds through the year versus the Budget trajectory.
+	measure 'YTD EBITDA' = CALCULATE( [EBITDA], DATESYTD('[Dim] Date'[Date]) )
+		formatString: $#,##0
+		displayFolder: 05 | Period Trends & YTD
+		lineageTag: db9f03ee-49a8-4631-bd79-110380e0e5d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Year-over-year recurring revenue growth. Dataset shows ~18% CAGR 2022-2024 moderating in 2025-2026 as deal velocity slows. A declining rate is an early warning of pipeline pressure.
+	measure 'YoY Revenue Growth %' = VAR _cur = [Recurring Revenue] VAR _py = CALCULATE( [Recurring Revenue], SAMEPERIODLASTYEAR('[Dim] Date'[Date]) ) RETURN DIVIDE( _cur - _py, ABS(_py) )
+		formatString: 0.0%
+		displayFolder: 05 | Period Trends & YTD
+		lineageTag: 679f9636-54fc-4a75-a262-ba05bd0a37e5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Trailing 12-month recurring revenue — the SaaS industry standard for communicating annualised scale. Smooths quarterly seasonality; a rising T12M confirms sustainable growth.
+	measure '12M Rolling Revenue' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Actuals", DATESINPERIOD('[Dim] Date'[Date], LASTDATE('[Dim] Date'[Date]), -12, MONTH) )
+		formatString: $#,##0
+		displayFolder: 05 | Period Trends & YTD
+		lineageTag: 2bfb5233-896e-4ad5-893c-d86a19f7ccf5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Three-month rolling revenue total. Smooths month-to-month noise. Use alongside monthly revenue in line charts to highlight short-term momentum.
+	measure '3M Rolling Revenue' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Actuals", DATESINPERIOD('[Dim] Date'[Date], LASTDATE('[Dim] Date'[Date]), -3, MONTH) )
+		formatString: $#,##0
+		displayFolder: 05 | Period Trends & YTD
+		lineageTag: 3c0b7d74-6fdf-4727-972f-28c04bff1759
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// EBITDA for the same period in the prior year. Use alongside current EBITDA to show the year-on-year change in operating profitability — the primary CFO narrative for board reporting.
+	measure 'Prior Year EBITDA' = CALCULATE( [EBITDA], SAMEPERIODLASTYEAR('[Dim] Date'[Date]) )
+		formatString: $#,##0
+		displayFolder: 05 | Period Trends & YTD
+		lineageTag: 959bb593-3870-4b9d-92dd-1d55ca9b923b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Quarter-to-date recurring revenue. Use in quarterly performance dashboards to show in-quarter progress against the quarterly Budget target.
+	measure 'QTD Revenue' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Actuals", DATESQTD('[Dim] Date'[Date]) )
+		formatString: $#,##0
+		displayFolder: 05 | Period Trends & YTD
+		lineageTag: 54cd68eb-f09b-4e4e-9b46-e341ada7c441
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// ARR performance versus the Budget plan. Positive means the ARR book of business exceeded expectations. Negative in 2025-2026 as contraction accelerates and new logo wins slow.
+	measure 'ARR vs Budget' = CALCULATE( [Closing ARR], '[Dim] Scenario'[Scenario Name] = "Actuals" ) - CALCULATE( SUM('[Fact] ARR'[Closing ARR]), '[Dim] Scenario'[Scenario Name] = "Budget" )
+		formatString: $#,##0
+		displayFolder: 06 | ARR Planning & Retention
+		lineageTag: e2387e73-b565-4f74-a7dc-18e8a3b2f482
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Expansion ARR as a proportion of Opening ARR. Rising rate in 2024-2025 driven by AI Analytics and FP&A module upsell. A higher expansion rate reduces dependence on new logo acquisition.
+	measure 'Expansion Rate %' = DIVIDE( SUM('[Fact] ARR'[Expansion ARR]), SUM('[Fact] ARR'[Opening ARR]) )
+		formatString: 0.0%
+		displayFolder: 06 | ARR Planning & Retention
+		lineageTag: 8597604b-4e50-4858-b467-99678f457e21
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Computed Closing ARR from waterfall components. Should equal [Closing ARR] — use to verify zero reconciliation in Fabric Plan write-back validation.
+	measure 'ARR Waterfall Total' = [Opening ARR] + [New Logo ARR] + [Expansion ARR] + [Contraction ARR] + [Churn ARR]
+		formatString: $#,##0
+		displayFolder: 06 | ARR Planning & Retention
+		lineageTag: 35e218ac-6bbe-412b-b84b-10ba4679d089
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total actual employees in post across selected departments. Derives from DimEmployee hire/term dates — exact match to DimEmployee active count for every period. Exceeds Budget headcount in 2024-2025 due to over-hiring.
+	measure 'Actual Headcount' = CALCULATE( SUM('[Fact] Headcount'[Headcount]), '[Dim] Scenario'[Scenario Name] = "Actuals" )--, AND(MONTH('[Dim] Date'[Date]) = MONTH(TODAY()) , YEAR('[Dim] Date'[Date]) = YEAR(TODAY())))
+		formatString: #,##0
+		displayFolder: 07 | Headcount & Cost Planning
+		lineageTag: 58f8925a-11d5-4c83-ab32-7032e1f23b37
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Approved headcount plan for selected departments. The target against which actual hiring is measured. Always lower than Actual Headcount in 2024-2025 — the root cause of payroll overruns.
+	measure 'Budget Headcount' = CALCULATE( SUM('[Fact] Headcount'[Headcount]), '[Dim] Scenario'[Scenario Name] = "Budget") -- , AND(MONTH('[Dim] Date'[Date]) = MONTH(TODAY()) , YEAR('[Dim] Date'[Date]) = YEAR(TODAY())))
+		formatString: #,##0
+		displayFolder: 07 | Headcount & Cost Planning
+		lineageTag: 159e6e67-bf9a-468c-8ee5-7b607a0c80dd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Approved but unfilled positions. High open roles alongside high actual headcount indicates hiring outpaced the authorised plan.
+	measure 'Open Roles' = CALCULATE( SUM('[Fact] Headcount'[Open Roles]), '[Dim] Scenario'[Scenario Name] = "Actuals") -- , AND(MONTH('[Dim] Date'[Date]) = MONTH(TODAY()) , YEAR('[Dim] Date'[Date]) = YEAR(TODAY())))
+		formatString: #,##0
+		displayFolder: 07 | Headcount & Cost Planning
+		lineageTag: e6db1983-afab-431f-8503-feae4107ca58
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Actual minus planned headcount. Positive = over-hired. The driver of payroll overruns: Engineering shows the largest positive variance in 2024-2025.
+	measure 'Headcount Variance' = [Actual Headcount] - [Budget Headcount]
+		formatString: #,##0
+		displayFolder: 07 | Headcount & Cost Planning
+		lineageTag: 8489002f-4002-423d-ba9f-431e958545d3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Average fully-loaded monthly cost per employee. Rising cost per head indicates salary inflation or a shift toward senior roles. Typical range: $12-18K/month for US enterprise SaaS.
+	measure 'Cost per Head (USD)' = DIVIDE( [Actual Headcount Cost], [Actual Headcount] )
+		formatString: $#,##0
+		displayFolder: 07 | Headcount & Cost Planning
+		lineageTag: 07ac8c1b-e924-4ded-885c-9f837f2460d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Payroll cost overrun as a percentage of Budget. Values above +5% signal material budget breach. Dataset shows +12% in 2025 and +11% in 2026.
+	measure 'Headcount Cost Variance %' = DIVIDE( [Headcount Cost vs Budget], ABS([Budget Headcount Cost]) )
+		formatString: 0.0%
+		displayFolder: 07 | Headcount & Cost Planning
+		lineageTag: 9d927901-e971-4a8a-946d-1657b5d42b53
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// New employees who joined in the selected month. Use with Attrition to compute net headcount movement and hiring velocity by function group.
+	measure Hires = CALCULATE( SUM('[Fact] Headcount'[Hires]), '[Dim] Scenario'[Scenario Name] = "Actuals" )
+		formatString: #,##0
+		displayFolder: 07 | Headcount & Cost Planning
+		lineageTag: 14f4dfd2-140f-4057-933e-1b8cb26b814e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Employees who left in the selected month. Use with Hires to show net headcount change. Elevated in 2026 as workforce rightsizing begins.
+	measure Attrition = CALCULATE( SUM('[Fact] Headcount'[Attrition]), '[Dim] Scenario'[Scenario Name] = "Actuals" )
+		formatString: #,##0
+		displayFolder: 07 | Headcount & Cost Planning
+		lineageTag: d730d67f-72a1-43ac-a81b-b50d076e1af1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Monthly recurring revenue from first-time customer acquisitions. Elevated during 2022 post-COVID ERP surge; compressed in 2022-2023 budget scrutiny period.
+	measure 'New Logo Revenue' = CALCULATE( SUM('[Fact] Sales Activity'[Revenue]), '[Dim] Activity Type'[Activity Type Name] = "New Logo" )
+		formatString: $#,##0
+		displayFolder: 08 | Sales Performance
+		lineageTag: f68eab9c-e0b3-49b4-b2b8-999028e9ab52
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Monthly revenue from existing customers renewing subscriptions. The most predictable revenue stream.
+	measure 'Renewal Revenue' = CALCULATE( SUM('[Fact] Sales Activity'[Revenue]), '[Dim] Activity Type'[Activity Type Name] = "Renewal" )
+		formatString: $#,##0
+		displayFolder: 08 | Sales Performance
+		lineageTag: 585545aa-1b04-4d2a-a55c-af32d3f0a73c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Additional revenue from existing customers expanding scope at renewal. Elevated 2024-2025 as customers add Analytics Add-on and FP&A modules.
+	measure 'Upsell Revenue' = SUM('[Fact] Sales Activity'[Upsell Revenue])
+		formatString: $#,##0
+		displayFolder: 08 | Sales Performance
+		lineageTag: a6b66e3f-4ace-4d7e-915e-8d6428f11666
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total annualised contract value of deals closed — new logos, renewals, and upsells combined. Leading indicator of future ARR growth.
+	measure 'Total Bookings' = SUM('[Fact] Sales Activity'[Deal Value (USD)])
+		formatString: $#,##0
+		displayFolder: 08 | Sales Performance
+		lineageTag: 20976866-4a6f-4dbf-9b63-0e865e3ebbec
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Average win rate across all sales motions. New logo: 20-45%; Renewal: 60-90%. A declining new logo win rate signals competitive pressure or lengthening enterprise cycles.
+	measure 'Avg Win Rate %' = AVERAGE('[Fact] Sales Activity'[Win Rate])
+		formatString: 0.0%
+		displayFolder: 08 | Sales Performance
+		lineageTag: 16d12b1e-d471-4af0-a0c5-fdbc6b450c26
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Average days from first contact to signed contract. Enterprise: 90-120 days; SMB: 14-45 days. Lengthening average is an early warning of pipeline slippage.
+	measure 'Avg Sales Cycle Days' = AVERAGE('[Fact] Sales Activity'[Sales Cycle Days])
+		formatString: #,##0.00
+		displayFolder: 08 | Sales Performance
+		lineageTag: 43c32a8f-09d3-45a2-94a6-3930706daef8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Gap between the annual Budget and the Latest Forecast for revenue. Positive = Budget was more optimistic than the reforecast. Widening gap in 2025-2026 as forecasts are revised down.
+	measure 'Budget vs Forecast Gap' = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Budget" ) - CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Latest Forecast" )
+		formatString: $#,##0
+		displayFolder: 09 | Scenario Comparison
+		lineageTag: ad46bb61-6c9e-4ccb-82fa-9fff08454dd4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Returns the Amount for whichever scenario is selected in the Scenario slicer. Use in card visuals and matrix rows for dynamic scenario switching.
+	measure 'Selected Scenario Amount' = VAR _s = SELECTEDVALUE('[Dim] Scenario'[Scenario Name]) RETURN SWITCH( _s, "Actuals", [Actual Amount], "Budget", [Budget Amount], "Latest Forecast", [Forecast Amount], [Actual Amount] )
+		formatString: $#,##0
+		displayFolder: 09 | Scenario Comparison
+		lineageTag: 010836d2-d68b-4a9b-a120-10562bc53b2a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Absolute difference between Budget and Latest Forecast for revenue. A large spread indicates high planning uncertainty — widening in 2025-2026.
+	measure 'Scenario Spread' = VAR _b = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Budget" ) VAR _f = CALCULATE( SUM('[Fact] Financial'[Amount]), '[Dim] Account'[Account Type] = "Revenue", '[Dim] Scenario'[Scenario Name] = "Latest Forecast" ) RETURN ABS(_b - _f)
+		formatString: $#,##0
+		displayFolder: 09 | Scenario Comparison
+		lineageTag: 63b4308a-917b-479a-b75d-f3c8ec23a5a7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Customer rank by Closing ARR — 1 is the largest account. Use in table visuals with a Top N filter to show most valuable customers.
+	measure 'ARR Rank' = RANKX( ALL('[Dim] Customer'[Customer Name]), [Closing ARR],, DESC, DENSE )
+		formatString: #,##0
+		displayFolder: 10 | Rankings & Pareto
+		lineageTag: 9b3cc171-53c9-4598-9d05-cfb38e4cf7b7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Running cumulative ARR share from top-ranked customers. Use with ARR Rank for Pareto curve — typically top 20% of customers hold 60-70% of ARR.
+	measure 'Cumulative ARR %' = VAR _tot = CALCULATE( [Closing ARR], ALL('[Dim] Customer'[Customer Name]) ) VAR _run = SUMX( TOPN( [ARR Rank], ALL('[Dim] Customer'[Customer Name]), [Closing ARR], DESC ), [Closing ARR] ) RETURN DIVIDE( _run, _tot )
+		formatString: 0.0%
+		displayFolder: 10 | Rankings & Pareto
+		lineageTag: 8f67d103-a7cf-418d-a6dc-2ff76e8393ff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Flags the 20 highest-ARR customers. Use to split visuals between top tier and the rest — key for CFO account concentration risk analysis.
+	measure 'Is Top 20 Customer' = IF( [ARR Rank] <= 20, "Top 20", "Other" )
+		formatString: @
+		displayFolder: 10 | Rankings & Pareto
+		lineageTag: b6eacc8d-6565-4b7e-8cbe-4514b5647e28
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// This segment's share of total recurring revenue. Use in a donut chart to show Enterprise vs Mid-Market vs SMB revenue concentration.
+	measure 'Revenue by Segment %' = DIVIDE( [Recurring Revenue], CALCULATE( [Recurring Revenue], ALL('[Dim] Customer'[Customer Segment]) ) )
+		formatString: 0.0%
+		displayFolder: 10 | Rankings & Pareto
+		lineageTag: ca05588e-b359-4153-a4eb-025015a0864b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Date and time the dataset was last refreshed. Use in report headers.
+	measure 'Report Refreshed' = "Data as at: " & FORMAT( NOW(), "DD MMM YYYY HH:MM" )
+		formatString: @
+		displayFolder: 11 | Navigation & Labels
+		lineageTag: 20b8c66d-4f12-4514-b08d-43d901542196
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Selected month label when one month is chosen; 'Multiple Periods' otherwise. Use in page titles.
+	measure 'Selected Period' = IF( HASONEVALUE('[Dim] Date'[Year Month]), SELECTEDVALUE('[Dim] Date'[Year Month]), "Multiple Periods" )
+		formatString: @
+		displayFolder: 11 | Navigation & Labels
+		lineageTag: e2a9d612-6fb8-4141-b9dc-4309775cbd55
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Active scenario name when one is selected. Use in card headings.
+	measure 'Selected Scenario' = IF( HASONEVALUE('[Dim] Scenario'[Scenario Name]), SELECTEDVALUE('[Dim] Scenario'[Scenario Name]), "All Scenarios" )
+		formatString: @
+		displayFolder: 11 | Navigation & Labels
+		lineageTag: 6289f515-bd88-4f4d-8167-22b5154f58c2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Returns a message when the filter combination has no data. Use in card visuals to avoid blank placeholders.
+	measure 'No Data Message' = IF( ISBLANK([Actual Amount]), "No data available for this selection", BLANK() )
+		formatString: @
+		displayFolder: 11 | Navigation & Labels
+		lineageTag: edf6fb3d-0ee9-40b3-a6c6-4931c3236984
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	measure 'Forecast Headcount' = CALCULATE( SUM('[Fact] Headcount'[Headcount]), '[Dim] Scenario'[Scenario Name] = "Latest Forecast") -- , AND(MONTH('[Dim] Date'[Date]) = MONTH(TODAY()) , YEAR('[Dim] Date'[Date]) = YEAR(TODAY())))
+		formatString: 0
+		displayFolder: 07 | Headcount & Cost Planning
+		lineageTag: d7f395c1-3934-4f21-947e-9445e112941d
+
+	/// Hidden placeholder. Not used in any visual.
+	column _
+		dataType: string
+		isHidden
+		lineageTag: 4ccad565-336b-4922-9863-abf0f1ac4fbf
+		isNameInferred
+		sourceColumn: [_]
+
+		annotation SummarizationSetBy = User
+
+	partition Measure = calculated
+		mode: import
+		source = DATATABLE( "_", STRING, {{""}} )
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

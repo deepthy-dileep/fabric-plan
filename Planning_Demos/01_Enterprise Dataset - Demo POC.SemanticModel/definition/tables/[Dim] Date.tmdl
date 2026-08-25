@@ -1,0 +1,437 @@
+table '[Dim] Date'
+	lineageTag: 58f2c030-5a26-4e05-969d-a67701fe0097
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c0bd2669-4d6f-4dcd-9a04-5c089d47c5e9
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: b50ce2c0-162c-4953-af48-6ffc617b01b1
+			defaultHierarchy: LocalDateTable_621eeb36-4be2-44ec-8984-617bd0defefa.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 30486678-aaae-4509-8a63-5deb620c85b1
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: 06ff3dda-3a29-4a54-b014-a98ce14be85b
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: string
+		lineageTag: e85fca87-3f23-4595-99be-5707ea42b397
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: 3499799d-9cf4-435b-8f1a-530fc59246e9
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Days_in_Month
+		dataType: double
+		lineageTag: e67f822a-6db4-4b44-97a9-7143cbb16a95
+		summarizeBy: sum
+		sourceColumn: Days_in_Month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Year_Month_Number
+		dataType: string
+		lineageTag: fc6ed325-0d68-4042-9863-a1ef536103af
+		summarizeBy: none
+		sourceColumn: Year_Month_Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Month_Name
+		dataType: string
+		lineageTag: 82e77cb1-1f9e-4430-9eea-c546f4f32057
+		summarizeBy: none
+		sourceColumn: Year_Month_Name
+		sortByColumn: Year_Month_Number
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day_Name
+		dataType: string
+		lineageTag: e66b0920-cecb-408e-b47f-947c2cf15330
+		summarizeBy: none
+		sourceColumn: Day_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day_Name_Short
+		dataType: string
+		lineageTag: 79cf9d46-23bb-4358-960b-ab5f332c545d
+		summarizeBy: none
+		sourceColumn: Day_Name_Short
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day_of_Week
+		dataType: int64
+		formatString: 0
+		lineageTag: c485a52d-23c4-4494-afd9-96d4908a04c5
+		summarizeBy: sum
+		sourceColumn: Day_of_Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day_of_Year
+		dataType: string
+		lineageTag: 8786ebc1-4782-4405-bf74-be5a3059f385
+		summarizeBy: none
+		sourceColumn: Day_of_Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month_Name
+		dataType: string
+		lineageTag: 58649ad0-bb95-46de-ab7b-e3b06f9ef1a0
+		summarizeBy: none
+		sourceColumn: Month_Name
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month_Name_Short
+		dataType: string
+		lineageTag: 9eec0834-1428-4834-b90a-d202c679425e
+		summarizeBy: none
+		sourceColumn: Month_Name_Short
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter_Name
+		dataType: string
+		lineageTag: d1a9e2c3-de23-4fa5-a372-2dbcc6fe22fe
+		summarizeBy: none
+		sourceColumn: Quarter_Name
+		sortByColumn: Quarter
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Quarter_Number
+		dataType: string
+		lineageTag: b5da1559-284b-40a5-bfcc-2bd809ff163d
+		summarizeBy: none
+		sourceColumn: Year_Quarter_Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Quarter_Name
+		dataType: string
+		lineageTag: 3dd47bec-429e-4af4-be46-40572648e373
+		summarizeBy: none
+		sourceColumn: Year_Quarter_Name
+		sortByColumn: Year_Quarter_Number
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week of year'
+		dataType: string
+		lineageTag: 78a0a191-bf42-42bd-b65e-712f50226c8b
+		summarizeBy: none
+		sourceColumn: Week of year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day_Offset
+		dataType: int64
+		formatString: 0
+		lineageTag: fe46ee28-a26c-4d88-817d-e76631ad3fd5
+		summarizeBy: sum
+		sourceColumn: Day_Offset
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month_Offset
+		dataType: int64
+		formatString: 0
+		lineageTag: 114928ba-c0de-4e8b-abc4-ec21004d1285
+		summarizeBy: sum
+		sourceColumn: Month_Offset
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter_Offset
+		dataType: int64
+		formatString: 0
+		lineageTag: 44245a55-8d3f-4d7c-b352-ed809567cdce
+		summarizeBy: sum
+		sourceColumn: Quarter_Offset
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Offset
+		dataType: int64
+		formatString: 0
+		lineageTag: a22e2ffb-1446-4cb6-87e0-0e1619fe8381
+		summarizeBy: sum
+		sourceColumn: Year_Offset
+
+		annotation SummarizationSetBy = Automatic
+
+	column Start_of_Year
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c3c96679-2650-4dbb-84e2-6b6c2bcabefb
+		summarizeBy: none
+		sourceColumn: Start_of_Year
+
+		variation Variation
+			isDefault
+			relationship: d7dd39b7-d169-49e6-90b6-a10dc63413ac
+			defaultHierarchy: LocalDateTable_20987b8b-9203-4908-aa4a-3cd8af0cde7a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column End_of_Year
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7966ca9c-42a0-476f-8b7d-d7719f5d3421
+		summarizeBy: none
+		sourceColumn: End_of_Year
+
+		variation Variation
+			isDefault
+			relationship: 92df9239-be19-4672-a10a-b27e2ca6ad07
+			defaultHierarchy: LocalDateTable_9b3230d2-5766-4c0b-ba6a-58825f77e83d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Start_of_Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: aa82fe89-547f-474e-8d69-4cc102b39655
+		summarizeBy: none
+		sourceColumn: Start_of_Month
+
+		variation Variation
+			isDefault
+			relationship: 8830c9a4-0ec0-407a-ab1a-bf3ec1e42eed
+			defaultHierarchy: LocalDateTable_e2e0ff62-ea6c-49b8-8009-1930589f2de3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column End_of_Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 73490a2e-719d-4634-9410-b1c91edffa41
+		summarizeBy: none
+		sourceColumn: End_of_Month
+
+		variation Variation
+			isDefault
+			relationship: 9b18fe3c-7b1e-430f-88c2-5ccbce1351ba
+			defaultHierarchy: LocalDateTable_86d28f23-b9e3-4471-bcc4-e5f4850f0f59.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start of quarter'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6c639f45-f4df-4083-9765-ae323519a54a
+		summarizeBy: none
+		sourceColumn: Start of quarter
+
+		variation Variation
+			isDefault
+			relationship: 4bd0dbf4-8e92-4f83-ad74-d20be7689985
+			defaultHierarchy: LocalDateTable_e30eac66-74ba-4a85-bba3-4e945c7b8546.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'End of quarter'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 50250b38-d5ab-4113-9a07-b68f9366a8b0
+		summarizeBy: none
+		sourceColumn: End of quarter
+
+		variation Variation
+			isDefault
+			relationship: 6db12232-5aa7-4ee9-8abc-b16215e11242
+			defaultHierarchy: LocalDateTable_31b1d2a0-6cd0-4557-a75c-e5ea171ad540.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start of week'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bb8820d3-a564-4dee-bc4f-d2ad84aa4fcd
+		summarizeBy: none
+		sourceColumn: Start of week
+
+		variation Variation
+			isDefault
+			relationship: e5a2a294-8662-42ac-9c40-672ebc5baa43
+			defaultHierarchy: LocalDateTable_56a671fe-7c0b-4b18-9918-cf5944b49e44.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'End of week'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f061c784-34b5-45d1-85f6-a639f0596465
+		summarizeBy: none
+		sourceColumn: End of week
+
+		variation Variation
+			isDefault
+			relationship: ad792bd2-ac5a-4bb2-a69a-ac75cd08201e
+			defaultHierarchy: LocalDateTable_766b69d4-fada-4ffa-8803-09534783fa20.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column HalfYear
+		dataType: string
+		lineageTag: 9606a3bf-3b4f-44d8-97a5-cd551dd26fa6
+		summarizeBy: none
+		sourceColumn: HalfYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayType
+		dataType: string
+		lineageTag: 8959ffdf-7fdc-4d6e-b081-5920acc03022
+		summarizeBy: none
+		sourceColumn: DayType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prev_Day
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 23e35602-fb24-4c4d-ad58-d7647c3f116d
+		summarizeBy: none
+		sourceColumn: Prev_Day
+
+		variation Variation
+			isDefault
+			relationship: 8f8bc5c0-b151-4d4c-8022-fc9a8d688575
+			defaultHierarchy: LocalDateTable_91f8b6bc-96c6-4c04-9607-6cca73f92894.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition '[Dim] Date' = m
+		mode: import
+		source =
+				let
+				  // NOTE: Please contact Logeshkumar Sivakumar (logeshks@lumel.com) before making any changes
+				  StartDate = #date(2023, 1, 1),
+				  EndDate = #date(2028, 12, 31),
+				  StartDateAsNumber = Number.From(StartDate),
+				  EndDateAsNumber = Number.From(EndDate),
+				  DateList = { StartDateAsNumber .. EndDateAsNumber },
+				  ToTable = Table.FromList(DateList, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				  RenameColumn = Table.RenameColumns ( ToTable, { "Column1", "DateValue" } ),
+				  ToDate = Table.TransformColumnTypes ( RenameColumn, { "DateValue", type date } ),
+				  #"Inserted year" = Table.AddColumn(ToDate, "Year", each Date.Year([DateValue]), type nullable number),
+				  #"Inserted month" = Table.AddColumn(#"Inserted year", "Month", each Text.PadStart(Text.From(Date.Month([DateValue])), 2, "0"), type nullable number),
+				  #"Inserted day" = Table.AddColumn(#"Inserted month", "Day", each Text.PadStart(Text.From(Date.Day([DateValue])), 2, "0"), type nullable number),
+				  #"Inserted quarter" = Table.AddColumn(#"Inserted day", "Quarter", each Text.PadStart(Text.From(Date.QuarterOfYear([DateValue])), 2, "0"), type nullable number),
+				  #"Inserted days in month" = Table.AddColumn(#"Inserted quarter", "Days_in_Month", each Date.DaysInMonth([DateValue]), type nullable number),
+				  #"Added custom" = Table.TransformColumnTypes(Table.AddColumn(#"Inserted days in month", "Year_Month_Number", each Text.PadStart(Text.From([Year]), 0, "0") & Text.PadStart(Text.From([Month]), 2, "0")), {{"Year_Month_Number", type text}}),
+				  #"Inserted day name" = Table.AddColumn(#"Added custom", "Day_Name", each Date.DayOfWeekName([DateValue]), type nullable text),
+				  #"Inserted first characters" = Table.AddColumn(#"Inserted day name", "Day_Name_Short", each Text.Start([Day_Name], 3), type text),
+				  #"Inserted day of week" = Table.TransformColumnTypes(Table.AddColumn(#"Inserted first characters", "Day_of_Week", each Date.DayOfWeek([DateValue], Day.Sunday)+1), {{"Day_of_Week", type number}}),
+				  #"Inserted day of year" = Table.AddColumn(#"Inserted day of week", "Day_of_Year", each Text.PadStart(Text.From(Date.DayOfYear([DateValue])), 3, "0"), type nullable number),
+				  #"Inserted month name" = Table.AddColumn(#"Inserted day of year", "Month_Name", each Date.MonthName([DateValue]), type nullable text),
+				  #"Inserted first characters 1" = Table.AddColumn(#"Inserted month name", "Month_Name_Short", each Text.Start([Month_Name], 3), type text),
+				  #"Added custom 1" = Table.TransformColumnTypes(Table.AddColumn(#"Inserted first characters 1", "Year_Month_Name", each Text.PadStart(Text.From([Year]), 0, "0") & " " & [Month_Name_Short]), {{"Year_Month_Name", type text}}),
+				  #"Added custom 2" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 1", "Quarter_Name", each "Q" & Text.PadStart(Text.From(Date.QuarterOfYear([DateValue])), 0, "0")), {{"Quarter_Name", type text}}),
+				  #"Inserted merged column" = Table.AddColumn(#"Added custom 2", "Year_Quarter_Number", each Text.Combine({Text.From([Year]), Text.From([Quarter])}, ""), type text),
+				  #"Added custom 3" = Table.TransformColumnTypes(Table.AddColumn(#"Inserted merged column", "Year_Quarter_Name", each Text.PadStart(Text.From([Year]), 0, "0") & " " & [Quarter_Name]), {{"Year_Quarter_Name", type text}}),
+				  #"Inserted week of year" = Table.AddColumn(#"Added custom 3", "Week of year", each Text.PadStart(Text.From(Date.WeekOfYear([DateValue])), 2, "0"), type nullable number),
+				  #"Added custom 4" = Table.TransformColumnTypes(Table.AddColumn(#"Inserted week of year", "Today", each DateTime.LocalNow()), {{"Today", type date}}),
+				  #"Added custom 5" = Table.TransformColumnTypes(Table.AddColumn(#"Added custom 4", "Day_Offset", each Duration.Days([DateValue] - [Today])), {{"Day_Offset", Int64.Type}}),
+				  #"Inserted division" = Table.AddColumn(#"Added custom 5", "Month_Offset", each [Day_Offset] / [Days_in_Month], type number),
+				  // NOTE: Please contact Logeshkumar Sivakumar (logeshks@lumel.com) before making any changes
+				  #"Rounded off" = Table.TransformColumns(#"Inserted division", {{"Month_Offset", each Number.RoundUp(_), type number}}),
+				  #"Inserted division 1" = Table.TransformColumnTypes(Table.AddColumn(#"Rounded off", "Quarter_Offset", each [Month_Offset] / 3), {{"Quarter_Offset", type number}}),
+				  #"Rounded up" = Table.TransformColumns(#"Inserted division 1", {{"Quarter_Offset", each Number.RoundUp(_), type nullable Int64.Type}}),
+				  #"Inserted integer-division" = Table.AddColumn(#"Rounded up", "Year_Offset", each Number.IntegerDivide([Month_Offset], 12), Int64.Type),
+				  #"Inserted start of year" = Table.AddColumn(#"Inserted integer-division", "Start_of_Year", each Date.StartOfYear([DateValue]), type nullable date),
+				  #"Inserted end of year" = Table.AddColumn(#"Inserted start of year", "End_of_Year", each Date.EndOfYear([DateValue]), type nullable date),
+				  #"Inserted start of month" = Table.AddColumn(#"Inserted end of year", "Start_of_Month", each Date.StartOfMonth([DateValue]), type nullable date),
+				  #"Inserted end of month" = Table.AddColumn(#"Inserted start of month", "End_of_Month", each Date.EndOfMonth([DateValue]), type nullable date),
+				  #"Inserted start of quarter" = Table.AddColumn(#"Inserted end of month", "Start of quarter", each Date.StartOfQuarter([DateValue]), type nullable date),
+				  #"Inserted end of quarter" = Table.AddColumn(#"Inserted start of quarter", "End of quarter", each Date.EndOfQuarter([DateValue]), type nullable date),
+				  #"Inserted start of week" = Table.AddColumn(#"Inserted end of quarter", "Start of week", each Date.StartOfWeek([DateValue]), type nullable date),
+				  // NOTE: Please contact Logeshkumar Sivakumar (logeshks@lumel.com) before making any changes
+				  #"Inserted end of week" = Table.AddColumn(#"Inserted start of week", "End of week", each Date.EndOfWeek([DateValue]), type nullable date),
+				  #"Inserted conditional column" = Table.AddColumn(#"Inserted end of week", "HalfYear", each if [Quarter_Name] = "Q1" then "H1" else if [Quarter_Name] = "Q2" then "H1" else "H2"),
+				  #"Inserted conditional column 1" = Table.AddColumn(#"Inserted conditional column", "DayType", each if [Day_Name] = "Saturday" then "WeekEnd" else if [Day_Name] = "Sunday" then "WeekEnd" else "WeekDay"),
+				  #"Inserted conditional column 2" = Table.TransformColumnTypes(Table.AddColumn(#"Inserted conditional column 1", "FY_India", each if [Quarter] = "01" then [Year]-1 else [Year]), {{"FY_India", Int64.Type}}),
+				  #"Added custom 6" = Table.AddColumn(#"Inserted conditional column 2", "FQ_India", each if [Quarter] = "01" then "Q4" else "Q" & Text.PadStart(Text.From(Date.QuarterOfYear([DateValue])-1), 0, "0")),
+				  #"Duplicated column" = Table.DuplicateColumn(#"Added custom 6", "Year", "FY_USA"),
+				  #"Duplicated column 1" = Table.DuplicateColumn(#"Duplicated column", "Quarter_Name", "FQ_USA"),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Duplicated column 1", {{"Year", Int64.Type}, {"Month", type text}, {"Day", type text}, {"Quarter", type text}, {"Day_of_Week", Int64.Type}, {"Day_of_Year", type text}, {"Week of year", type text}, {"Month_Offset", Int64.Type}, {"HalfYear", type text}, {"DayType", type text}, {"FQ_India", type text}, {"FY_USA", Int64.Type}}),
+				  #"Removed columns" = Table.RemoveColumns(#"Changed column type", {"Today"}),
+				  #"Reordered columns" = Table.ReorderColumns(#"Removed columns", {"DateValue", "Year", "Month", "Day", "Quarter", "Days_in_Month", "Year_Month_Number", "Year_Month_Name", "Day_Name", "Day_Name_Short", "Day_of_Week", "Day_of_Year", "Month_Name", "Month_Name_Short", "Quarter_Name", "Year_Quarter_Number", "Year_Quarter_Name", "Week of year", "Day_Offset", "Month_Offset", "Quarter_Offset", "Year_Offset", "Start_of_Year", "End_of_Year", "Start_of_Month", "End_of_Month", "Start of quarter", "End of quarter", "Start of week", "End of week", "HalfYear", "DayType", "FY_India", "FQ_India", "FY_USA", "FQ_USA"}),
+				  #"Renamed columns" = Table.RenameColumns(#"Reordered columns", {{"DateValue", "Date"}}),
+				  // NOTE: Please contact Logeshkumar Sivakumar (logeshks@lumel.com) before making any changes
+				  #"Removed columns 1" = Table.RemoveColumns(#"Renamed columns", {"FY_India", "FQ_India", "FY_USA", "FQ_USA"}),
+				  #"Added custom 7" = Table.TransformColumnTypes(Table.AddColumn(#"Removed columns 1", "Prev_Day", each Date.AddDays([Date], -1)), {{"Prev_Day", type date}})
+				in
+				  #"Added custom 7"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

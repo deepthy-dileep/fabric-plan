@@ -1,0 +1,244 @@
+table '[Fact] Invoice Line'
+	lineageTag: 0591dd0b-ffff-4b6a-a08f-2a7ca6e9870c
+
+	column 'Invoice ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fc25cc6-323f-445c-82cd-e5ee29a42789
+		summarizeBy: count
+		sourceColumn: Invoice ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 267cd2a0-254c-4199-805d-0c50da67ce10
+		summarizeBy: none
+		sourceColumn: Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column BusinessUnitKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dfe04d20-f7bb-4b40-8b54-6d7060fffdd4
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepartmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c5629a94-17b1-4859-8a46-a37c16e5e212
+		summarizeBy: none
+		sourceColumn: DepartmentKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8003b5bd-12f7-4c07-9ee3-8f1829c34f08
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 13860cca-51ce-4144-bb84-15ff3e0aa7d5
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SegmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 947cfae2-f3cd-413d-84ba-e85373f7e002
+		summarizeBy: none
+		sourceColumn: SegmentKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ScenarioKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8f1f15e6-3dc0-4b5d-9a5f-487f846ebbb8
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cf31289a-eb22-4d01-9707-26d947100cd4
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerId
+		dataType: string
+		isHidden
+		lineageTag: c5379f6c-5f7c-4d64-aceb-f28bab432eb9
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Number'
+		dataType: string
+		lineageTag: eab97d44-3c6a-4196-8e33-b2f0364e527a
+		summarizeBy: none
+		sourceColumn: Invoice Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Line ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 117ef10d-c3cc-4dbf-b528-2ff4ebb6f026
+		summarizeBy: count
+		sourceColumn: Invoice Line ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column LineNumber
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 823f3b92-879b-4fb5-a0c3-2dec1b3d1846
+		summarizeBy: sum
+		sourceColumn: LineNumber
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 54bd8878-e75f-4deb-bc3a-f5e6572fae5d
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Price'
+		dataType: double
+		lineageTag: c1b65eeb-19e3-4ee3-9f75-2d19efe79d48
+		summarizeBy: sum
+		sourceColumn: Unit Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Discount
+		dataType: double
+		lineageTag: d9dc9c7a-9ff3-45a7-85eb-7a7d3668b36b
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Amount'
+		dataType: double
+		lineageTag: 48cf4e1e-ec3a-4f82-b0cf-ee42e7f3cc0e
+		summarizeBy: sum
+		sourceColumn: Net Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Tax
+		dataType: double
+		lineageTag: 34f532df-85d8-45a3-9b7f-a04a561345a6
+		summarizeBy: sum
+		sourceColumn: Tax
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Amount'
+		dataType: double
+		lineageTag: 7e7d2289-cb2e-4d03-a308-2c4c76a66dbc
+		summarizeBy: sum
+		sourceColumn: Total Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cost Per Unit'
+		dataType: double
+		lineageTag: 361e1692-9d15-485f-ab98-658339d03269
+		summarizeBy: sum
+		sourceColumn: Cost Per Unit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Cost
+		dataType: double
+		lineageTag: 28747098-efae-403e-94df-ab3a3283cf92
+		summarizeBy: sum
+		sourceColumn: Cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition '[Fact] Invoice Line' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\FactInvoiceLine.csv"),[Delimiter=",", Columns=21, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"InvoiceLineId", Int64.Type}, {"InvoiceId", Int64.Type}, {"Date", type date}, {"BusinessUnitKey", Int64.Type}, {"DepartmentKey", Int64.Type}, {"GeographyKey", Int64.Type}, {"ProductKey", Int64.Type}, {"SegmentKey", Int64.Type}, {"ScenarioKey", Int64.Type}, {"AccountKey", Int64.Type}, {"CustomerId", type text}, {"InvoiceNumber", type text}, {"LineNumber", Int64.Type}, {"Quantity", Int64.Type}, {"UnitPrice", type number}, {"LineDiscountAmount", type number}, {"LineNetAmount", type number}, {"TaxAmount", type number}, {"TotalLineAmount", type number}, {"CostPerUnit", type number}, {"LineCostAmount", type number}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"CostPerUnit", "Cost Per Unit"}, {"InvoiceId", "Invoice ID"}, {"InvoiceLineId", "Invoice Line ID"}, {"InvoiceNumber", "Invoice Number"}, {"LineCostAmount", "Cost"}, {"LineDiscountAmount", "Discount"}, {"LineNetAmount", "Net Amount"}, {"TaxAmount", "Tax"}, {"TotalLineAmount", "Total Amount"}, {"UnitPrice", "Unit Price"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

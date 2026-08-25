@@ -1,0 +1,168 @@
+/// Monthly ARR waterfall at Product × Geography × Scenario grain — 80,266 rows. Contains the six ARR movement components. ClosingARR = OpeningARR + all movements (always reconciles to zero variance). Fabric Plan write-back target for ARR planning.
+table '[Fact] ARR'
+	lineageTag: a24ef10b-95c5-4008-81ee-9879fe2c5e34
+
+	/// Row surrogate key. Hidden.
+	column 'Fact ARR Key'
+		dataType: string
+		isHidden
+		lineageTag: 45bfe321-5d5e-469b-8841-280d65f1b3e4
+		summarizeBy: none
+		sourceColumn: FactARRKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Product. Hidden.
+	column 'Product Key'
+		dataType: string
+		isHidden
+		lineageTag: fddf109c-2213-4059-96d5-1cfadc9fe3cb
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Geography. Hidden.
+	column 'Geo Key'
+		dataType: string
+		isHidden
+		lineageTag: 42e05c25-43a8-4181-9ed3-469d0a097449
+		summarizeBy: none
+		sourceColumn: GeoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Date. Hidden.
+	column 'Date Key'
+		dataType: string
+		isHidden
+		lineageTag: 03e7778c-b746-4dea-8a4e-c88f771c8a92
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Scenario. Hidden.
+	column 'Scenario Key'
+		dataType: string
+		isHidden
+		lineageTag: c5978dae-8b1b-415d-9ecb-e138f51b88f7
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Total ARR at the start of the month. The base for all waterfall calculations.
+	column 'Opening ARR'
+		dataType: double
+		lineageTag: 27129c1b-1a22-4fa2-9be1-6cf6313dca76
+		summarizeBy: sum
+		sourceColumn: OpeningARR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// ARR added from first-time customer logos. Non-zero only in first three months after acquisition. Planning input in Fabric Plan ARR Sheet.
+	column 'New ARR'
+		dataType: double
+		lineageTag: 87e20d5e-81b4-4de4-942b-bdcb2c0b2434
+		summarizeBy: sum
+		sourceColumn: NewARR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// ARR from existing customers adding seats or modules. Elevated in 2024-2025 due to AI add-on wave. Planning input in Fabric Plan ARR Sheet.
+	column 'Expansion ARR'
+		dataType: double
+		lineageTag: 1b28936f-393f-4cb2-9016-c6fa14d751b3
+		summarizeBy: sum
+		sourceColumn: ExpansionARR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// ARR reduction from customers downgrading — always negative. Elevated 2025-2026. Planning input.
+	column 'Contraction ARR'
+		dataType: double
+		lineageTag: 48d754b9-0b41-438c-980c-8db737b258a6
+		summarizeBy: sum
+		sourceColumn: ContractionARR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// ARR lost from full cancellations — always negative, equal to OpeningARR for that customer. Elevated 2023 SMB wave. Planning input.
+	column 'Churn ARR'
+		dataType: double
+		lineageTag: 130b8548-8a7d-41af-b840-c0109d6bc5c6
+		summarizeBy: sum
+		sourceColumn: ChurnARR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// OpeningARR + NewARR + ExpansionARR + ContractionARR + ChurnARR. Always reconciles — zero mismatches across 80,266 rows.
+	column 'Closing ARR'
+		dataType: double
+		lineageTag: 87e6f14b-72be-4515-ba76-c2f4e883b47b
+		summarizeBy: sum
+		sourceColumn: ClosingARR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// True from January 2026 onward.
+	column 'Is Forecast Period'
+		dataType: string
+		lineageTag: 1c08646a-7bf6-470b-91e2-35f801019f99
+		summarizeBy: none
+		sourceColumn: IsForecastPeriod
+
+		annotation SummarizationSetBy = Automatic
+
+	column VersionKey
+		dataType: string
+		lineageTag: c3b675a2-b6fa-445b-b112-739e40a0e66f
+		summarizeBy: none
+		sourceColumn: VersionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column EntityKey
+		dataType: string
+		lineageTag: f79e13fc-3969-4644-93f3-bb884d2e30c4
+		summarizeBy: none
+		sourceColumn: EntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: string
+		lineageTag: 2fc7f512-59b9-4fd1-8950-ce72c8981f29
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactARR = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\FactARR.csv" ),
+				        [ Delimiter = ",", Columns = 15, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"OpeningARR", type number}, {"NewARR", type number}, {"ExpansionARR", type number}, {"ContractionARR", type number}, {"ChurnARR", type number}, {"ClosingARR", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

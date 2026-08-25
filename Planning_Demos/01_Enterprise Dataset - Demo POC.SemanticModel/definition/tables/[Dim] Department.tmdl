@@ -1,0 +1,49 @@
+table '[Dim] Department'
+	lineageTag: 73371c6c-005d-473c-9ecb-46a0a7d49347
+
+	column DepartmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c65e0c22-f692-427c-a58b-81fee6e4ea25
+		summarizeBy: none
+		sourceColumn: DepartmentKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Department Name'
+		dataType: string
+		lineageTag: cf6db7ab-4222-47dd-93b4-dcfee7aeea24
+		summarizeBy: none
+		sourceColumn: Department Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cost Center Code'
+		dataType: string
+		isHidden
+		lineageTag: 75e3ded7-4db8-449f-a75a-ce50235087d5
+		summarizeBy: none
+		sourceColumn: Cost Center Code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '[Dim] Department' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\DimDepartment.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DepartmentKey", Int64.Type}, {"DepartmentName", type text}, {"CostCenterCode", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"DepartmentName", "Department Name"}, {"CostCenterCode", "Cost Center Code"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,38 @@
+table '[Dim] Business Unit'
+	lineageTag: 15098dc2-053e-450d-9ac9-e62c0c4e951a
+
+	column BusinessUnitKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ab6af82f-34bc-4b89-bace-6efccd5df06d
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Business Unit Name'
+		dataType: string
+		lineageTag: 11edeba0-ee18-46b9-8067-83f423e5ceef
+		summarizeBy: none
+		sourceColumn: Business Unit Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '[Dim] Business Unit' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\DimBusinessUnit.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"BusinessUnitKey", Int64.Type}, {"BusinessUnitName", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"BusinessUnitName", "Business Unit Name"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
