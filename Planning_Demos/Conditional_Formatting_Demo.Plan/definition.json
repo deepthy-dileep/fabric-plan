@@ -3,6 +3,39 @@
   "cube": {
     "partitionRefIds": []
   },
-  "sheets": [],
+  "semanticModelReference": {
+    "artifactId": 0,
+    "connectionId": "2b186b95-f276-459a-b429-718773203a6c",
+    "datasetRelations": [
+      {
+        "dependentArtifactId": 5193994,
+        "settings": "Association"
+      }
+    ],
+    "directLakeMode": false,
+    "directQueryMode": false,
+    "recordGuid": "01a037d3-5e6b-750b-bce8-47a2765247fc",
+    "semanticModelId": "5706bb54-da3f-95ee-40b5-144e8e18d2df",
+    "semanticModelName": "02_FMCG - Demo POC",
+    "semanticModelWorkspaceId": "00000000-0000-0000-0000-000000000000",
+    "semanticModelWorkspaceName": "WORKSPACE_NAME_PLACEHOLDER",
+    "sourceType": "WORKLOAD",
+    "url": "https://app.powerbi.com/groups/00000000-0000-0000-0000-000000000000/datasets/5706bb54-da3f-95ee-40b5-144e8e18d2df"
+  },
+  "sheets": [
+    {
+      "displayName": "Intelligence 1",
+      "isHidden": false,
+      "recordGuid": "01a037d3-8687-70fc-9da3-a0bb3578d818",
+      "sheetType": "REPORTING",
+      "workloadItemEntityVisuals": [
+        {
+          "isEmbedded": false,
+          "visualId": "01a037d3-a0f9-719c-9fa1-18ba7d2187d6",
+          "visualType": "ANALYTICS_PLUS"
+        }
+      ]
+    }
+  ],
   "workloadItemName": "Conditional_Formatting_Demo"
 }
