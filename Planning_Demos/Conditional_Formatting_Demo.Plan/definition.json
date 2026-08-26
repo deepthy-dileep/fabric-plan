@@ -35,6 +35,19 @@
           "visualType": "ANALYTICS_PLUS"
         }
       ]
+    },
+    {
+      "displayName": "Planning 1",
+      "isHidden": false,
+      "recordGuid": "01a03822-de0c-7385-ad71-6a63b8c940fb",
+      "sheetType": "PLANNING",
+      "workloadItemEntityVisuals": [
+        {
+          "isEmbedded": false,
+          "visualId": "01a03822-f254-7739-8045-6f99b396ca11",
+          "visualType": "PLANNING"
+        }
+      ]
     }
   ],
   "workloadItemName": "Conditional_Formatting_Demo"

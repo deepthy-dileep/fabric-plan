@@ -1,0 +1,28 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Planning/DataInput/1.0.0/schema.json",
+  "columns": [
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "3881417018896634149",
+        "label": "Total COGS USD",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Total COGS USD"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "3881417018896634149",
+      "name": "Total COGS USD",
+      "sidecarHydrationLeaseAt": null,
+      "sidecarHydrationStatus": 10,
+      "status": 10,
+      "visualId": "01a03822-f254-7739-8045-6f99b396ca11"
+    }
+  ]
+}
