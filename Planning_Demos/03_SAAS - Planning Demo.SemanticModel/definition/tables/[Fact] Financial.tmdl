@@ -1,0 +1,106 @@
+/// Monthly P&L amounts at Account × Date × Geography × Scenario grain — 195,804 rows covering 2022-2028. Long-format: one row per scenario, single Amount column. Fabric Plan write-back target for Budget and Latest Forecast planning inputs.
+table '[Fact] Financial'
+	lineageTag: b3e6ed21-c030-4afd-b5bc-fa3eecb7328e
+
+	/// Row surrogate key. Hidden.
+	column 'Fact Financial Key'
+		dataType: string
+		isHidden
+		isKey
+		lineageTag: d93177cc-ded1-4311-90d3-ecc27266511d
+		summarizeBy: none
+		sourceColumn: FactFinancialKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Account. Hidden.
+	column 'Account Key'
+		dataType: string
+		isHidden
+		lineageTag: f377423c-5047-42f0-9699-21fde9073bf8
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Date. Hidden.
+	column 'Date Key'
+		dataType: string
+		isHidden
+		lineageTag: 55df2ed5-927d-4d7a-a552-220012570d3b
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Geography. Hidden.
+	column 'Geo Key'
+		dataType: string
+		isHidden
+		lineageTag: 4b5e5191-3ec8-4d84-8beb-d5f84ec273a3
+		summarizeBy: none
+		sourceColumn: GeoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Scenario. Hidden. Filter to ScenarioKey=1 for Actuals, =2 for Budget, =3 for Latest Forecast.
+	column 'Scenario Key'
+		dataType: string
+		isHidden
+		lineageTag: 3f5d68cc-ce2f-4369-91ec-c9a5cdd4ce60
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Financial amount for this account, date, geography, and scenario in USD. Income accounts positive; cost accounts positive (sign-neutral — use NormalBalance from [Dim] Account for direction). This is the single measure in this fact table.
+	column Amount
+		dataType: double
+		lineageTag: ef591c11-c8e4-421a-bf39-54b41e5259d3
+		summarizeBy: sum
+		sourceColumn: Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// True for January 2026 onward. Use to split historical actuals from forward planning rows.
+	column 'Is Forecast Period'
+		dataType: string
+		lineageTag: fc3f23ae-77c1-4ca2-afd1-020588bbc918
+		summarizeBy: none
+		sourceColumn: IsForecastPeriod
+
+		annotation SummarizationSetBy = Automatic
+
+	column VersionKey
+		dataType: string
+		lineageTag: 06acd186-0a51-4897-8f78-806de1bf4098
+		summarizeBy: none
+		sourceColumn: VersionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column EntityKey
+		dataType: string
+		lineageTag: aebb1358-241c-495f-ad29-7d464300c3d7
+		summarizeBy: none
+		sourceColumn: EntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactFinancial = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\FactFinancial.csv" ),
+				        [ Delimiter = ",", Columns = 9, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Amount", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

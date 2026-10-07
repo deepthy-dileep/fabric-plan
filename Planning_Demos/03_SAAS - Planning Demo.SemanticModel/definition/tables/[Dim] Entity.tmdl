@@ -1,0 +1,85 @@
+/// Legal entity and segment hierarchy for consolidation planning. Supports multi-entity financial consolidation in Fabric Plan — roll up legal entity budgets to the NovaTerra Global consolidated view.
+table '[Dim] Entity'
+	lineageTag: 6920a4e1-aed1-43a5-b780-4a12834e7a9f
+
+	/// Surrogate key. Hidden.
+	column 'Entity Key'
+		dataType: string
+		isHidden
+		lineageTag: 1e1f5cf1-141a-4396-aa0d-89e2c254c61b
+		summarizeBy: none
+		sourceColumn: EntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Entity name (e.g. NovaTerra Inc. (US), NovaTerra UK Ltd., NA Region).
+	column 'Entity Name'
+		dataType: string
+		lineageTag: 022811f0-3a9e-4121-bbdb-fc199301576a
+		summarizeBy: none
+		sourceColumn: EntityName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Consolidated, Legal Entity, or Segment — classifies the entity in the hierarchy.
+	column 'Entity Type'
+		dataType: string
+		lineageTag: 2d6d91ed-a70e-44e5-97bc-00e6f429c62d
+		summarizeBy: none
+		sourceColumn: EntityType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Self-referencing parent key for consolidation hierarchy. NovaTerra Global (EntityKey=1) has no parent. Hidden — used for PATH() consolidation logic.
+	column 'Parent Entity Key'
+		dataType: string
+		isHidden
+		lineageTag: fc8ce1cc-8759-4138-a89c-c99953e5d24d
+		summarizeBy: none
+		sourceColumn: ParentEntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Currency this entity reports in locally (USD, GBP, EUR, CAD, SEK).
+	column 'Reporting Currency'
+		dataType: string
+		lineageTag: 0b57428b-0732-4052-b168-b09a6a9d0929
+		summarizeBy: none
+		sourceColumn: ReportingCurrency
+
+		annotation SummarizationSetBy = Automatic
+
+	/// True for active entities in the current planning cycle.
+	column 'Is Active'
+		dataType: string
+		lineageTag: 1d717a6b-914e-47fa-870b-1f753473b5b8
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy '[H] Entity Hierarchy'
+		lineageTag: bd2c7b49-c864-4811-afaf-05abe496f5c2
+
+		level 'Entity Type'
+			lineageTag: b8eea2e1-b56b-405b-9323-c2aceca75085
+			column: 'Entity Type'
+
+		level 'Entity Name'
+			lineageTag: 7b61c9b2-24c6-48a7-b2e6-a72651aaec6d
+			column: 'Entity Name'
+
+	partition DimEntity = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimEntity.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] )
+				in
+				    #"Promoted Headers"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

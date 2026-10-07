@@ -1,0 +1,44 @@
+/// Three sales activity types replacing boolean flags in FactSalesActivity. Ensures the fact table contains only keys and measures — activity classification lives here as a dimension.
+table '[Dim] Activity Type'
+	lineageTag: 7ab8c077-b80f-4643-a390-cadd04b67dd2
+
+	/// Surrogate key. Hidden.
+	column 'Activity Type Key'
+		dataType: string
+		isHidden
+		lineageTag: e5a01032-70e8-4c7c-a793-a0d9ad97b8f5
+		summarizeBy: none
+		sourceColumn: ActivityTypeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// New Logo, Renewal, or Upsell — the type of sales motion that generated this revenue row.
+	column 'Activity Type Name'
+		dataType: string
+		lineageTag: 7a985952-8482-4614-b4de-22b96c6f4780
+		sourceColumn: ActivityTypeName
+
+		annotation SummarizationSetBy = User
+
+	/// Plain-English definition of this activity type.
+	column Description
+		dataType: string
+		lineageTag: 2a2f6a72-f056-409e-af66-9801e503633e
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = User
+
+	partition DimActivityType = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimActivityType.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] )
+				in
+				    #"Promoted Headers"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

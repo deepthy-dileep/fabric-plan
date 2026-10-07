@@ -1,0 +1,168 @@
+table '[Fact] Operational'
+	lineageTag: 31e37207-d945-4f9a-bd4c-a6f9c7d86064
+
+	column OperationalFactId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3c1dc2a3-f9f7-49f0-8235-52cd5d3dd3ab
+		summarizeBy: count
+		sourceColumn: OperationalFactId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 12a24c24-a0a2-49dc-bf60-c55748ff6d5e
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column BusinessUnitKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cc1fd886-be74-4bb4-9d97-f8fbc806948d
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepartmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b5a1e45a-6f37-4937-b24c-70d6ea72f46a
+		summarizeBy: none
+		sourceColumn: DepartmentKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3211cc45-d00a-4e0b-babe-cf63c1e81420
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d8c7ab68-cd4e-47a3-aa4e-d6e6a62a6971
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SegmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 65e19fe4-a497-4e36-b71c-bddf5a25dd5d
+		summarizeBy: none
+		sourceColumn: SegmentKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ScenarioKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 118bb053-7b81-4fe0-9373-155f4b33080a
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Active Customers'
+		dataType: int64
+		formatString: 0
+		lineageTag: 290bea83-981f-4c67-a9dd-94de7f103ca9
+		summarizeBy: sum
+		sourceColumn: Active Customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'New Customers'
+		dataType: int64
+		formatString: 0
+		lineageTag: a4facd75-0835-4fa6-9f2e-fca835284e2c
+		summarizeBy: sum
+		sourceColumn: New Customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Churned Customers'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bbffb9e-56b9-4ac1-bf13-789f9eb4fd61
+		summarizeBy: sum
+		sourceColumn: Churned Customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column Headcount
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d89784e-a8e5-43a0-89af-eeb9fbe395d9
+		summarizeBy: sum
+		sourceColumn: Headcount
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Support Tickets'
+		dataType: int64
+		formatString: 0
+		lineageTag: dcc420c7-82d5-4dff-8f2d-3691f91ddd89
+		summarizeBy: sum
+		sourceColumn: Support Tickets
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NPS Score'
+		dataType: double
+		lineageTag: 22ed872a-f64b-4365-820c-933d2d73a704
+		summarizeBy: sum
+		sourceColumn: NPS Score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition '[Fact] Operational' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\FactOperational.csv"),[Delimiter=",", Columns=14, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"OperationalFactId", Int64.Type}, {"Date", type date}, {"BusinessUnitKey", Int64.Type}, {"DepartmentKey", Int64.Type}, {"GeographyKey", Int64.Type}, {"ProductKey", Int64.Type}, {"SegmentKey", Int64.Type}, {"ScenarioKey", Int64.Type}, {"ActiveCustomers", Int64.Type}, {"NewCustomers", Int64.Type}, {"ChurnedCustomers", Int64.Type}, {"Headcount", Int64.Type}, {"SupportTickets", Int64.Type}, {"NPSScore", type number}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"ActiveCustomers", "Active Customers"}, {"ChurnedCustomers", "Churned Customers"}, {"NewCustomers", "New Customers"}, {"NPSScore", "NPS Score"}, {"SupportTickets", "Support Tickets"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

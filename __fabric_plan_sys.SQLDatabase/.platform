@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SQLDatabase",
+    "displayName": "__fabric_plan_sys",
+    "description": "DoNotEdit Auto-created for storing Planning artifacts Metadata in this workspace"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "da0629c7-1d6e-abd9-4783-f0ca8d4e88ea"
+  }
+}

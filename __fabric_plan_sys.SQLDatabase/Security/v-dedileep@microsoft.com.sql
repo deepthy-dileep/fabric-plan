@@ -1,0 +1,6 @@
+CREATE USER [v-dedileep@microsoft.com]
+    WITH SID = 0xF3F05C2692118E4E8EFD9D8B44BAD5AA, TYPE = E;
+
+
+GO
+
