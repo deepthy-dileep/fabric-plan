@@ -1,0 +1,148 @@
+relationship AutoDetected_f079c98e-8a2b-4896-8b00-69a87956b909
+	fromColumn: '[Fact] Financial'.BusinessUnitKey
+	toColumn: '[Dim] Business Unit'.BusinessUnitKey
+
+relationship AutoDetected_9dc08ac4-6456-477f-b14a-6f367b9db510
+	fromColumn: '[Fact] Invoice Line'.BusinessUnitKey
+	toColumn: '[Dim] Business Unit'.BusinessUnitKey
+
+relationship AutoDetected_40c5790f-bfe9-42b7-a331-dd198c9fe88c
+	fromColumn: '[Fact] Operational'.BusinessUnitKey
+	toColumn: '[Dim] Business Unit'.BusinessUnitKey
+
+relationship AutoDetected_ffc6862a-b138-4838-b476-66912ee8ad0e
+	fromColumn: '[Fact] Financial'.SegmentKey
+	toColumn: '[Dim] Customer Segment'.SegmentKey
+
+relationship AutoDetected_50d6ee42-c01d-45de-9aa6-b57cee12ff20
+	fromColumn: '[Fact] Invoice Line'.SegmentKey
+	toColumn: '[Dim] Customer Segment'.SegmentKey
+
+relationship AutoDetected_2ecf389b-212d-4d1f-bafc-35dc6fdf8844
+	fromColumn: '[Fact] Operational'.SegmentKey
+	toColumn: '[Dim] Customer Segment'.SegmentKey
+
+relationship AutoDetected_21c18f73-d8f9-47a8-8bcd-ea8022a4c812
+	fromColumn: '[Fact] Financial'.DepartmentKey
+	toColumn: '[Dim] Department'.DepartmentKey
+
+relationship AutoDetected_4303475b-bb43-4ee4-8876-d20594bd2d93
+	fromColumn: '[Fact] Invoice Line'.DepartmentKey
+	toColumn: '[Dim] Department'.DepartmentKey
+
+relationship AutoDetected_d0f1b418-239f-493b-8a19-a10439c78eac
+	fromColumn: '[Fact] Operational'.DepartmentKey
+	toColumn: '[Dim] Department'.DepartmentKey
+
+relationship AutoDetected_704f8d0a-cd25-4f84-9cab-70447e29b73a
+	fromColumn: '[Fact] Financial'.GeographyKey
+	toColumn: '[Dim] Geography'.GeographyKey
+
+relationship AutoDetected_aafdf4ae-a64b-48b7-9001-3f0263e26028
+	fromColumn: '[Fact] Invoice Line'.GeographyKey
+	toColumn: '[Dim] Geography'.GeographyKey
+
+relationship AutoDetected_0c9f215c-80fe-43c1-a16a-687feb4a89ba
+	fromColumn: '[Fact] Operational'.GeographyKey
+	toColumn: '[Dim] Geography'.GeographyKey
+
+relationship AutoDetected_95d4a76e-a1a3-4c93-a721-5af116904578
+	fromColumn: '[Fact] Financial'.ProductKey
+	toColumn: '[Dim] Product'.ProductKey
+
+relationship AutoDetected_a0953c8d-b5e0-4889-a0ac-0bea25331acb
+	fromColumn: '[Fact] Invoice Line'.ProductKey
+	toColumn: '[Dim] Product'.ProductKey
+
+relationship AutoDetected_649a2b24-4a45-4cad-ad62-c81712441223
+	fromColumn: '[Fact] Operational'.ProductKey
+	toColumn: '[Dim] Product'.ProductKey
+
+relationship AutoDetected_b3ebc012-7166-4048-a1bc-587b77eb1b50
+	fromColumn: '[Fact] Financial'.ScenarioKey
+	toColumn: '[Dim] Scenario'.ScenarioKey
+
+relationship AutoDetected_ed38944d-1de1-4c58-a18e-03bdfb960131
+	fromColumn: '[Fact] Invoice Line'.ScenarioKey
+	toColumn: '[Dim] Scenario'.ScenarioKey
+
+relationship AutoDetected_052ce125-e8fd-43df-9083-cfef1da08913
+	fromColumn: '[Fact] Operational'.ScenarioKey
+	toColumn: '[Dim] Scenario'.ScenarioKey
+
+relationship 704eff82-0f20-aa3f-a468-91b16f06ca93
+	fromColumn: '[Fact] Invoice Line'.AccountKey
+	toColumn: '[Dim] Account'.AccountKey
+
+relationship bf3b3d6b-cc3b-e20b-c679-b0e77c8d8576
+	fromColumn: '[Fact] Financial'.AccountKey
+	toColumn: '[Dim] Account'.AccountKey
+
+relationship b50ce2c0-162c-4953-af48-6ffc617b01b1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.Date
+	toColumn: LocalDateTable_621eeb36-4be2-44ec-8984-617bd0defefa.Date
+
+relationship d7dd39b7-d169-49e6-90b6-a10dc63413ac
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.Start_of_Year
+	toColumn: LocalDateTable_20987b8b-9203-4908-aa4a-3cd8af0cde7a.Date
+
+relationship 92df9239-be19-4672-a10a-b27e2ca6ad07
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.End_of_Year
+	toColumn: LocalDateTable_9b3230d2-5766-4c0b-ba6a-58825f77e83d.Date
+
+relationship 8830c9a4-0ec0-407a-ab1a-bf3ec1e42eed
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.Start_of_Month
+	toColumn: LocalDateTable_e2e0ff62-ea6c-49b8-8009-1930589f2de3.Date
+
+relationship 9b18fe3c-7b1e-430f-88c2-5ccbce1351ba
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.End_of_Month
+	toColumn: LocalDateTable_86d28f23-b9e3-4471-bcc4-e5f4850f0f59.Date
+
+relationship 4bd0dbf4-8e92-4f83-ad74-d20be7689985
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.'Start of quarter'
+	toColumn: LocalDateTable_e30eac66-74ba-4a85-bba3-4e945c7b8546.Date
+
+relationship 6db12232-5aa7-4ee9-8abc-b16215e11242
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.'End of quarter'
+	toColumn: LocalDateTable_31b1d2a0-6cd0-4557-a75c-e5ea171ad540.Date
+
+relationship e5a2a294-8662-42ac-9c40-672ebc5baa43
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.'Start of week'
+	toColumn: LocalDateTable_56a671fe-7c0b-4b18-9918-cf5944b49e44.Date
+
+relationship ad792bd2-ac5a-4bb2-a69a-ac75cd08201e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.'End of week'
+	toColumn: LocalDateTable_766b69d4-fada-4ffa-8803-09534783fa20.Date
+
+relationship 8f8bc5c0-b151-4d4c-8022-fc9a8d688575
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.Prev_Day
+	toColumn: LocalDateTable_91f8b6bc-96c6-4c04-9607-6cca73f92894.Date
+
+relationship 169ea048-e92b-2bda-8ed9-d9ee714f0a89
+	fromColumn: '[Fact] Invoice Line'.Date
+	toColumn: '[Dim] Date'.Date
+
+relationship 33b54860-ffc4-cf0f-82bb-b3e44c094678
+	fromColumn: '[Fact] Financial'.Date
+	toColumn: '[Dim] Date'.Date
+
+relationship 0d651828-5444-0e27-ce6f-cd49006404d1
+	fromColumn: '[Fact] Operational'.Date
+	toColumn: '[Dim] Date'.Date
+
+relationship AutoDetected_d9286957-581f-491e-ad31-4ce173dee1ff
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'RLS Table'.Country
+	toColumn: '[Dim] Geography'.Country
+

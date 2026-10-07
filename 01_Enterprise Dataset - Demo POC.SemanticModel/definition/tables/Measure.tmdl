@@ -1,0 +1,963 @@
+table Measure
+	lineageTag: 4e96582e-eb1a-4c8b-a5cd-a2c50222678c
+
+	measure 'Total Amount' =
+			
+			SUM ( '[Fact] Financial'[Amount] )
+		displayFolder: Financial\Financial Metrics
+		lineageTag: 372713b1-84d6-456c-a7ec-124d70bfccf8
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Revenue =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountType] = "Revenue" )
+			)
+		displayFolder: Financial\Financial Metrics
+		lineageTag: 68d120d3-549e-47e7-b78b-522d5c76174a
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure COGS =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[Account Level 1] = "Cost of Revenue / COGS" )
+			)
+		displayFolder: Financial\Financial Metrics
+		lineageTag: a0ebbe0e-aa27-4cc1-bb8b-f1355d5b8fc9
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Operating Expense' = ```
+			
+			CALCULATE (
+			    [Total Amount],
+			        '[Dim] Account'[AccountKey] IN {
+			            41, 42, 43,
+			            411, 412, 413, 414,
+			            421, 422, 423, 424, 425,
+			            431, 432, 433, 434
+			        }
+			    
+			)
+			```
+		displayFolder: Financial\Financial Metrics
+		lineageTag: 39b922b4-3db1-4006-abb0-6393cd894a19
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Other Income' = ```
+			
+			CALCULATE (
+			    [Total Amount],
+			        '[Dim] Account'[AccountKey] IN { 61, 611, 612 }
+			    
+			)
+			```
+		displayFolder: Financial\Financial Metrics
+		lineageTag: f8800fc7-c577-40af-8dc9-6eda3cd40eff
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Other Expense' =
+			
+			CALCULATE (
+			    [Total Amount],
+			        '[Dim] Account'[AccountKey] IN { 62, 621, 622, 623 }
+			)
+		displayFolder: Financial\Financial Metrics
+		lineageTag: d5ae3d5e-bfec-4335-9cca-b6efd92f8a30
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Tax Expense' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 81 )
+			)
+		displayFolder: Financial\Financial Metrics
+		lineageTag: 126ef689-6e26-454e-bc2e-b40359010ce4
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gross Profit' =
+			
+			[Revenue] - [COGS]
+		displayFolder: Financial\Profit Metrics
+		lineageTag: 556d1f46-7524-4813-9c36-2bdfc32946b9
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Operating Profit' =
+			
+			[Revenue] - [COGS] - [Operating Expense]
+		displayFolder: Financial\Profit Metrics
+		lineageTag: c681566b-2e18-476e-a574-a6a37ef77fbb
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Profit Before Tax' =
+			
+			[Operating Profit] + [Other Income] - [Other Expense]
+		displayFolder: Financial\Profit Metrics
+		lineageTag: 62dc6b63-1c6b-49dc-bb5b-3bafca0bc00f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Net Profit' =
+			
+			[Profit Before Tax] - [Tax Expense]
+		displayFolder: Financial\Profit Metrics
+		lineageTag: 5a377d0d-3b71-41e2-b75e-3ca247c030fe
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gross Margin %' =
+			
+			DIVIDE ( [Gross Profit], [Revenue] )
+		displayFolder: Financial\Margin %
+		lineageTag: 3a264867-4644-4e6d-befb-e0d8a23902ab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Operating Margin %' =
+			
+			DIVIDE ( [Operating Profit], [Revenue] )
+		displayFolder: Financial\Margin %
+		lineageTag: 1a2da2a0-909e-4342-9ea2-091aca60516a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Net Margin %' =
+			
+			DIVIDE ( [Net Profit], [Revenue] )
+		displayFolder: Financial\Margin %
+		lineageTag: d27ce522-e589-4269-a3f2-e2d24898549b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Actuals =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Actual" )
+			)
+		displayFolder: Financial\Base Measures
+		lineageTag: 400f68b8-aeeb-403c-81ba-87a9faac64ca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Plan =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Plan" )
+			)
+		displayFolder: Financial\Base Measures
+		lineageTag: 5938465e-ff4a-4931-8e0f-e2bc1559cab4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Forecast =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Forecast" )
+			)
+		displayFolder: Financial\Base Measures
+		lineageTag: 71797039-365a-408e-a0a5-b5da4c50135d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Active Customers' =
+			
+			SUM ( '[Fact] Operational'[Active Customers] )
+		formatString: 0
+		displayFolder: Operational\KPI
+		lineageTag: acac0496-5e5d-4c57-a41f-a354a214ddc0
+
+	measure 'New Customers' =
+			
+			SUM ( '[Fact] Operational'[New Customers] )
+		formatString: 0
+		displayFolder: Operational\KPI
+		lineageTag: b0508ec2-5228-4e8f-81ff-0f3eb39b5420
+
+	measure 'Churned Customers' =
+			
+			SUM ( '[Fact] Operational'[Churned Customers] )
+		formatString: 0
+		displayFolder: Operational\KPI
+		lineageTag: b81fad18-60d0-490e-b300-905588a39a4b
+
+	measure 'Employee Headcount' =
+			
+			SUM ( '[Fact] Operational'[Headcount] )
+		formatString: 0
+		displayFolder: Operational\KPI
+		lineageTag: 92d1711f-cfe9-4f99-ac24-29f10ac31452
+
+	measure 'Support Tickets' =
+			
+			SUM ( '[Fact] Operational'[Support Tickets] )
+		formatString: 0
+		displayFolder: Operational\KPI
+		lineageTag: 8eeccd3a-f2f9-4ca0-ae36-7061d7a7e82f
+
+	measure 'Average NPS' =
+			
+			AVERAGE ( '[Fact] Operational'[NPS Score] )
+		displayFolder: Operational\KPI
+		lineageTag: f30c62e8-3610-4230-8ebc-0e7351050252
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue per Customer' =
+			
+			DIVIDE ( [Revenue], [Active Customers] )
+		displayFolder: Operational\Efficiency ratios
+		lineageTag: a63f6f03-e128-4452-a984-af94c53bc6c2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue per Employee' =
+			
+			DIVIDE ( [Revenue], [Employee Headcount] )
+		displayFolder: Operational\Efficiency ratios
+		lineageTag: e3e10546-8afa-457c-9601-1b46c6e79cc9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Support Tickets per Customer' =
+			
+			DIVIDE ( [Support Tickets], [Active Customers] )
+		displayFolder: Operational\Efficiency ratios
+		lineageTag: 39d52771-145a-40c9-92c9-f5cebe712d42
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Customer Churn %' =
+			
+			DIVIDE ( [Churned Customers], [Active Customers] )
+		displayFolder: Operational\Efficiency ratios
+		lineageTag: e9de526b-e988-4ca9-bdf3-a2d1f4e43ef1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Line Net Amount' =
+			
+			SUM ( '[Fact] Invoice Line'[Net Amount] )
+		displayFolder: Financial\Invoice Line Metrics
+		lineageTag: a21a352c-e21c-438c-9b59-e9ef98b3f248
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Line Cost Amount' =
+			
+			SUM ( '[Fact] Invoice Line'[Cost] )
+		displayFolder: Financial\Invoice Line Metrics
+		lineageTag: 797fcbc4-8ef9-448c-8007-fe545d974bc7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Tax Amount' =
+			
+			SUM ( '[Fact] Invoice Line'[Tax] )
+		displayFolder: Financial\Invoice Line Metrics
+		lineageTag: a101b13f-3702-469e-aafa-4a220849fae0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Quantity' =
+			
+			SUM ( '[Fact] Invoice Line'[Quantity] )
+		formatString: 0
+		displayFolder: Financial\Invoice Line Metrics
+		lineageTag: ef5c0d3d-0fba-4487-bdb6-25734d77db1a
+
+	measure 'Average Unit Price' =
+			
+			DIVIDE (
+			    SUM ( '[Fact] Invoice Line'[Net Amount] )
+			        + SUM ( '[Fact] Invoice Line'[Discount] ),
+			    SUM ( '[Fact] Invoice Line'[Quantity] )
+			)
+		displayFolder: Financial\Invoice Line Metrics
+		lineageTag: 98238464-3164-41ea-ac57-bcae78f5b4d1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Net Price per Unit' =
+			
+			DIVIDE (
+			    SUM ( '[Fact] Invoice Line'[Net Amount] ),
+			    SUM ( '[Fact] Invoice Line'[Quantity] )
+			)
+		displayFolder: Financial\Invoice Line Metrics
+		lineageTag: 6328d4d2-5b01-4eb2-a0bc-7709ea88e150
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Line Discount Amount' =
+			
+			SUM ( '[Fact] Invoice Line'[Discount] )
+		displayFolder: Financial\Invoice Line Metrics
+		lineageTag: f41a8fb5-d2be-4cd5-9192-29d88a41fae7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Discount %' =
+			
+			DIVIDE (
+			    SUM ( '[Fact] Invoice Line'[Discount] ),
+			    SUM ( '[Fact] Invoice Line'[Net Amount] )
+			        + SUM ( '[Fact] Invoice Line'[Discount] )
+			)
+		displayFolder: Financial\Invoice Line Metrics
+		lineageTag: 460317c4-e08b-4822-b708-fe54e2735b12
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gross Line Margin %' =
+			
+			DIVIDE (
+			    SUM ( '[Fact] Invoice Line'[Net Amount] )
+			        - SUM ( '[Fact] Invoice Line'[Cost] ),
+			    SUM ( '[Fact] Invoice Line'[Net Amount] )
+			)
+		displayFolder: Financial\Invoice Line Metrics
+		lineageTag: 57078627-3990-45e8-8e1d-504cc5177dfd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue from Lines' = SUM ( '[Fact] Invoice Line'[Net Amount] )
+		displayFolder: Verification Measures
+		lineageTag: fcf016ab-e049-48ff-b6ba-970df44863a5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'COGS from Lines' =
+			
+			CALCULATE (
+			    SUM ( '[Fact] Invoice Line'[Cost] )
+			)
+		displayFolder: Verification Measures
+		lineageTag: 42d4728b-3ebc-462d-8e9f-de46d284e240
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Tax from Lines' = SUM ( '[Fact] Invoice Line'[Tax] )
+		displayFolder: Verification Measures
+		lineageTag: e6d6d4a5-0ced-406f-b0ec-10dd4d34fec3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue Reconciliation Check' = [Revenue] - [Revenue from Lines]
+		displayFolder: Verification Measures
+		lineageTag: 1be52872-a0c0-4eba-8ef2-83f3c9a990a3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'COGS Reconciliation Check' = [COGS] - [COGS from Lines]
+		displayFolder: Verification Measures
+		lineageTag: ea87d78a-c2fd-4803-bb85-d88ec2c8c2c7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Tax Reconciliation Check' = [Tax Expense] - [Tax from Lines]
+		displayFolder: Verification Measures
+		lineageTag: 210e7519-919b-41fd-8fec-71e2663a93d8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Commercial Opex' =
+			
+			CALCULATE (
+			    [Total Amount],
+			        '[Dim] Account'[AccountKey] IN { 41, 411, 412, 413, 414 }
+			)
+		displayFolder: Financial\Expense\Commercial Opex
+		lineageTag: 4d3e4265-cd91-449c-90e2-78054d0355b6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Advertising & Promotions' =
+			
+			CALCULATE (
+			    [Total Amount],
+			( '[Dim] Account'[AccountKey] = 411 )
+			)
+		displayFolder: Financial\Expense\Commercial Opex
+		lineageTag: 079a407d-2730-462b-aec8-bb577531e59b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Commissions' =
+			
+			CALCULATE (
+			    [Total Amount],
+			    ( '[Dim] Account'[AccountKey] = 412 )
+			)
+		displayFolder: Financial\Expense\Commercial Opex
+		lineageTag: 6bb242ac-ccea-4260-806b-807eacf2ae6b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Trade Shows & Events' =
+			
+			CALCULATE (
+			    [Total Amount],
+			    ( '[Dim] Account'[AccountKey] = 413 )
+			)
+		displayFolder: Financial\Expense\Commercial Opex
+		lineageTag: 8b3475ef-4c55-4aee-9645-c26c31aa821f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Digital Marketing' =
+			
+			CALCULATE (
+			    [Total Amount],
+			    ( '[Dim] Account'[AccountKey] = 414 )
+			)
+		displayFolder: Financial\Expense\Commercial Opex
+		lineageTag: 9759af06-b966-4e63-b3cb-cf09e8dca93a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'GA Expense' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     (
+			        '[Dim] Account'[AccountKey] IN { 42, 421, 422, 423, 424, 425 }
+			    )
+			)
+		displayFolder: Financial\Expense\G&A & Overheads
+		lineageTag: 1c195776-38c3-4fe0-91d9-f3532c17b698
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Rent & Facilities' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 421 )
+			)
+		displayFolder: Financial\Expense\G&A & Overheads
+		lineageTag: e140f77d-efb1-401d-8d70-93d41986f16a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'IT & Software Licenses' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 422 )
+			)
+		displayFolder: Financial\Expense\G&A & Overheads
+		lineageTag: 7004ce39-6066-4ba8-b884-f693928ba6bb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Legal & Compliance' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 423 )
+			)
+		displayFolder: Financial\Expense\G&A & Overheads
+		lineageTag: 705a17b5-0c9b-48f1-98c3-94b809de3041
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Travel & Entertainment' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 424 )
+			)
+		displayFolder: Financial\Expense\G&A & Overheads
+		lineageTag: 84b6d590-d234-4f8a-ae13-1dac9bd95ba6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Insurance =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 425 )
+			)
+		displayFolder: Financial\Expense\G&A & Overheads
+		lineageTag: fcaabb2a-3acb-4b08-86f5-96c7c59036fc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RD Expense' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     (
+			        '[Dim] Account'[AccountKey] IN { 43, 431, 432, 433, 434 }
+			    )
+			)
+		displayFolder: Financial\Expense\Product & R&D Opex
+		lineageTag: deb5a55c-92fe-4fe6-9729-a090c3da05ab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Engineering Salaries' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 431 )
+			)
+		displayFolder: Financial\Expense\Product & R&D Opex
+		lineageTag: 9ffa54c6-c9b7-4387-becd-4d96de21e39a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cloud Infrastructure' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 432 )
+			)
+		displayFolder: Financial\Expense\Product & R&D Opex
+		lineageTag: 251fa09c-ded3-4c78-9c10-d193a02ed6f9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'QA & Testing' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 433 )
+			)
+		displayFolder: Financial\Expense\Product & R&D Opex
+		lineageTag: 8d437496-2028-4a50-a3a8-979d79859d5b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Product Management' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 434 )
+			)
+		displayFolder: Financial\Expense\Product & R&D Opex
+		lineageTag: 86cb84c1-8e5c-4245-8790-197809b3b267
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Financial Income' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     (
+			        '[Dim] Account'[AccountKey] IN { 61, 611, 612 }
+			    )
+			)
+		displayFolder: Financial\Financial Income
+		lineageTag: 67e909ce-35ab-475f-b4c9-812edafd5b8e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Bank Interest Income' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 611 )
+			)
+		displayFolder: Financial\Financial Income
+		lineageTag: b5dfdd2f-a93d-49b6-9ab9-093e1f807234
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'FX Gain' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 612 )
+			)
+		displayFolder: Financial\Financial Income
+		lineageTag: 7cdcd95a-570b-4d4c-bc7a-51dfd40de0c5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Financial Expense' =
+			
+			CALCULATE (
+			    [Total Amount],
+			    (
+			        '[Dim] Account'[AccountKey] IN { 62, 621, 622, 623 }
+			    )
+			)
+		displayFolder: Financial\Expense\Financial Expense
+		lineageTag: 64659353-b2c6-45e6-8898-eaea4e273b3f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Bank Charges' =
+			
+			CALCULATE (
+			    [Total Amount],
+			    ( '[Dim] Account'[AccountKey] = 621 )
+			)
+		displayFolder: Financial\Expense\Financial Expense
+		lineageTag: 1e11b206-12a3-4a75-9ed2-76299b681f74
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'FX Loss' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] = 622 )
+			)
+		displayFolder: Financial\Expense\Financial Expense
+		lineageTag: 8c0f064a-a12e-4d81-bb50-79b3e3e194cf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Loan Interest' =
+			
+			CALCULATE (
+			    [Total Amount],
+			    ( '[Dim] Account'[AccountKey] = 623 )
+			)
+		displayFolder: Financial\Expense\Financial Expense
+		lineageTag: 748f0e92-f89f-4556-9fea-9861ae68ae12
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Commercial Opex % of Revenue' =
+			
+			DIVIDE ( [Commercial Opex], [Revenue] )
+		displayFolder: Financial\Expense\Expense Ratios
+		lineageTag: aee12382-8063-4398-8286-9cbe5c4468ab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'GA Expense % of Revenue' =
+			
+			DIVIDE ( [GA Expense], [Revenue] )
+		displayFolder: Financial\Expense\Expense Ratios
+		lineageTag: f1ddec25-91ba-4bbf-832c-43f7beeec268
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RD Expense % of Revenue' =
+			
+			DIVIDE ( [RD Expense], [Revenue] )
+		displayFolder: Financial\Expense\Expense Ratios
+		lineageTag: 6ab7dab6-6d84-4071-9655-56083d3fb3c6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Opex % of Revenue' =
+			
+			DIVIDE ( [Operating Expense], [Revenue] )
+		displayFolder: Financial\Expense\Expense Ratios
+		lineageTag: b616fd70-d002-4340-be2d-7519d4434fed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Commissions % of Revenue' =
+			
+			DIVIDE ( [Sales Commissions], [Revenue] )
+		displayFolder: Financial\Expense\Expense Ratios
+		lineageTag: 155930d6-3cd4-4f57-8905-b60f260b12f8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Engineering Salaries % of Revenue' =
+			
+			DIVIDE ( [Engineering Salaries], [Revenue] )
+		displayFolder: Financial\Expense\Expense Ratios
+		lineageTag: 2bd9ee00-c537-45b2-b3ad-f1eee656fad3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cloud Infrastructure % of Revenue' =
+			
+			DIVIDE ( [Cloud Infrastructure], [Revenue] )
+		displayFolder: Financial\Expense\Expense Ratios
+		lineageTag: cefb02c1-1277-422c-9c8a-6d5485a5e225
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'FX Net Impact' =
+			
+			[FX Gain] - [FX Loss]
+		displayFolder: Financial\Expense\Expense Ratios
+		lineageTag: 3755e75c-09d1-41ec-ac2a-998ca9e087d3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Net Financial Income' =
+			
+			[Financial Income] - [Financial Expense]
+		displayFolder: Financial\Expense\Expense Ratios
+		lineageTag: dac7370b-e01d-49aa-b90e-5442e2312359
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Commercial Opex Consistency Check' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] IN {411,412,413,414} )
+			) -
+			(
+			    [Advertising & Promotions] +
+			    [Sales Commissions] +
+			    [Trade Shows & Events] +
+			    [Digital Marketing]
+			)
+		displayFolder: Verification Measures
+		lineageTag: 76e40643-926b-4c9b-92c4-a3d5bc2c4b53
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'GA Expense Consistency Check' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] IN {421, 422, 423, 424, 425} )
+			) -
+			(
+			    [Rent & Facilities] +
+			    [IT & Software Licenses] +
+			    [Legal & Compliance] +
+			    [Travel & Entertainment] +
+			    [Insurance]
+			)
+		displayFolder: Verification Measures
+		lineageTag: 68812bcd-19b8-4c13-b3e2-8f7af170155c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RD Expense Consistency Check' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] IN { 43, 431, 432, 433, 434 } )
+			) -
+			(
+			    [Engineering Salaries] +
+			    [Cloud Infrastructure] +
+			    [QA & Testing] +
+			    [Product Management]
+			)
+		displayFolder: Verification Measures
+		lineageTag: eed46804-262c-48f6-a01d-ef777a4990ae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Financial Income Consistency Check' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] IN {611, 612} )
+			) -
+			(
+			    [Bank Interest Income] +
+			    [FX Gain]
+			)
+		displayFolder: Verification Measures
+		lineageTag: 80804102-b9fc-4885-8ba8-72c0a88b1eba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Financial Expense Consistency Check' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Account'[AccountKey] IN {621,622,623} )
+			) -
+			(
+			    [Bank Charges] +
+			    [FX Loss] +
+			    [Loan Interest]
+			)
+		displayFolder: Verification Measures
+		lineageTag: 694d9638-08f7-4e0a-936e-1e60a45905d7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Expense per Employee' =
+			
+			DIVIDE ( [Operating Expense], [Employee Headcount] )
+		displayFolder: Operational\Efficiency ratios
+		lineageTag: a78205aa-68d3-439a-906f-8d9089569791
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Actuals 2024' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Actual" ), '[Dim] Date'[Year] = 2024
+			)
+		displayFolder: Yearly Measures
+		lineageTag: 5364ac2d-785f-4acf-877e-7d354556f5fa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Actuals 2025' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Actual" ), '[Dim] Date'[Year] = 2025
+			)
+		displayFolder: Yearly Measures
+		lineageTag: cb4435ea-c975-44b3-86f8-df6b8c6d5def
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Actuals 2026' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Actual" ), '[Dim] Date'[Year] = 2026
+			)
+		displayFolder: Yearly Measures
+		lineageTag: 09cb7caa-13c2-4173-9fa3-19272084d273
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Plan 2024' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Plan" ), '[Dim] Date'[Year] = 2024
+			)
+		displayFolder: Yearly Measures
+		lineageTag: 706e2d59-9703-49ca-b9a9-fd42d593ccee
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Plan 2025' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Plan" ), '[Dim] Date'[Year] = 2025
+			)
+		displayFolder: Yearly Measures
+		lineageTag: 579c35f6-95c5-4f70-81ab-69a7eb493ac0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Plan 2026' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Plan" ), '[Dim] Date'[Year] = 2026
+			)
+		displayFolder: Yearly Measures
+		lineageTag: 986d4102-989e-40c0-94bf-f9c9e2e0c2ce
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Forecast 2024' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Forecast" ), '[Dim] Date'[Year] = 2024
+			)
+		displayFolder: Yearly Measures
+		lineageTag: 25a6e003-1836-4a5c-98b0-e430469b0cb4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Forecast 2025' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Forecast" ), '[Dim] Date'[Year] = 2025
+			)
+		displayFolder: Yearly Measures
+		lineageTag: ff6cc326-3534-4886-bf93-24df53eb24a5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Forecast 2026' =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Forecast" ), '[Dim] Date'[Year] = 2026
+			)
+		displayFolder: Yearly Measures
+		lineageTag: 238de714-543a-4847-9400-2683fdb6a24a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure PY =
+			
+			CALCULATE (
+			    [Total Amount],
+			     ( '[Dim] Scenario'[Scenario Name] = "Actual" ), DATEADD('[Dim] Date'[Date],-1,YEAR)
+			)
+		displayFolder: Financial\Base Measures
+		lineageTag: 1a3461f4-798c-450f-9b8d-9620df8451c1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Measure =
+			CALCULATE (
+			    SUM ( '[Fact] Financial'[Amount] ),
+			     OR('[Dim] Scenario'[ScenarioKey] = 1, '[Dim] Scenario'[ScenarioKey] = 2)
+			)+0
+		lineageTag: 73fa9420-1fc6-48e5-9163-9903f47fae08
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column1
+		dataType: string
+		isHidden
+		lineageTag: 0f90bb3f-f559-43e1-8f88-3286ca34c6fc
+		summarizeBy: none
+		sourceColumn: Column1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Measure = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

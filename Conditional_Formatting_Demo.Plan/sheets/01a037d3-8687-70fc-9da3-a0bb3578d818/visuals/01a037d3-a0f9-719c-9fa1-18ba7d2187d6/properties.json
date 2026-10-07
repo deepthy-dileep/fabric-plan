@@ -1,0 +1,204 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Planning/Properties/1.0.0/schema.json",
+  "properties": {
+    "advanceLookup": [],
+    "chartType": "COLUMN_VERTICAL",
+    "dimension": {
+      "height": 0.4,
+      "width": 0.3
+    },
+    "layerProperties": {
+      "layerProperties": {
+        "groupIds": [],
+        "isHidden": false,
+        "name": "Overlapped column"
+      },
+      "order": 0
+    },
+    "pivotAssignments": [],
+    "position": {
+      "x": 0.005,
+      "y": 0.005
+    },
+    "splitByCategory": {
+      "pivotValueAssignments": [],
+      "splitByCategoryAssignments": [],
+      "splitByCategoryItems": [],
+      "splitByDelimiter": "-"
+    },
+    "superFilterAssignments": [],
+    "visualState": {
+      "chartType": "COLUMN_VERTICAL",
+      "commentsNotes": {
+        "commentsMap": {},
+        "createMode": false,
+        "creationType": "NOTES",
+        "globalNoteSettings": {
+          "floatSettings": {
+            "arrowColor": "#616161",
+            "arrowEnd": "arrow",
+            "arrowStyle": "solid",
+            "arrowWidth": 1,
+            "borderColor": "#E0E0E0",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "displayNoteAs": "markerText",
+            "dragLineType": "line",
+            "horizontalAlign": "start",
+            "shape": "rect",
+            "verticalAlign": "start"
+          },
+          "footNotes": {
+            "footNoteColumn": 3,
+            "footNoteHeight": 15
+          },
+          "hideAllNotes": false,
+          "indicator": {
+            "color": "#117865",
+            "fontSize": 12,
+            "position": "LEFT",
+            "size": 16,
+            "type": "number"
+          }
+        },
+        "modCommentaryId": "",
+        "noteCreateIndex": 1,
+        "tempIdMap": {}
+      },
+      "filterContextProperties": {
+        "filterContextDimensions": [],
+        "filterContextHash": null,
+        "filterContextHashMap": {},
+        "filterContextJson": {}
+      },
+      "hiddenProperties_!!!_dataStreamer": "{\"visualId\":\"d69d41e9-9f2a-443d-9c8b-de6f726d487e\"}",
+      "hiddenProperties_!!!_scenarios": "{\"scenarioId\":\"none\",\"previousId\":\"none\",\"appliedSettings\":{\"commonSettings\":false,\"cfProps\":false,\"appearance\":false,\"kpiControls\":false,\"trellisSettings\":false,\"sorting\":false,\"analytics\":false,\"deviationLine\":false}}",
+      "hiddenProperties_!!!_secondaryVisualsState": "{\"textMode\":{\"showEditor\":false,\"text\":\"{\\\"root\\\":{\\\"children\\\":[{\\\"children\\\":[],\\\"direction\\\":null,\\\"format\\\":\\\"\\\",\\\"indent\\\":0,\\\"type\\\":\\\"paragraph\\\",\\\"version\\\":1,\\\"textFormat\\\":0}],\\\"direction\\\":null,\\\"format\\\":\\\"\\\",\\\"indent\\\":0,\\\"type\\\":\\\"root\\\",\\\"version\\\":1}}\",\"bgColor\":\"transparent\",\"verticalAlign\":\"flex-start\",\"fromThemeEngine\":true,\"hashedContent\":{}},\"shapeMode\":{\"invalidMsg\":\"\",\"shapeStyles\":{\"backgroundColor\":\"#f7f7f7\",\"border\":{\"borderColor\":\"#efefef\",\"borderStyle\":\"solid\",\"borderSide\":\"all\",\"borderSize\":0,\"isCustomBorderSize\":false},\"cornerRadius\":{\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomLeft\":0,\"radiusBottomRight\":0,\"isCustomCornerRadius\":false},\"padding\":{\"paddingSide\":\"all\",\"paddingSize\":0,\"isCustomPaddingSize\":false},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#e5e5e5\",\"shadowSide\":\"center\",\"shadowSize\":0,\"shadowType\":\"outer\"}},\"rotate\":\"0deg\",\"isCustomRotate\":false},\"imageMode\":{\"uri\":\"\",\"rotate\":0,\"objectFit\":\"contain\",\"invalidMsg\":\"\",\"imageName\":null},\"navigatorTabs\":{\"activeTabIndex\":[0],\"orientation\":\"horizontal\",\"iconProperties\":{\"iconMapping\":{},\"iconDimension\":{\"height\":40,\"width\":40},\"iconWeight\":\"medium\",\"iconFit\":\"contain\",\"iconPosition\":\"left\",\"iconPadding\":5,\"isCustomIconPadding\":false,\"isDefaultIcon\":false},\"invalidMsg\":\"\",\"tabType\":\"text\",\"tabSetup\":{\"isStaticSize\":false,\"tabSize\":200,\"isResponsiveSize\":false,\"isCustomTabSize\":false,\"gridProperties\":{\"isCustomGridValue\":false,\"isCustomGrid\":false,\"gridSize\":{\"rowSize\":2,\"columnSize\":2}},\"showScrollButton\":true,\"scrollDirection\":\"horizontal\"},\"tabStyles\":{\"tabGap\":{\"tabGapSize\":10,\"isCustomTabGap\":false},\"activeTabStyles\":{\"backgroundColor\":\"#333333\",\"color\":\"#ffffff\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomRight\":0,\"radiusBottomLeft\":0},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"inActiveTabStyles\":{\"backgroundColor\":\"#ffffff\",\"color\":\"#333333\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomRight\":0,\"radiusBottomLeft\":0},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"syncStyles\":false}},\"navigatorBoards\":{\"activeTabIndex\":[0],\"orientation\":\"horizontal\",\"iconProperties\":{\"iconMapping\":{},\"iconDimension\":{\"height\":40,\"width\":40},\"iconWeight\":\"medium\",\"iconFit\":\"contain\",\"iconPosition\":\"left\",\"iconPadding\":5,\"isCustomIconPadding\":false,\"isDefaultIcon\":false},\"invalidMsg\":\"\",\"tabType\":\"text\",\"tabSetup\":{\"isStaticSize\":false,\"tabSize\":200,\"isResponsiveSize\":false,\"isCustomTabSize\":false,\"gridProperties\":{\"isCustomGridValue\":false,\"isCustomGrid\":false,\"gridSize\":{\"rowSize\":2,\"columnSize\":2}},\"showScrollButton\":true,\"scrollDirection\":\"horizontal\"},\"tabStyles\":{\"tabGap\":{\"tabGapSize\":10,\"isCustomTabGap\":false},\"activeTabStyles\":{\"backgroundColor\":\"#333333\",\"color\":\"#ffffff\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomRight\":0,\"radiusBottomLeft\":0},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"inActiveTabStyles\":{\"backgroundColor\":\"#ffffff\",\"color\":\"#333333\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomRight\":0,\"radiusBottomLeft\":0},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"syncStyles\":false},\"disabledBoardIds\":[]},\"navigatorButtons\":{\"activeTabIndex\":[0],\"orientation\":\"horizontal\",\"iconProperties\":{\"iconMapping\":{},\"iconDimension\":{\"height\":40,\"width\":40},\"iconWeight\":\"medium\",\"iconFit\":\"contain\",\"iconPosition\":\"left\",\"iconPadding\":5,\"isCustomIconPadding\":false,\"isDefaultIcon\":false},\"invalidMsg\":\"\",\"tabType\":\"text\",\"tabSetup\":{\"isStaticSize\":false,\"tabSize\":200,\"isResponsiveSize\":false,\"isCustomTabSize\":false,\"gridProperties\":{\"isCustomGridValue\":false,\"isCustomGrid\":false,\"gridSize\":{\"rowSize\":2,\"columnSize\":2}},\"showScrollButton\":true,\"scrollDirection\":\"horizontal\"},\"tabStyles\":{\"tabGap\":{\"tabGapSize\":10,\"isCustomTabGap\":false},\"activeTabStyles\":{\"backgroundColor\":\"#333333\",\"color\":\"#ffffff\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomRight\":0,\"radiusBottomLeft\":0},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"inActiveTabStyles\":{\"backgroundColor\":\"#ffffff\",\"color\":\"#333333\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomRight\":0,\"radiusBottomLeft\":0},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"syncStyles\":false},\"buttonAction\":\"none\",\"boardActionId\":null,\"webUrlLink\":null,\"elementVisibilityState\":{\"elementVisibilityNodes\":[],\"defaultVisibilityShow\":true,\"currentVisibilityShow\":true,\"isToggleVisibilityAction\":false,\"recentClickTimeStamp\":null,\"singleWayActionShow\":true}},\"slicer\":{\"fields\":[],\"slicerFilter\":[],\"slicerType\":\"LIST\",\"isHeaderActive\":true,\"isMultiSelect\":true,\"showSearchBar\":true,\"showSelectAll\":true,\"showClearFilter\":true,\"headerStyles\":{\"isBold\":false,\"isItalic\":false,\"fontSize\":13,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#333333\",\"alignment\":\"left\",\"gapSize\":2,\"position\":\"top\"},\"valueStyles\":{\"isBold\":false,\"isItalic\":false,\"fontSize\":12,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#737373\"},\"rangeSliderStyles\":{\"headSize\":25,\"headColor\":\"#ffffff\",\"trackColor\":\"#E9F5FE\",\"trackThickness\":7,\"progressColor\":\"#0078D4\"},\"slicerTileStyles\":{\"activeTabIndex\":[0],\"orientation\":\"horizontal\",\"iconProperties\":{\"iconMapping\":{},\"iconDimension\":{\"height\":40,\"width\":40},\"iconWeight\":\"medium\",\"iconFit\":\"contain\",\"iconPosition\":\"left\",\"iconPadding\":5,\"isCustomIconPadding\":false,\"isDefaultIcon\":false},\"invalidMsg\":\"\",\"tabType\":\"text\",\"tabSetup\":{\"isStaticSize\":false,\"tabSize\":200,\"isResponsiveSize\":false,\"isCustomTabSize\":false,\"gridProperties\":{\"isCustomGridValue\":false,\"isCustomGrid\":false,\"gridSize\":{\"rowSize\":2,\"columnSize\":2}},\"showScrollButton\":true,\"scrollDirection\":\"horizontal\"},\"tabStyles\":{\"tabGap\":{\"tabGapSize\":10,\"isCustomTabGap\":false},\"activeTabStyles\":{\"backgroundColor\":\"#333333\",\"color\":\"#ffffff\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomRight\":0,\"radiusBottomLeft\":0},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"inActiveTabStyles\":{\"backgroundColor\":\"#ffffff\",\"color\":\"#333333\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomRight\":0,\"radiusBottomLeft\":0},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"syncStyles\":false}},\"prevNumberFormatState\":false},\"playAxis\":{\"axisType\":\"tabs\",\"playStatus\":\"pause\",\"autoPlay\":false,\"loopPlay\":false,\"playInterval\":3,\"resetPending\":false,\"axisBackgroundColor\":\"#fafafa\",\"playTileStyles\":{\"singleTabOnly\":false,\"activeTabIndex\":[0],\"orientation\":\"horizontal\",\"iconProperties\":{\"iconMapping\":{},\"iconDimension\":{\"height\":40,\"width\":40},\"iconWeight\":\"medium\",\"iconFit\":\"contain\",\"iconPosition\":\"left\",\"iconPadding\":5,\"isCustomIconPadding\":false,\"isDefaultIcon\":false},\"invalidMsg\":\"\",\"tabType\":\"text\",\"tabSetup\":{\"isStaticSize\":false,\"tabSize\":200,\"isResponsiveSize\":true,\"isCustomTabSize\":false,\"gridProperties\":{\"isCustomGridValue\":false,\"isCustomGrid\":false,\"gridSize\":{\"rowSize\":2,\"columnSize\":2}},\"showScrollButton\":true,\"scrollDirection\":\"horizontal\"},\"tabStyles\":{\"tabGap\":{\"tabGapSize\":10,\"isCustomTabGap\":false},\"activeTabStyles\":{\"backgroundColor\":\"#3d8fee\",\"color\":\"#333333\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":5,\"radiusTopRight\":5,\"radiusBottomRight\":5,\"radiusBottomLeft\":5},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"inActiveTabStyles\":{\"backgroundColor\":\"#ffffff\",\"color\":\"#333333\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":5,\"radiusTopRight\":5,\"radiusBottomRight\":5,\"radiusBottomLeft\":5},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"syncStyles\":false}},\"playButton\":{\"position\":\"left\",\"iconColor\":\"#333333\",\"iconSize\":19,\"backgroundColor\":\"#e5e5e5\",\"cornerRadius\":4,\"borderColor\":\"#f5f5f5\",\"borderSize\":0,\"dimension\":{\"width\":52,\"height\":40},\"shadow\":{\"shadowBlur\":2,\"shadowColor\":\"#efefef\",\"shadowSide\":\"center\",\"shadowSize\":1}},\"isHeaderActive\":false,\"headerStyles\":{\"isBold\":false,\"isItalic\":false,\"fontSize\":13,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#333333\",\"alignment\":\"left\",\"gapSize\":2,\"position\":\"top\"},\"progressBar\":{\"progressAnimation\":true,\"toolTipShowType\":\"always\",\"progressBarStyles\":{\"headSize\":25,\"headColor\":\"#ffffff\",\"trackColor\":\"#E9F5FE\",\"trackThickness\":7,\"progressColor\":\"#0078D4\"},\"showSegmentation\":true},\"tickTypeStyles\":{\"textSize\":12,\"textColor\":\"#333333\",\"lineColor\":\"#333333\",\"lineStrokeWidth\":2},\"labelType\":{\"isBold\":false,\"isItalic\":false,\"fontSize\":16,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#333333\",\"alignment\":\"left\",\"gapSize\":8},\"showCounter\":false,\"counterStyles\":{\"isBold\":false,\"isItalic\":false,\"fontSize\":12,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#333333\"}},\"commentsPane\":{\"title\":{\"label\":\"Comments\",\"isTitleEnable\":true,\"isBold\":false,\"isItalic\":false,\"fontSize\":13,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#333333\",\"alignment\":\"left\",\"gapSize\":2},\"cardStyles\":{\"backgroundColor\":\"#fcfcfc\",\"border\":{\"borderColor\":\"#efefef\",\"borderStyle\":\"solid\",\"borderSide\":\"all\",\"borderSize\":0,\"isCustomBorderSize\":false,\"isEnabled\":true},\"cornerRadius\":{\"radiusTopLeft\":0,\"radiusTopRight\":0,\"radiusBottomLeft\":0,\"radiusBottomRight\":0,\"isCustomCornerRadius\":false},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#e5e5e5\",\"shadowSide\":\"center\",\"shadowSize\":0,\"shadowType\":\"outer\",\"isEnabled\":true},\"fontStyles\":{\"isBold\":false,\"isItalic\":false,\"fontSize\":13,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#000\",\"alignment\":\"left\",\"gapSize\":2},\"iconStyles\":{\"iconSize\":10,\"color\":\"#333333\"},\"wrapText\":true},\"playAxis\":{\"axisType\":\"tabs\",\"playStatus\":\"pause\",\"autoPlay\":false,\"loopPlay\":false,\"playInterval\":3,\"resetPending\":false,\"axisBackgroundColor\":\"#fafafa\",\"playTileStyles\":{\"singleTabOnly\":false,\"activeTabIndex\":[0],\"orientation\":\"horizontal\",\"iconProperties\":{\"iconMapping\":{},\"iconDimension\":{\"height\":40,\"width\":40},\"iconWeight\":\"medium\",\"iconFit\":\"contain\",\"iconPosition\":\"left\",\"iconPadding\":5,\"isCustomIconPadding\":false,\"isDefaultIcon\":false},\"invalidMsg\":\"\",\"tabType\":\"text\",\"tabSetup\":{\"isStaticSize\":false,\"tabSize\":200,\"isResponsiveSize\":true,\"isCustomTabSize\":false,\"gridProperties\":{\"isCustomGridValue\":false,\"isCustomGrid\":false,\"gridSize\":{\"rowSize\":2,\"columnSize\":2}},\"showScrollButton\":true,\"scrollDirection\":\"horizontal\"},\"tabStyles\":{\"tabGap\":{\"tabGapSize\":10,\"isCustomTabGap\":false},\"activeTabStyles\":{\"backgroundColor\":\"#3d8fee\",\"color\":\"#333333\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":5,\"radiusTopRight\":5,\"radiusBottomRight\":5,\"radiusBottomLeft\":5},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"inActiveTabStyles\":{\"backgroundColor\":\"#ffffff\",\"color\":\"#333333\",\"padding\":{\"paddingLeft\":10,\"paddingRight\":10,\"paddingTop\":10,\"paddingBottom\":10},\"shadow\":{\"shadowBlur\":0,\"shadowColor\":\"#474747\",\"shadowSide\":\"center\",\"shadowSize\":0},\"border\":{\"borderLeft\":1,\"borderRight\":1,\"borderTop\":1,\"borderBottom\":1,\"borderColor\":\"#333333\",\"isCustomBorderRadius\":false,\"radiusTopLeft\":5,\"radiusTopRight\":5,\"radiusBottomRight\":5,\"radiusBottomLeft\":5},\"fontStyles\":{\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"fontSize\":14,\"isBold\":false,\"isItalic\":false,\"verticalAlign\":\"middle\",\"horizontalAlign\":\"center\"}},\"syncStyles\":false}},\"playButton\":{\"position\":\"left\",\"iconColor\":\"#333333\",\"iconSize\":19,\"backgroundColor\":\"#e5e5e5\",\"cornerRadius\":4,\"borderColor\":\"#f5f5f5\",\"borderSize\":0,\"dimension\":{\"width\":52,\"height\":40},\"shadow\":{\"shadowBlur\":2,\"shadowColor\":\"#efefef\",\"shadowSide\":\"center\",\"shadowSize\":1}},\"isHeaderActive\":false,\"headerStyles\":{\"isBold\":false,\"isItalic\":false,\"fontSize\":13,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#333333\",\"alignment\":\"left\",\"gapSize\":2,\"position\":\"top\"},\"progressBar\":{\"progressAnimation\":true,\"toolTipShowType\":\"always\",\"progressBarStyles\":{\"headSize\":25,\"headColor\":\"#ffffff\",\"trackColor\":\"#E9F5FE\",\"trackThickness\":7,\"progressColor\":\"#0078D4\"},\"showSegmentation\":true},\"tickTypeStyles\":{\"textSize\":12,\"textColor\":\"#333333\",\"lineColor\":\"#333333\",\"lineStrokeWidth\":2},\"labelType\":{\"isBold\":false,\"isItalic\":false,\"fontSize\":16,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#333333\",\"alignment\":\"left\",\"gapSize\":8},\"showCounter\":false,\"counterStyles\":{\"isBold\":false,\"isItalic\":false,\"fontSize\":12,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#333333\"},\"commentsStyle\":{\"isBold\":false,\"isItalic\":false,\"isUnderlined\":false,\"fontSize\":12,\"fontFamily\":\"\\\"Segoe UI\\\", wf_segoe-ui_normal, helvetica, arial, sans-serif\",\"color\":\"#ffffff\",\"templateStyle\":\"Style-1\",\"backgroundColor\":\"#0078D4\",\"autoFontColor\":true}},\"presentButtonType\":\"textImage\",\"hideComments\":false}}",
+      "hiddenProperties_!!!_storyboardMemory": "{\"boards\":{},\"pinInfo\":{\"status\":\"unPinned\",\"isPinned\":true,\"isDefaultReadingViewSetupDone\":false,\"isDefaultEditingViewSetupDone\":true},\"standAloneModeInfo\":{\"state\":null,\"standaloneStatePresent\":false}}",
+      "hiddenProperties_!!!_template": "{\"instanceId\":\"DEFAULT_VISUAL_INSTANCE\",\"id\":\"COLUMN_VERTICAL\",\"previousId\":\"COLUMN_VERTICAL\",\"rendererType\":\"columnChart\",\"chartType\":\"columnChart\",\"chartOrientation\":\"vertical\",\"groupInfo\":{\"groupType\":\"actual\",\"previousGroupType\":\"actual\",\"groupId\":\"NO_GROUP\",\"previousGroupId\":\"NO_GROUP\",\"expandedGroupMeta\":{\"expandedGroupId\":null,\"previousExpandedGroupId\":null,\"parentGroupId\":null,\"allSelectedFieldQueryNames\":[]}},\"lineSubChartType\":\"default\",\"actualChartType\":\"groupedBar\",\"groupedBarEnabled\":true,\"varianceWaterfallEnabled\":true,\"templateChanged\":true,\"isOrientChanged\":false,\"fromLandingPage\":false,\"fromToolbar\":false,\"isUserChangedTemplateID\":false,\"isTrellisMenuChanged\":false,\"summaryTable\":false,\"tableLayout\":\"tableOnly\",\"totalSummaryTable\":false,\"lockedTemplateId\":\"\"}",
+      "locale": "en-US",
+      "visualConfig_!!!_migrationSettings": "{\"v1_2_0\":{\"visualConfig\":{\"isResolved\":true}},\"v1_2_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v1_4_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v1_5_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v1_6_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v1_7_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v1_8_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v1_9_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v2_1_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v2_5_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v2_6_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v2_7_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v3_0_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v3_1_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v3_2_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v3_3_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v3_4_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v3_5_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_0_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_0_0_1\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_1_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_1_0_1\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_2_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_3_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_5_0_0\":{\"hiddenProperties\":{\"isResolved\":true},\"dataReductionCustomization\":{\"isResolved\":true}},\"v4_6_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_7_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_9_0_0\":{\"hiddenProperties\":{\"isResolved\":true}},\"v4_9_0_1\":{\"hiddenProperties\":{\"isResolved\":true}},\"v5_0_0_0\":{\"hiddenProperties\":{\"isResolved\":true}}}",
+      "visualStyles": {
+        "background": {
+          "backgroundColor": "#FFFFFF",
+          "isEnabled": true
+        },
+        "border": {
+          "color": "#DDDDDD",
+          "isEnabled": false,
+          "side": "all",
+          "width": 1
+        },
+        "cornerRadius": {
+          "isCustomCornerRadius": false,
+          "isEnabled": true,
+          "radiusBottomLeft": 0,
+          "radiusBottomRight": 0,
+          "radiusTopLeft": 0,
+          "radiusTopRight": 0
+        },
+        "isTooltipEnabled": true,
+        "padding": {
+          "bottomPadding": 5,
+          "isCustomPaddingSize": false,
+          "isEnabled": true,
+          "leftPadding": 5,
+          "rightPadding": 5,
+          "topPadding": 5
+        },
+        "rotation": {
+          "isEnabled": false,
+          "transform": 0
+        },
+        "shadow": {
+          "angle": 135,
+          "blur": 8,
+          "color": "#0000003f",
+          "distance": 10,
+          "isEnabled": false,
+          "opacity": 100,
+          "placement": "outer",
+          "side": "bottom",
+          "width": 0
+        },
+        "showHelperTooltips": true,
+        "showSelectedSeriesInTooltip": false,
+        "tooltipPageId": "auto",
+        "tooltipStyle": {
+          "backgroundColor": "#FFFFFF",
+          "bold": false,
+          "fontFamily": "Segoe UI",
+          "fontSize": 12,
+          "italic": false,
+          "labelColor": "#252423",
+          "underline": false,
+          "valueColor": "#252423"
+        },
+        "tooltipType": "default",
+        "varianceInTooltip": true,
+        "varianceTooltipType": "both"
+      }
+    },
+    "visualStyles": {
+      "background": {
+        "backgroundColor": "#FFFFFF",
+        "isEnabled": true
+      },
+      "border": {
+        "color": "#DDDDDD",
+        "isEnabled": false,
+        "side": "all",
+        "width": 1
+      },
+      "cornerRadius": {
+        "isCustomCornerRadius": false,
+        "isEnabled": true,
+        "radiusBottomLeft": 0,
+        "radiusBottomRight": 0,
+        "radiusTopLeft": 0,
+        "radiusTopRight": 0
+      },
+      "isTooltipEnabled": true,
+      "padding": {
+        "bottomPadding": 5,
+        "isCustomPaddingSize": false,
+        "isEnabled": true,
+        "leftPadding": 5,
+        "rightPadding": 5,
+        "topPadding": 5
+      },
+      "rotation": {
+        "isEnabled": false,
+        "transform": 0
+      },
+      "shadow": {
+        "angle": 135,
+        "blur": 8,
+        "color": "#0000003f",
+        "distance": 10,
+        "isEnabled": false,
+        "opacity": 100,
+        "placement": "outer",
+        "side": "bottom",
+        "width": 0
+      },
+      "showHelperTooltips": true,
+      "showSelectedSeriesInTooltip": false,
+      "tooltipPageId": "auto",
+      "tooltipStyle": {
+        "backgroundColor": "#FFFFFF",
+        "bold": false,
+        "fontFamily": "Segoe UI",
+        "fontSize": 12,
+        "italic": false,
+        "labelColor": "#252423",
+        "underline": false,
+        "valueColor": "#252423"
+      },
+      "tooltipType": "default",
+      "varianceInTooltip": true,
+      "varianceTooltipType": "both"
+    },
+    "visualType": 50
+  }
+}

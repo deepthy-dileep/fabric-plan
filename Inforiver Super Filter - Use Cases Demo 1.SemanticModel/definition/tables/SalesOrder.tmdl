@@ -1,0 +1,50 @@
+table SalesOrder
+	lineageTag: 77608ef5-69f7-499c-8cfd-e9cb73eb0098
+
+	column Channel
+		dataType: string
+		lineageTag: 53113087-2eb7-4a36-a0a5-a96f4fe14a61
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesOrderLineKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 305c76cb-2235-4b6e-b116-5bc47f4cdd74
+		summarizeBy: none
+		sourceColumn: SalesOrderLineKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Order'
+		dataType: string
+		lineageTag: 212e88ad-1717-4e49-9060-3661cd660e4e
+		summarizeBy: none
+		sourceColumn: Sales Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Order Line'
+		dataType: string
+		lineageTag: 458be850-d973-4178-828d-343825715b0a
+		summarizeBy: none
+		sourceColumn: Sales Order Line
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SalesOrder = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\Inforiver Super Filter Webinar\AdventureWorks Sales .xlsx"), null, true),
+				    SalesOrder_Table = Source{[Item="SalesOrder",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SalesOrder_Table,{{"Channel", type text}, {"SalesOrderLineKey", Int64.Type}, {"Sales Order", type text}, {"Sales Order Line", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

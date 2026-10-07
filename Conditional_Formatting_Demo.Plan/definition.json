@@ -1,0 +1,54 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Definition/1.0.0/schema.json",
+  "cube": {
+    "partitionRefIds": []
+  },
+  "semanticModelReference": {
+    "artifactId": 5193994,
+    "connectionId": "2b186b95-f276-459a-b429-718773203a6c",
+    "datasetRelations": [
+      {
+        "dependentArtifactId": 5193994,
+        "settings": "Association"
+      }
+    ],
+    "directLakeMode": false,
+    "directQueryMode": false,
+    "recordGuid": "01a037d3-5e6b-750b-bce8-47a2765247fc",
+    "semanticModelId": "8e18d2df-144e-40b5-95ee-da3f5706bb54",
+    "semanticModelName": "02_FMCG - Demo POC",
+    "semanticModelWorkspaceId": "37a66db5-1c17-4127-a895-2dc0220d4171",
+    "semanticModelWorkspaceName": "Plan Docs",
+    "sourceType": "WORKLOAD",
+    "url": "https://app.powerbi.com/groups/37a66db5-1c17-4127-a895-2dc0220d4171/datasets/8e18d2df-144e-40b5-95ee-da3f5706bb54"
+  },
+  "sheets": [
+    {
+      "displayName": "Intelligence 1",
+      "isHidden": false,
+      "recordGuid": "01a037d3-8687-70fc-9da3-a0bb3578d818",
+      "sheetType": "REPORTING",
+      "workloadItemEntityVisuals": [
+        {
+          "isEmbedded": false,
+          "visualId": "01a037d3-a0f9-719c-9fa1-18ba7d2187d6",
+          "visualType": "ANALYTICS_PLUS"
+        }
+      ]
+    },
+    {
+      "displayName": "Planning 1",
+      "isHidden": false,
+      "recordGuid": "01a03822-de0c-7385-ad71-6a63b8c940fb",
+      "sheetType": "PLANNING",
+      "workloadItemEntityVisuals": [
+        {
+          "isEmbedded": false,
+          "visualId": "01a03822-f254-7739-8045-6f99b396ca11",
+          "visualType": "PLANNING"
+        }
+      ]
+    }
+  ],
+  "workloadItemName": "Conditional_Formatting_Demo"
+}

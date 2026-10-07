@@ -1,0 +1,191 @@
+relationship rel_1
+	fromColumn: '[Fact] Financial'.'Account Key'
+	toColumn: '[Dim] Account'.'Account Key'
+
+relationship rel_2
+	fromColumn: '[Fact] Financial'.'Date Key'
+	toColumn: '[Dim] Date'.'Date Key'
+
+relationship rel_3
+	fromColumn: '[Fact] Financial'.'Geo Key'
+	toColumn: '[Dim] Geography'.'Geo Key'
+
+relationship rel_4
+	fromColumn: '[Fact] Financial'.'Scenario Key'
+	toColumn: '[Dim] Scenario'.'Scenario Key'
+
+relationship rel_5
+	fromColumn: '[Fact] ARR'.'Date Key'
+	toColumn: '[Dim] Date'.'Date Key'
+
+relationship rel_6
+	fromColumn: '[Fact] ARR'.'Geo Key'
+	toColumn: '[Dim] Geography'.'Geo Key'
+
+relationship rel_7
+	fromColumn: '[Fact] ARR'.'Product Key'
+	toColumn: '[Dim] Product'.'Product Key'
+
+relationship rel_8
+	fromColumn: '[Fact] ARR'.'Scenario Key'
+	toColumn: '[Dim] Scenario'.'Scenario Key'
+
+relationship rel_9
+	fromColumn: '[Fact] Headcount'.'Dept Key'
+	toColumn: '[Dim] Department'.'Dept Key'
+
+relationship rel_10
+	fromColumn: '[Fact] Headcount'.'Date Key'
+	toColumn: '[Dim] Date'.'Date Key'
+
+relationship rel_11
+	fromColumn: '[Fact] Headcount'.'Scenario Key'
+	toColumn: '[Dim] Scenario'.'Scenario Key'
+
+relationship rel_13
+	fromColumn: '[Fact] Sales Activity'.'Product Key'
+	toColumn: '[Dim] Product'.'Product Key'
+
+relationship rel_14
+	fromColumn: '[Fact] Sales Activity'.'Date Key'
+	toColumn: '[Dim] Date'.'Date Key'
+
+relationship rel_15
+	fromColumn: '[Fact] Sales Activity'.'Scenario Key'
+	toColumn: '[Dim] Scenario'.'Scenario Key'
+
+relationship rel_16
+	fromColumn: '[Fact] Sales Activity'.'Activity Type Key'
+	toColumn: '[Dim] Activity Type'.'Activity Type Key'
+
+relationship d5486ac7-922a-4b24-bb06-2c136a55036c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Employee'.'Hire Date'
+	toColumn: LocalDateTable_abe62a6d-2a84-4b80-91e5-56ec57370cbb.Date
+
+relationship 4fd954d3-8a42-4ce3-8a10-768da9a9e12f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Employee'.'Termination Date'
+	toColumn: LocalDateTable_1a58cce4-6dde-4a89-b19a-13f8b3da2d8e.Date
+
+relationship 507e0d8c-a9ee-463c-9f49-308c4074a051
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Customer'.'Acquisition Date'
+	toColumn: LocalDateTable_3013041d-252d-4b99-a748-8aca9ded8940.Date
+
+relationship 9d67b318-e8ed-495a-94e8-50615a24db26
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Customer'.'Churn Date'
+	toColumn: LocalDateTable_34fc314f-0d0d-4f43-9130-aba92db42e05.Date
+
+relationship a9101194-26d4-48a5-b080-450029f77550
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Version'.'Effective Date'
+	toColumn: LocalDateTable_f659cdea-c46c-4745-94ae-3ec03e8c1ed3.Date
+
+relationship 71162c7e-45e0-488d-becf-9aef1a3e9f91
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.Start_of_Year
+	toColumn: LocalDateTable_f54af3a0-f63e-428e-957d-be9ca21e4f31.Date
+
+relationship ca0ed526-30b2-4ec7-b352-35daaa2af168
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.End_of_Year
+	toColumn: LocalDateTable_0ddc6423-2317-4123-a37d-b979d0280e3e.Date
+
+relationship d67b9bec-e4f8-4283-baa7-360c7e8c8580
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.Start_of_Month
+	toColumn: LocalDateTable_ab0f3a01-df25-46b0-918b-e355cfd89b05.Date
+
+relationship 950cf3c8-2d36-4c82-b4d2-e8bd5b6e5aaa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.End_of_Month
+	toColumn: LocalDateTable_d8207d29-0bca-4e4c-955a-e0a30b614ae1.Date
+
+relationship 7e7b0717-b329-4301-87cb-bd33a1ca37c7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.'Start of quarter'
+	toColumn: LocalDateTable_c6c2d1d4-5776-4197-899b-74ecae433f0e.Date
+
+relationship 69957946-6fee-483a-9ab8-e82046620cfc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.'End of quarter'
+	toColumn: LocalDateTable_7c59de87-50d4-4dc1-a261-cffbc3366665.Date
+
+relationship b4a249c0-73f4-46e2-9ffd-fa8e3a3efb0a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.'Start of week'
+	toColumn: LocalDateTable_777ba950-a0f1-4a7d-b88f-07c171ec208b.Date
+
+relationship d363194c-9825-4779-a2c7-f1dc4d35847b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.'End of week'
+	toColumn: LocalDateTable_4b116c72-dbd9-44b1-82f9-c869f6e4fa8f.Date
+
+relationship f925caf6-eb9d-4cfd-9a8e-6cdaaf6dd3aa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.Prev_Day
+	toColumn: LocalDateTable_d3725e34-5d1b-48b3-b122-a6975437eb1f.Date
+
+relationship ef9086e2-5490-4810-8f46-8d9b7a913eab
+	joinOnDateBehavior: datePartOnly
+	fromColumn: '[Dim] Date'.Date
+	toColumn: LocalDateTable_c89ef83e-d7f3-4363-9c78-e14ec0c0b34a.Date
+
+relationship AutoDetected_5802ea32-cf9e-43d1-b1c3-42b8c9d52dae
+	fromColumn: '[Fact] Financial'.VersionKey
+	toColumn: '[Dim] Version'.'Version Key'
+
+relationship AutoDetected_783ed780-968e-47d2-a8a2-feb56dd93208
+	fromColumn: '[Fact] ARR'.VersionKey
+	toColumn: '[Dim] Version'.'Version Key'
+
+relationship AutoDetected_63bbe35b-29a3-43f4-9258-082e8c8fe9ef
+	fromColumn: '[Fact] Headcount'.VersionKey
+	toColumn: '[Dim] Version'.'Version Key'
+
+relationship AutoDetected_0b07b602-76fc-4284-9cdb-6d865b21f6dc
+	fromColumn: '[Fact] Financial'.EntityKey
+	toColumn: '[Dim] Entity'.'Entity Key'
+
+relationship AutoDetected_5b2a0347-b60c-4e7c-b390-dbece2a3b922
+	fromColumn: '[Fact] ARR'.EntityKey
+	toColumn: '[Dim] Entity'.'Entity Key'
+
+relationship AutoDetected_06999f5a-f945-47c7-97d1-d0afcbf454fa
+	fromColumn: '[Fact] Headcount'.EntityKey
+	toColumn: '[Dim] Entity'.'Entity Key'
+
+relationship AutoDetected_5561771e-1016-4671-a02b-e96dbb007d29
+	fromColumn: '[Fact] Headcount'.AccountKey
+	toColumn: '[Dim] Account'.'Account Key'
+
+relationship AutoDetected_b280ecc4-6f5f-4396-a2ce-a801a4d3169a
+	fromColumn: '[Fact] Headcount'.GeoKey
+	toColumn: '[Dim] Geography'.'Geo Key'
+
+relationship AutoDetected_471037db-2407-4203-978d-4c431cdb1768
+	fromColumn: '[Fact] Sales Activity'.GeoKey
+	toColumn: '[Dim] Geography'.'Geo Key'
+
+relationship AutoDetected_48711241-4cae-419d-8ebc-25b42cbadd09
+	fromColumn: '[Fact] Headcount'.EmployeeKey
+	toColumn: '[Dim] Employee'.'Employee Key'
+
+relationship AutoDetected_a3316c3b-8a7b-4cb1-b540-e4bf6166e553
+	fromColumn: '[Fact] ARR'.CustomerKey
+	toColumn: '[Dim] Customer'.'Customer Key'
+
+relationship d8915b74-dff4-09a2-f81a-d1f8d04c7fd8
+	fromColumn: '[Fact] Sales Activity'.'Customer Key'
+	toColumn: '[Dim] Customer'.'Customer Key'
+
+relationship 39adc868-ed02-1c94-2a76-1c712eba68cc
+	fromColumn: '[Dim] Dept Account Bridge'.DeptKey
+	toColumn: '[Dim] Department'.'Dept Key'
+
+relationship ae600e2c-28aa-f236-b2b7-066a794e4c3a
+	fromColumn: '[Dim] Dept Account Bridge'.AccountKey
+	toColumn: '[Dim] Account'.'Account Key'
+

@@ -1,0 +1,46 @@
+relationship 9e066033-fdab-430b-b206-9de3bace664b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.Date
+	toColumn: LocalDateTable_182813d3-0c01-4d6f-a8f3-dc0f083498f5.Date
+
+relationship AutoDetected_90f8f512-0124-4980-847c-474066cb4733
+	fromColumn: Sales.CustomerKey
+	toColumn: Customer.CustomerKey
+
+relationship AutoDetected_18eae769-efd0-46d6-a0f7-25cfb0f546db
+	fromColumn: Sales.ProductKey
+	toColumn: Product.ProductKey
+
+relationship AutoDetected_e369ad52-fb2c-4d53-8755-803a49371d5f
+	fromColumn: Sales.ResellerKey
+	toColumn: Reseller.ResellerKey
+
+relationship AutoDetected_a8bc5a1d-db81-478a-b377-17a6ee6081c3
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: SalesOrder.SalesOrderLineKey
+	toColumn: Sales.SalesOrderLineKey
+
+relationship a9b99c35-888b-777a-5316-4a4245b54e86
+	fromColumn: Sales.SalesTerritoryKey
+	toColumn: SalesTerritory.SalesTerritoryKey
+
+relationship b0f59d25-ac59-4620-a8eb-9d9e8fca478f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Sales.'Ship Date'
+	toColumn: LocalDateTable_6c1fe297-b102-4eb2-852c-7a546bb72f50.Date
+
+relationship 162ac562-2a30-0c83-b212-a6d8744dbc7c
+	fromColumn: Sales.'Order Date'
+	toColumn: Date.Date
+
+relationship f426b895-590f-407f-acdc-e2a1257fc730
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Event.'Event Date Time'
+	toColumn: LocalDateTable_ff811321-4013-4869-96ad-a0f2f4e0ef95.Date
+
+relationship 686c8ffd-dd72-3c54-ad3d-840bed49b118
+	crossFilteringBehavior: bothDirections
+	fromColumn: Reseller.Country-Region
+	toColumn: Regions.Country
+

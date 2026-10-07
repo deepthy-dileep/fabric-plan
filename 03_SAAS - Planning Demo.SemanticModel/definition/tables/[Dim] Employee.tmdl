@@ -1,0 +1,292 @@
+/// 704 NovaTerra employees with seniority hierarchy, manager parent key, department assignment, and USD base salary. Actuals headcount in FactHeadcount is derived directly from DimEmployee hire and termination dates — single source of truth.
+table '[Dim] Employee'
+	lineageTag: 1c6ecbdd-b950-4bd2-809d-a37da06cf6e0
+
+	/// Surrogate key. Hidden.
+	column 'Employee Key'
+		dataType: string
+		lineageTag: 9bffa9d0-ada1-48c6-a97f-ba53e6aa60a4
+		summarizeBy: none
+		sourceColumn: EmployeeKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Full name — generated using country-matched name pools.
+	column 'Employee Name'
+		dataType: string
+		lineageTag: b09df5e2-5686-4d74-806a-37b216f9f5bb
+		summarizeBy: none
+		sourceColumn: EmployeeName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// M or F — use in workforce diversity analysis.
+	column Gender
+		dataType: string
+		lineageTag: 53bb6e6d-77b2-4ca0-b347-07cb7aa6f4ea
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Department. Hidden.
+	column 'Dept Key'
+		dataType: string
+		isHidden
+		lineageTag: a80fe6b7-3e65-4a43-bfa9-8cb429039243
+		summarizeBy: none
+		sourceColumn: DeptKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Geography. Hidden.
+	column 'Geo Key'
+		dataType: string
+		isHidden
+		lineageTag: f486cb99-d639-4250-92fd-8608aeaadc50
+		summarizeBy: none
+		sourceColumn: GeoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Employee home country.
+	column Country
+		dataType: string
+		lineageTag: 8f8bdb96-7d86-4127-bf15-e6acd4288223
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Employee home city.
+	column City
+		dataType: string
+		lineageTag: a7112e89-3bd0-4a2f-be9d-ffdd397be3ca
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Career level: C-Suite, VP, Director, Senior Manager, Manager, Senior IC, or Individual Contributor.
+	column 'Seniority Level'
+		dataType: string
+		lineageTag: c06af1a7-bb90-416d-8b5f-7fdf7593b02e
+		summarizeBy: none
+		sourceColumn: SeniorityLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date the employee joined NovaTerra. Used to compute Actuals headcount in FactHeadcount.
+	column 'Hire Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8c63f834-4eb8-4435-b713-70ed3db0cc08
+		summarizeBy: none
+		sourceColumn: HireDate
+
+		variation Variation
+			isDefault
+			relationship: d5486ac7-922a-4b24-bb06-2c136a55036c
+			defaultHierarchy: LocalDateTable_abe62a6d-2a84-4b80-91e5-56ec57370cbb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// Date the employee left. Null for active employees. Used to compute Actuals headcount in FactHeadcount.
+	column 'Termination Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a07f2fd6-dece-4c97-acd3-e78955bc603f
+		summarizeBy: none
+		sourceColumn: TerminationDate
+
+		variation Variation
+			isDefault
+			relationship: 4fd954d3-8a42-4ce3-8a10-768da9a9e12f
+			defaultHierarchy: LocalDateTable_1a58cce4-6dde-4a89-b19a-13f8b3da2d8e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// True for employees still employed at the dataset end date. Total active count matches FactHeadcount Actuals for the latest month.
+	column 'Is Active'
+		dataType: string
+		lineageTag: 2c5c00cb-af04-4cfb-ba63-021c83fa9124
+		summarizeBy: none
+		sourceColumn: IsActive
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Annual base salary in USD. FactHeadcount.FullyLoadedCost is computed as BaseSalary_USD / 12 × 1.35 — this is the single source of truth for salary data.
+	column 'Base Salary (USD)'
+		dataType: string
+		lineageTag: ed62025b-c3ea-4ed4-9106-2194fcb0fe97
+		summarizeBy: none
+		sourceColumn: BaseSalary_USD
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Full-time or Contractor. 90% of employees are full-time.
+	column 'Employment Type'
+		dataType: string
+		lineageTag: 2424b2e3-aab8-415c-9377-e7b9a73b0307
+		summarizeBy: none
+		sourceColumn: EmploymentType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Self-referencing parent key — EmployeeKey of the direct manager. Null for C-Suite. Hidden — use SeniorityHierarchyPath for org chart visuals.
+	column 'Manager Employee Key'
+		dataType: string
+		isHidden
+		lineageTag: a265eac1-8cdf-4aac-836d-23665672c829
+		summarizeBy: none
+		sourceColumn: ManagerEmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Pipe-delimited path from C-Suite down to this employee's seniority level. Use with Power BI PATH() for org chart drill-downs.
+	column 'Seniority Hierarchy Path'
+		dataType: string
+		lineageTag: 635ef467-2005-49f8-b187-15369d2e6a51
+		summarizeBy: none
+		sourceColumn: SeniorityHierarchyPath
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Numeric depth in the org hierarchy: C-Suite=1, VP=2, Director=3, Senior Manager=4, Manager=5, Senior IC=6, IC=7.
+	column 'Seniority Depth'
+		dataType: string
+		lineageTag: 1eff7455-67b1-4054-8266-b5e8199c6be4
+		summarizeBy: none
+		sourceColumn: SeniorityDepth
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 1'
+		dataType: string
+		isHidden
+		lineageTag: ed1f19fb-41b5-4fc3-9f99-4df01d687540
+		summarizeBy: none
+		sourceColumn: Level 1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 2'
+		dataType: string
+		isHidden
+		lineageTag: e6e654a0-3093-4cd7-9c8f-2970f47aec18
+		summarizeBy: none
+		sourceColumn: Level 2
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 3'
+		dataType: string
+		isHidden
+		lineageTag: fccbecbc-ae4a-4a73-8ce7-a8e8baed1545
+		summarizeBy: none
+		sourceColumn: Level 3
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 4'
+		dataType: string
+		isHidden
+		lineageTag: 1260efed-aa73-4e30-aca0-6d1d2d616eeb
+		summarizeBy: none
+		sourceColumn: Level 4
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 5'
+		dataType: string
+		isHidden
+		lineageTag: ec390cd8-0f14-4d9d-93dd-b7844a7c16bf
+		summarizeBy: none
+		sourceColumn: Level 5
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 6'
+		dataType: string
+		isHidden
+		lineageTag: c160c35c-a71d-47be-b9fe-36de95e99b5a
+		summarizeBy: none
+		sourceColumn: Level 6
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 7'
+		dataType: string
+		isHidden
+		lineageTag: 36525fa0-5215-47ad-9674-d0b6c307fbbe
+		summarizeBy: none
+		sourceColumn: Level 7
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy '[H] Employee Hierarchy'
+		lineageTag: d8e87ddf-7760-4a86-9d9b-f0d55df0c02d
+
+		level 'Level 1'
+			lineageTag: a6eda222-3eea-4992-92c3-0619382768a8
+			column: 'Level 1'
+
+		level 'Level 2'
+			lineageTag: 1011d56b-a60e-415c-87f6-9534ef2b38ab
+			column: 'Level 2'
+
+		level 'Level 3'
+			lineageTag: 95416e78-4c0e-4524-94f2-e85caef9662a
+			column: 'Level 3'
+
+		level 'Level 4'
+			lineageTag: 39508ac4-0396-406e-9e67-7c4d7c43df7c
+			column: 'Level 4'
+
+		level 'Level 5'
+			lineageTag: dd32f4ca-052a-439b-98d1-3bf3ad60e79c
+			column: 'Level 5'
+
+		level 'Level 6'
+			lineageTag: 3ed98f51-0a88-40ce-8ce8-72f8e3ce16a7
+			column: 'Level 6'
+
+		level 'Level 7'
+			lineageTag: 808bba97-5f31-43f3-84dd-2819868667aa
+			column: 'Level 7'
+
+	partition DimEmployee = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimEmployee.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"HireDate", type date}, {"TerminationDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
