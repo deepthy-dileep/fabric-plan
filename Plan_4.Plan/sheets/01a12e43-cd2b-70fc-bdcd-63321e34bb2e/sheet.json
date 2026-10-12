@@ -78,6 +78,7 @@
       }
     },
     "commentary": {
+      "activeBookmarkId": null,
       "annotation": {
         "settings": {
           "annotationText": {},
