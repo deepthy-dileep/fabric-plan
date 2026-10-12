@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Definition/1.0.0/schema.json",
+  "cube": {
+    "partitionRefIds": []
+  },
+  "semanticModelReference": {
+    "artifactId": 5386997,
+    "datasetRelations": [
+      {
+        "dependentArtifactId": 5386997,
+        "settings": "Association"
+      }
+    ],
+    "directLakeMode": false,
+    "directQueryMode": false,
+    "recordGuid": "01a129dc-68f9-77e9-8d7e-8152f031b00c",
+    "semanticModelId": "9f53937d-068b-4f63-baf1-42f47d2c8c54",
+    "semanticModelName": "Enterprise - Core Sales & Revenue",
+    "semanticModelWorkspaceId": "949eb32c-f204-46c9-8cc3-d66a2f6e16b7",
+    "semanticModelWorkspaceName": "Org Semantic Models",
+    "sourceType": "WORKLOAD",
+    "url": "https://app.powerbi.com/groups/949eb32c-f204-46c9-8cc3-d66a2f6e16b7/datasets/9f53937d-068b-4f63-baf1-42f47d2c8c54"
+  },
+  "sheets": [
+    {
+      "displayName": "Planning 1",
+      "isHidden": false,
+      "recordGuid": "01a12e43-cd2b-70fc-bdcd-63321e34bb2e",
+      "sheetType": "PLANNING",
+      "workloadItemEntityVisuals": [
+        {
+          "isEmbedded": false,
+          "visualId": "01a12e43-d743-73b4-ad19-8b3c2f7fa9b2",
+          "visualType": "PLANNING"
+        }
+      ]
+    }
+  ],
+  "workloadItemName": "Plan_4"
+}
