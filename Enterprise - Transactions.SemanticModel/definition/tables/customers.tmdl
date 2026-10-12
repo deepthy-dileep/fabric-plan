@@ -1,0 +1,134 @@
+table customers
+	lineageTag: b32757d3-6a5f-4639-a962-364ef28a95b9
+	sourceLineageTag: [dbo].[customers]
+
+	column customer_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: d94fc2c4-c797-4c74-9b3f-833ec958d51a
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 5d7e02c8-057b-48f5-aa77-3b5d41bea139
+		sourceLineageTag: customer_name
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_rep_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 21e06cae-d2ba-4ca5-afce-56e4c57940c4
+		sourceLineageTag: sales_rep_id
+		summarizeBy: none
+		sourceColumn: sales_rep_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_type
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 22db0a93-3f06-4fb7-87ef-14ad169874e9
+		sourceLineageTag: customer_type
+		summarizeBy: none
+		sourceColumn: customer_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_region
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 98ee3e42-f4fa-4e69-a7c1-30257cf21ec2
+		sourceLineageTag: customer_region
+		summarizeBy: none
+		sourceColumn: customer_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_country
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 73abe4d2-e7ab-4643-8736-3fb47e75fc50
+		sourceLineageTag: customer_country
+		summarizeBy: none
+		sourceColumn: customer_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 6832b113-76f8-4ad5-b2b0-0f0faf8c64d2
+		sourceLineageTag: customer_city
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_sales_territory
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 50026f88-1322-4c76-815b-a210899a578c
+		sourceLineageTag: customer_sales_territory
+		summarizeBy: none
+		sourceColumn: customer_sales_territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_transaction_currency
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: fc06b7b8-983b-4a51-999e-5297b11253ef
+		sourceLineageTag: customer_transaction_currency
+		summarizeBy: none
+		sourceColumn: customer_transaction_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column territory_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 6755bd69-e4e2-483e-b5ec-d45097d7d965
+		sourceLineageTag: territory_id
+		summarizeBy: none
+		sourceColumn: territory_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_tier
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: eb710ac9-5309-4b4b-ae23-a38f3f61e92a
+		sourceLineageTag: customer_tier
+		summarizeBy: none
+		sourceColumn: customer_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column MSSQL_System_Uniquifier_1957582012
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 6e6da50a-9d56-4c9c-860d-1610145715c8
+		sourceLineageTag: MSSQL_System_Uniquifier_1957582012
+		summarizeBy: none
+		sourceColumn: MSSQL_System_Uniquifier_1957582012
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customers = entity
+		mode: directLake
+		source
+			entityName: customers
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

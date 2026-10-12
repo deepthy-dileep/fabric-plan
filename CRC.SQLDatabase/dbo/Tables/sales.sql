@@ -1,0 +1,42 @@
+CREATE TABLE [dbo].[sales] (
+    [date_id]                       NVARCHAR (MAX)   NULL,
+    [date]                          NVARCHAR (MAX)   NULL,
+    [customer_id]                   NVARCHAR (MAX)   NULL,
+    [sales_rep_id]                  NVARCHAR (MAX)   NULL,
+    [customer_name]                 NVARCHAR (MAX)   NULL,
+    [customer_type]                 NVARCHAR (MAX)   NULL,
+    [customer_region]               NVARCHAR (MAX)   NULL,
+    [customer_country]              NVARCHAR (MAX)   NULL,
+    [customer_city]                 NVARCHAR (MAX)   NULL,
+    [customer_sales_territory]      NVARCHAR (MAX)   NULL,
+    [customer_transaction_currency] NVARCHAR (MAX)   NULL,
+    [territory_id]                  NVARCHAR (MAX)   NULL,
+    [sku_id]                        NVARCHAR (MAX)   NULL,
+    [sku_code]                      NVARCHAR (MAX)   NULL,
+    [category]                      NVARCHAR (MAX)   NULL,
+    [variant]                       NVARCHAR (MAX)   NULL,
+    [pack_format]                   NVARCHAR (MAX)   NULL,
+    [multipack]                     NVARCHAR (MAX)   NULL,
+    [invoice_id]                    NVARCHAR (MAX)   NULL,
+    [invoice_line_number]           NVARCHAR (MAX)   NULL,
+    [gross_sale_units]              NVARCHAR (MAX)   NULL,
+    [exchange_rate]                 NVARCHAR (MAX)   NULL,
+    [selling_price_gc]              NVARCHAR (MAX)   NULL,
+    [gross_revenue_gc]              NVARCHAR (MAX)   NULL,
+    [discount_gc]                   NVARCHAR (MAX)   NULL,
+    [net_revenue_gc]                NVARCHAR (MAX)   NULL,
+    [cogs_gc]                       NVARCHAR (MAX)   NULL,
+    [total_cogs_gc]                 NVARCHAR (MAX)   NULL,
+    [gross_profit_gc]               NVARCHAR (MAX)   NULL,
+    [selling_price_lc]              NVARCHAR (MAX)   NULL,
+    [gross_revenue_lc]              DECIMAL (28, 12) NULL,
+    [discount_lc]                   NVARCHAR (MAX)   NULL,
+    [net_revenue_lc]                NVARCHAR (MAX)   NULL,
+    [total_cogs_lc]                 NVARCHAR (MAX)   NULL,
+    [gross_profit_lc]               NVARCHAR (MAX)   NULL,
+    [promotion]                     NVARCHAR (MAX)   NULL
+);
+
+
+GO
+

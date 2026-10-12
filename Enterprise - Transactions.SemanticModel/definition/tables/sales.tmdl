@@ -1,0 +1,388 @@
+table sales
+	lineageTag: c7e8a1dc-5a1b-4a14-b97f-88b7434c986a
+	sourceLineageTag: [dbo].[sales]
+
+	column date_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: f2ad859b-dc1b-4130-b259-1266ae9120de
+		sourceLineageTag: date_id
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 51aea21b-f046-4614-9a20-c053c044cc93
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 3686b359-c37c-4dfd-ae20-2f5167c43791
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_rep_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 886f76fc-52e5-4467-bdb1-e8c18fbd74e3
+		sourceLineageTag: sales_rep_id
+		summarizeBy: none
+		sourceColumn: sales_rep_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 70096a9e-b858-42e8-8645-f7cc769926f2
+		sourceLineageTag: customer_name
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_type
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: d8c3046c-838a-46f7-bb72-94dfc8116e14
+		sourceLineageTag: customer_type
+		summarizeBy: none
+		sourceColumn: customer_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_region
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 8e9b4b03-d749-4527-adbc-7994a99784cd
+		sourceLineageTag: customer_region
+		summarizeBy: none
+		sourceColumn: customer_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_country
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 241db692-d0f5-46e9-b288-7515f38110ae
+		sourceLineageTag: customer_country
+		summarizeBy: none
+		sourceColumn: customer_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: ee2c43f1-0633-4b19-8d20-3bd8365b85a1
+		sourceLineageTag: customer_city
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_sales_territory
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 9a45a3bc-3bdb-4e91-8056-752cc20e5cb0
+		sourceLineageTag: customer_sales_territory
+		summarizeBy: none
+		sourceColumn: customer_sales_territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_transaction_currency
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 0dd9e552-1b76-40c3-8465-f1c73090a79c
+		sourceLineageTag: customer_transaction_currency
+		summarizeBy: none
+		sourceColumn: customer_transaction_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column territory_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 78aeae01-69e5-4a3d-8053-6c528daeda6c
+		sourceLineageTag: territory_id
+		summarizeBy: none
+		sourceColumn: territory_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 419fdd62-03bc-4358-8863-333739dfe582
+		sourceLineageTag: sku_id
+		summarizeBy: none
+		sourceColumn: sku_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku_code
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 4fede3da-1bc6-4303-b8b1-bfd586876290
+		sourceLineageTag: sku_code
+		summarizeBy: none
+		sourceColumn: sku_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 44ea6515-6d85-4cca-bf29-b00ec2b6fe35
+		sourceLineageTag: category
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column variant
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: b399f998-5b8c-4c67-9a42-696d1305b08e
+		sourceLineageTag: variant
+		summarizeBy: none
+		sourceColumn: variant
+
+		annotation SummarizationSetBy = Automatic
+
+	column pack_format
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 991aaa2d-120a-48bf-8957-0640d09bc3eb
+		sourceLineageTag: pack_format
+		summarizeBy: none
+		sourceColumn: pack_format
+
+		annotation SummarizationSetBy = Automatic
+
+	column multipack
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: f8b0376d-835f-41d6-861d-95921667704e
+		sourceLineageTag: multipack
+		summarizeBy: none
+		sourceColumn: multipack
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: b9d0d9be-f30c-4ca0-bc05-286413f133ac
+		sourceLineageTag: invoice_id
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_line_number
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 03eef64f-04c1-4c7b-bf4a-81cde490d80a
+		sourceLineageTag: invoice_line_number
+		summarizeBy: none
+		sourceColumn: invoice_line_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_sale_units
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: f523d27b-ef83-4607-9e19-fe7e83404150
+		sourceLineageTag: gross_sale_units
+		summarizeBy: none
+		sourceColumn: gross_sale_units
+
+		annotation SummarizationSetBy = Automatic
+
+	column exchange_rate
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: cb447050-6e56-4b0b-be51-c43e8002f3ad
+		sourceLineageTag: exchange_rate
+		summarizeBy: none
+		sourceColumn: exchange_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column selling_price_gc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: fa9d34b2-c026-454b-b660-29e173138c4f
+		sourceLineageTag: selling_price_gc
+		summarizeBy: none
+		sourceColumn: selling_price_gc
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_revenue_gc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: a874791a-1395-41e2-b279-9d7bcf6bfd7f
+		sourceLineageTag: gross_revenue_gc
+		summarizeBy: none
+		sourceColumn: gross_revenue_gc
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount_gc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 54693b2a-a5d4-4c3c-b1e9-26cd014f274d
+		sourceLineageTag: discount_gc
+		summarizeBy: none
+		sourceColumn: discount_gc
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_revenue_gc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: f9f87904-9d81-4fe5-9e44-7157ad8ef71b
+		sourceLineageTag: net_revenue_gc
+		summarizeBy: none
+		sourceColumn: net_revenue_gc
+
+		annotation SummarizationSetBy = Automatic
+
+	column cogs_gc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 3771002a-4f85-4bf2-9e42-823eb4cbdf1a
+		sourceLineageTag: cogs_gc
+		summarizeBy: none
+		sourceColumn: cogs_gc
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_cogs_gc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 0de365d2-8c1f-4c4a-bb09-2e754b6b773a
+		sourceLineageTag: total_cogs_gc
+		summarizeBy: none
+		sourceColumn: total_cogs_gc
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_profit_gc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 3f51ba28-7154-4ceb-a9fd-bac31944b312
+		sourceLineageTag: gross_profit_gc
+		summarizeBy: none
+		sourceColumn: gross_profit_gc
+
+		annotation SummarizationSetBy = Automatic
+
+	column selling_price_lc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: c6d67087-be4e-4865-ad0b-0dc835628bc5
+		sourceLineageTag: selling_price_lc
+		summarizeBy: none
+		sourceColumn: selling_price_lc
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_revenue_lc
+		dataType: double
+		sourceProviderType: varchar(-1)
+		lineageTag: a27230b3-5c62-4f01-a1ac-92a1e6f1ef25
+		sourceLineageTag: gross_revenue_lc
+		summarizeBy: sum
+		sourceColumn: gross_revenue_lc
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_lc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 75692acd-634b-4092-b8d5-619a70c22cbe
+		sourceLineageTag: discount_lc
+		summarizeBy: none
+		sourceColumn: discount_lc
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_revenue_lc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 8e3d33bd-dc67-4597-8dc4-f85e34d6cd50
+		sourceLineageTag: net_revenue_lc
+		summarizeBy: none
+		sourceColumn: net_revenue_lc
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_cogs_lc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 59719ce6-f9c6-40c4-bc1b-83b372ccb225
+		sourceLineageTag: total_cogs_lc
+		summarizeBy: none
+		sourceColumn: total_cogs_lc
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_profit_lc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 9d9daee4-0bbd-4495-9485-c5d31a4c2ec0
+		sourceLineageTag: gross_profit_lc
+		summarizeBy: none
+		sourceColumn: gross_profit_lc
+
+		annotation SummarizationSetBy = Automatic
+
+	column promotion
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: f315fcb0-a506-4bb7-86ad-9493332a7dc0
+		sourceLineageTag: promotion
+		summarizeBy: none
+		sourceColumn: promotion
+
+		annotation SummarizationSetBy = Automatic
+
+	column MSSQL_System_Uniquifier_2053582354
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: ae47d6ad-a218-4b49-ad2f-8535631394cf
+		sourceLineageTag: MSSQL_System_Uniquifier_2053582354
+		summarizeBy: sum
+		sourceColumn: MSSQL_System_Uniquifier_2053582354
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sales = entity
+		mode: directLake
+		source
+			entityName: sales
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

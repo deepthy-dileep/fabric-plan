@@ -1,0 +1,55 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true,
+    "allowModernRefreshService": true
+  },
+  "name": "Dataflow 1",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "countries": {
+      "queryId": "8cb003a8-610e-42d7-a8af-2503260f73cc",
+      "queryName": "countries"
+    },
+    "customers": {
+      "queryId": "fe2fd77c-cef8-49fb-b49a-412baa0eb760",
+      "queryName": "customers"
+    },
+    "dates2026": {
+      "queryId": "80ef6a14-320e-4c8f-b76e-7652a2f25498",
+      "queryName": "dates2026"
+    },
+    "sales": {
+      "queryId": "e7402651-93f0-4cba-9ac7-35df66a51682",
+      "queryName": "sales"
+    },
+    "sales_reps": {
+      "queryId": "5285869d-3e5b-459e-a74e-28a75ede0138",
+      "queryName": "sales_reps"
+    },
+    "skus": {
+      "queryId": "642549f3-656e-47ee-86a9-24e7aae5a646",
+      "queryName": "skus",
+      "loadEnabled": false
+    },
+    "DefaultDestination": {
+      "queryId": "1790b94a-2ab2-4bea-a0f0-1ff22c1351ea",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "https://microsoftapc-my.sharepoint.com/personal/v-dedileep_microsoft_com/",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"a3b0b3ad-0d62-47ee-9e0e-f712d564c5c2\",\"DatasourceId\":\"732189c5-7952-4aa6-9563-0cb6db1b8c63\"}"
+    },
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"a3b0b3ad-0d62-47ee-9e0e-f712d564c5c2\",\"DatasourceId\":\"b674ea9a-f725-40af-91da-f838b4274a42\"}"
+    }
+  ]
+}

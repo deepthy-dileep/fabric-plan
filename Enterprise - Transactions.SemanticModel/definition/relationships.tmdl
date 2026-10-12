@@ -1,0 +1,16 @@
+relationship 5c5af209-d00c-4123-2c14-1c82e970c7cb
+	fromColumn: sales.sales_rep_id
+	toColumn: sales_reps.sales_rep_id
+
+relationship 10058dd2-1f21-3065-11e2-c72aea2c1ed9
+	fromColumn: sales.date_id
+	toColumn: dates2026.date_id
+
+relationship b750f132-e862-234b-3921-1882c77cc01e
+	fromColumn: sales.sku_id
+	toColumn: skus.sku_id
+
+relationship 0ea2a064-d9ec-87fe-a7dc-0c0d5ed28e36
+	fromColumn: sales.customer_id
+	toColumn: customers.customer_id
+

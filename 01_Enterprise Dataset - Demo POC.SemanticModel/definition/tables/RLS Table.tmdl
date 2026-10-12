@@ -1,0 +1,34 @@
+table 'RLS Table'
+	lineageTag: a81564ee-7187-4af8-8b87-3b7954c7733b
+
+	column Country
+		dataType: string
+		lineageTag: a51ce570-fb4a-4024-aa77-07bddc4032a3
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column MailID
+		dataType: string
+		lineageTag: ed3f8119-91c0-4568-a3ba-a400fa6e4982
+		summarizeBy: none
+		sourceColumn: MailID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'RLS Table' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\RLS Table.csv"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Country", type text}, {"MailID", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

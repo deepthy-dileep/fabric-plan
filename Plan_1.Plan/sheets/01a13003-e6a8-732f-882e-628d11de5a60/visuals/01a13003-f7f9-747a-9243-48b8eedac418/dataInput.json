@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Planning/DataInput/1.0.0/schema.json",
+  "columns": [
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "12735425719148766333",
+        "label": "Sum of gross_revenue_lc",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Sum of gross_revenue_lc"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "12735425719148766333",
+      "name": "Sum of gross_revenue_lc",
+      "visualId": "01a13003-f7f9-747a-9243-48b8eedac418"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Sheets/CommentSettings/1.0.0/schema.json",
+  "allowComment": true,
+  "commentIndicatorDisplay": {
+    "pixel": 10,
+    "position": "right",
+    "type": "arrow"
+  },
+  "enableCommentsColumn": false,
+  "enableStatusColumn": false,
+  "keepCommentPanelOpen": false,
+  "notification": true,
+  "recordGuid": "01a13004-1171-76f4-8f97-6cdccbe45ebf",
+  "rollUpComments": false,
+  "showStarredComments": false
+}

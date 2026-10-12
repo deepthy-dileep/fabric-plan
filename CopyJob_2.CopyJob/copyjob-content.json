@@ -1,0 +1,411 @@
+{
+  "properties": {
+    "jobMode": "Batch",
+    "source": {
+      "type": "DelimitedText",
+      "connectionSettings": {
+        "type": "SharePointOnlineFile",
+        "externalReferences": {
+          "connection": "2fae97a2-54a5-4655-9ba5-44dfa5c26ae3"
+        }
+      }
+    },
+    "destination": {
+      "type": "FabricSqlDatabaseTable",
+      "connectionSettings": {
+        "type": "FabricSqlDatabase",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "7599d66c-b9a4-a3b2-41e7-e45d4d027483"
+        },
+        "externalReferences": {
+          "connection": "1bedc464-8369-443f-8593-bc07dced6269"
+        }
+      }
+    },
+    "policy": {
+      "timeout": "0.12:00:00",
+      "retry": 0
+    }
+  },
+  "activities": [
+    {
+      "id": "16933f8c-7f52-4d9d-9ac4-d9fd6d0facee",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "SharePointOnlineFileStoreLocation",
+              "fileName": "sales.csv",
+              "folderPath": "Documents/Documents/Data"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "multiline": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "sales"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "343cbbd3-4fcb-4102-afb1-234dae806568",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "SharePointOnlineFileStoreLocation",
+              "fileName": "customers.csv",
+              "folderPath": "Documents/Documents/Data"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "multiline": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "customers"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "ae73b9a2-da4d-4a29-bd71-c10d5b8ec402",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "SharePointOnlineFileStoreLocation",
+              "fileName": "skus.csv",
+              "folderPath": "Documents/Documents/Data"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "multiline": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "skus"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "95ac5e36-a769-4dc6-9cc0-7abe411de634",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "SharePointOnlineFileStoreLocation",
+              "fileName": "dates2026.csv",
+              "folderPath": "Documents/Documents/Data"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "multiline": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "dates2026"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "f977360a-088c-4eb1-908e-73d1ed14efd1",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "SharePointOnlineFileStoreLocation",
+              "fileName": "countries.csv",
+              "folderPath": "Documents/Documents/Data"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "multiline": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "countries"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "395123e9-7f05-414a-9fa8-e4c10dd1428f",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "SharePointOnlineFileStoreLocation",
+              "fileName": "regions.csv",
+              "folderPath": "Documents/Documents/Data"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "multiline": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "regions"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "ae8d6de2-82d3-475c-a138-cce9ea4b9462",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "SharePointOnlineFileStoreLocation",
+              "fileName": "sales_reps.csv",
+              "folderPath": "Documents/Documents/Data"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "multiline": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "sales_reps"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "04b7cea6-f1fb-4fe8-aadb-46c043d7ec8a",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "SharePointOnlineFileStoreLocation",
+              "fileName": "territories.csv",
+              "folderPath": "Documents/Documents/Data"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "multiline": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "territories"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "2e57cbb1-5dd9-439f-890a-5800d0da7928",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "SharePointOnlineFileStoreLocation",
+              "fileName": "exchange_rates.csv",
+              "folderPath": "Documents/Documents/Data"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "multiline": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "exchange_rates"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    }
+  ]
+}

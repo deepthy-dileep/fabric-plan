@@ -1,0 +1,82 @@
+/// Planning cycle version registry — one row per planning version (annual budgets and quarterly reforecasts). Used as the Fabric Plan write-back partition key to preserve multiple forecast iterations without overwriting prior versions.
+table '[Dim] Version'
+	lineageTag: 01f20ced-e0a1-453d-a6a8-b008f292e0cf
+
+	/// Surrogate key. Hidden.
+	column 'Version Key'
+		dataType: string
+		isHidden
+		lineageTag: 15bc5d69-8502-46e9-be79-bbb84167661e
+		summarizeBy: none
+		sourceColumn: VersionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Human-readable version label (e.g. FY2025 Budget, Q3 2025 Reforecast). Use in Fabric Plan version selectors.
+	column 'Version Name'
+		dataType: string
+		lineageTag: 34e9affb-5409-4f5e-9015-c24af4c90e6d
+		summarizeBy: none
+		sourceColumn: VersionName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Budget or Forecast — classifies the planning version type.
+	column 'Version Type'
+		dataType: string
+		lineageTag: 3afb682d-d922-4909-9519-ffd8dc0f0f54
+		summarizeBy: none
+		sourceColumn: VersionType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Date the version was created or locked. Use to sort versions chronologically.
+	column 'Effective Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 76b46e1c-5a11-4876-9a9b-aea50a8f2ff7
+		summarizeBy: none
+		sourceColumn: EffectiveDate
+
+		variation Variation
+			isDefault
+			relationship: a9101194-26d4-48a5-b080-450029f77550
+			defaultHierarchy: LocalDateTable_f659cdea-c46c-4745-94ae-3ec03e8c1ed3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// True for closed versions. Fabric Plan should prevent edits to locked versions.
+	column 'Is Locked'
+		dataType: string
+		lineageTag: fb42cc30-d14f-497d-b94c-53675f72f911
+		summarizeBy: none
+		sourceColumn: IsLocked
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Context note explaining what this version represents in the planning cycle.
+	column Description
+		dataType: string
+		lineageTag: fe504d16-ee98-43d0-b521-b4f6c065da6c
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimVersion = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimVersion.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"EffectiveDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

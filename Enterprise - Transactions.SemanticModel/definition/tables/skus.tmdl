@@ -1,0 +1,114 @@
+table skus
+	lineageTag: 3601b582-408b-4b94-a68c-56a173554423
+	sourceLineageTag: [dbo].[skus]
+
+	column sku_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 5b7e94f8-ce11-4782-81cc-9152ecf5c625
+		sourceLineageTag: sku_id
+		summarizeBy: none
+		sourceColumn: sku_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku_code
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 7b49a8f2-06cb-4fb1-b9cc-e478f1c80276
+		sourceLineageTag: sku_code
+		summarizeBy: none
+		sourceColumn: sku_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: e3564ce5-2c07-4399-85d0-93846c064189
+		sourceLineageTag: category
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: d0d47831-8797-4645-9a20-435a9ab09b2b
+		sourceLineageTag: brand
+		summarizeBy: none
+		sourceColumn: brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column variant
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: ae197383-4ce5-40b6-af09-db8575a8c34b
+		sourceLineageTag: variant
+		summarizeBy: none
+		sourceColumn: variant
+
+		annotation SummarizationSetBy = Automatic
+
+	column pack_format
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: f193eef5-326c-4c46-8b93-5d4b2719041a
+		sourceLineageTag: pack_format
+		summarizeBy: none
+		sourceColumn: pack_format
+
+		annotation SummarizationSetBy = Automatic
+
+	column multipack
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 4cdf367d-1d3a-47eb-b9e8-a843f0a5aec3
+		sourceLineageTag: multipack
+		summarizeBy: none
+		sourceColumn: multipack
+
+		annotation SummarizationSetBy = Automatic
+
+	column selling_price_gc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: fcfc2104-2426-475d-8520-c26930731080
+		sourceLineageTag: selling_price_gc
+		summarizeBy: none
+		sourceColumn: selling_price_gc
+
+		annotation SummarizationSetBy = Automatic
+
+	column cogs_gc
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 57b51f72-2dc4-417c-bd0f-8cd931c0dbba
+		sourceLineageTag: cogs_gc
+		summarizeBy: none
+		sourceColumn: cogs_gc
+
+		annotation SummarizationSetBy = Automatic
+
+	column MSSQL_System_Uniquifier_2069582411
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 81a33e95-71f0-41ba-8fba-2590a4165fd4
+		sourceLineageTag: MSSQL_System_Uniquifier_2069582411
+		summarizeBy: none
+		sourceColumn: MSSQL_System_Uniquifier_2069582411
+
+		annotation SummarizationSetBy = Automatic
+
+	partition skus = entity
+		mode: directLake
+		source
+			entityName: skus
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

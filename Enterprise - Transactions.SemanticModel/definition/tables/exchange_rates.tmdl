@@ -1,0 +1,74 @@
+table exchange_rates
+	lineageTag: 25b01996-0c52-407e-a220-3c35cbceffa7
+	sourceLineageTag: [dbo].[exchange_rates]
+
+	column id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 071f9e58-48f2-4c1d-918d-12f3645d7ebf
+		sourceLineageTag: id
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 247f09ec-de44-41d6-9da9-ef05b6350489
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column from_currency
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: d7742761-92c4-4f73-b79a-1c1e596d97df
+		sourceLineageTag: from_currency
+		summarizeBy: none
+		sourceColumn: from_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column to_currency
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: e7da3c2e-97d6-44ff-bcaf-726204018ea4
+		sourceLineageTag: to_currency
+		summarizeBy: none
+		sourceColumn: to_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column exchange_rate
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 61ebfbed-5772-4175-ac92-f0e5128cc4a2
+		sourceLineageTag: exchange_rate
+		summarizeBy: none
+		sourceColumn: exchange_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column MSSQL_System_Uniquifier_1989582126
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 1a1d413c-6a3b-4154-bebe-13aaece0af43
+		sourceLineageTag: MSSQL_System_Uniquifier_1989582126
+		summarizeBy: sum
+		sourceColumn: MSSQL_System_Uniquifier_1989582126
+
+		annotation SummarizationSetBy = Automatic
+
+	partition exchange_rates = entity
+		mode: directLake
+		source
+			entityName: exchange_rates
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

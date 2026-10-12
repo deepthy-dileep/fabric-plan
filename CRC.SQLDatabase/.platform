@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SQLDatabase",
+    "displayName": "CRC"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7599d66c-b9a4-a3b2-41e7-e45d4d027483"
+  }
+}

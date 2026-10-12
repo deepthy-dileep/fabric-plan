@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Plan",
+    "displayName": "Waterfall-demo"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1fc2e3ae-00e3-aa9d-436a-c43ff5b5c993"
+  }
+}

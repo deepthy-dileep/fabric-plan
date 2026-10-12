@@ -1,0 +1,74 @@
+table sales_reps
+	lineageTag: f29e2f0b-25d6-4342-bbb4-7281c28f51e5
+	sourceLineageTag: [dbo].[sales_reps]
+
+	column sales_rep_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 4454956c-4e9c-444f-9adf-80c37f1a534a
+		sourceLineageTag: sales_rep_id
+		summarizeBy: none
+		sourceColumn: sales_rep_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_rep_name
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: a8207145-e40d-4c42-bd62-cd287d41f912
+		sourceLineageTag: sales_rep_name
+		summarizeBy: none
+		sourceColumn: sales_rep_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_rep_email
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 282a1fe0-8752-4229-9c31-55872e7450e3
+		sourceLineageTag: sales_rep_email
+		summarizeBy: none
+		sourceColumn: sales_rep_email
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_rep_region
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 9f663fce-9807-409a-8420-03263048121e
+		sourceLineageTag: sales_rep_region
+		summarizeBy: none
+		sourceColumn: sales_rep_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column primary_territory_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 185e11ba-7506-4d7a-b13b-ec1c0f461a4e
+		sourceLineageTag: primary_territory_id
+		summarizeBy: none
+		sourceColumn: primary_territory_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column MSSQL_System_Uniquifier_2021582240
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: f74fbbc9-40a9-441f-96fd-0b6a7a791525
+		sourceLineageTag: MSSQL_System_Uniquifier_2021582240
+		summarizeBy: none
+		sourceColumn: MSSQL_System_Uniquifier_2021582240
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sales_reps = entity
+		mode: directLake
+		source
+			entityName: sales_reps
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

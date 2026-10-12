@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Enterprise - Transactions"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0be0d024-c191-99d6-46a3-501002334c2c"
+  }
+}

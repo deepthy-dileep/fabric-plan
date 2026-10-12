@@ -1,0 +1,29 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Customer","Date","Product","Reseller","Sales","SalesOrder","SalesTerritory","DAX Measures","Regions","Event"]
+
+ref table DateTableTemplate_f3f56d62-e8f9-4859-b2bb-7d86f9498991
+ref table Customer
+ref table Date
+ref table LocalDateTable_182813d3-0c01-4d6f-a8f3-dc0f083498f5
+ref table Product
+ref table Reseller
+ref table Sales
+ref table SalesOrder
+ref table SalesTerritory
+ref table LocalDateTable_6c1fe297-b102-4eb2-852c-7a546bb72f50
+ref table 'DAX Measures'
+ref table Regions
+ref table Event
+ref table LocalDateTable_ff811321-4013-4869-96ad-a0f2f4e0ef95
+
+ref cultureInfo en-US
+

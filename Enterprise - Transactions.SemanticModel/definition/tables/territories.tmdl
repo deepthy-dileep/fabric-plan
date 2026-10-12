@@ -1,0 +1,54 @@
+table territories
+	lineageTag: 6a84ede1-03ec-44d5-b3c7-c26427f8bd17
+	sourceLineageTag: [dbo].[territories]
+
+	column territory_id
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 3fd719dc-1d73-4701-bffb-635028641ba0
+		sourceLineageTag: territory_id
+		summarizeBy: none
+		sourceColumn: territory_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column territory_name
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 764284b1-61a4-49ce-9f3a-82243140f10a
+		sourceLineageTag: territory_name
+		summarizeBy: none
+		sourceColumn: territory_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column territory_region
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: f924d9c3-a128-4560-8653-862f9cb64926
+		sourceLineageTag: territory_region
+		summarizeBy: none
+		sourceColumn: territory_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column MSSQL_System_Uniquifier_1941581955
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: d2f130db-a334-40eb-b3da-9ee75c1897e5
+		sourceLineageTag: MSSQL_System_Uniquifier_1941581955
+		summarizeBy: sum
+		sourceColumn: MSSQL_System_Uniquifier_1941581955
+
+		annotation SummarizationSetBy = Automatic
+
+	partition territories = entity
+		mode: directLake
+		source
+			entityName: territories
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

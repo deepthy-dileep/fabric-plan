@@ -1,0 +1,74 @@
+table Customer
+	lineageTag: c49258ee-1baa-4d4d-b0f9-788139e1d7bd
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f6f6afa2-3f3e-48b9-8e70-cd4fb8aadb81
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: 0329fb91-6ef0-4e3c-876d-c96ce26b52b8
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer
+		dataType: string
+		lineageTag: d8753a20-10c2-4f6a-8ac9-f41f0c84b02f
+		summarizeBy: none
+		sourceColumn: Customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: de7f68a3-63ee-43ea-8c8f-6125feb51701
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State-Province
+		dataType: string
+		lineageTag: d1afc4ab-2e49-4ee5-ab3b-3660f44404b6
+		summarizeBy: none
+		sourceColumn: State-Province
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country-Region
+		dataType: string
+		lineageTag: e608dd8b-084b-4d67-8aaf-ceeb3b7f6ea3
+		summarizeBy: none
+		sourceColumn: Country-Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Postal Code'
+		dataType: string
+		lineageTag: 6a4356d0-d78a-49c3-a674-d4ccd921697f
+		summarizeBy: none
+		sourceColumn: Postal Code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customer = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\Inforiver Super Filter Webinar\AdventureWorks Sales .xlsx"), null, true),
+				    Customer_Table = Source{[Item="Customer",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Customer_Table,{{"CustomerKey", Int64.Type}, {"Customer ID", type text}, {"Customer", type text}, {"City", type text}, {"State-Province", type text}, {"Country-Region", type text}, {"Postal Code", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

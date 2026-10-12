@@ -1,0 +1,44 @@
+table regions
+	lineageTag: e622c49f-c944-40e1-bd44-3369f42cb195
+	sourceLineageTag: [dbo].[regions]
+
+	column region_code
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 0d178a38-a805-4fa3-a206-aff39afe9571
+		sourceLineageTag: region_code
+		summarizeBy: none
+		sourceColumn: region_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_name
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 9f7c1d6d-a8e2-4131-ac61-45468e4ff895
+		sourceLineageTag: region_name
+		summarizeBy: none
+		sourceColumn: region_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column MSSQL_System_Uniquifier_1973582069
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 32ff488c-bb77-43a0-9cbe-d69cbd390be6
+		sourceLineageTag: MSSQL_System_Uniquifier_1973582069
+		summarizeBy: sum
+		sourceColumn: MSSQL_System_Uniquifier_1973582069
+
+		annotation SummarizationSetBy = Automatic
+
+	partition regions = entity
+		mode: directLake
+		source
+			entityName: regions
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

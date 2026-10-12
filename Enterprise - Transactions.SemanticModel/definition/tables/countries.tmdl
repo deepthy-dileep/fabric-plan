@@ -1,0 +1,54 @@
+table countries
+	lineageTag: 4ba74069-e130-462a-8eef-80b5058ec744
+	sourceLineageTag: [dbo].[countries]
+
+	column country_code
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: bdbffcee-f9d6-4d7a-b700-72cc2d60bf0f
+		sourceLineageTag: country_code
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_name
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: e864fb7e-3e81-46f6-8cab-2352ac149271
+		sourceLineageTag: country_name
+		summarizeBy: none
+		sourceColumn: country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_code
+		dataType: string
+		sourceProviderType: varchar(-1)
+		lineageTag: 2d1ff05c-f6cf-4be0-b1e3-ef4f943008fc
+		sourceLineageTag: region_code
+		summarizeBy: none
+		sourceColumn: region_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column MSSQL_System_Uniquifier_2005582183
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 299361f2-75c2-49c9-9cfa-ef8854c6eb4a
+		sourceLineageTag: MSSQL_System_Uniquifier_2005582183
+		summarizeBy: sum
+		sourceColumn: MSSQL_System_Uniquifier_2005582183
+
+		annotation SummarizationSetBy = Automatic
+
+	partition countries = entity
+		mode: directLake
+		source
+			entityName: countries
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
