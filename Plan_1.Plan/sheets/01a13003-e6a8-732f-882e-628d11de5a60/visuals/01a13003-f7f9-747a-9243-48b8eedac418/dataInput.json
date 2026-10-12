@@ -20,6 +20,46 @@
       "measureGuid": "12735425719148766333",
       "name": "Sum of gross_revenue_lc",
       "visualId": "01a13003-f7f9-747a-9243-48b8eedac418"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "100580063433410848",
+        "label": "Sum of discount_gc",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Sum of discount_gc"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "100580063433410848",
+      "name": "Sum of discount_gc",
+      "visualId": "01a13003-f7f9-747a-9243-48b8eedac418"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "5810866893230341104",
+        "label": "Sum of gross_profit_gc",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Sum of gross_profit_gc"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "5810866893230341104",
+      "name": "Sum of gross_profit_gc",
+      "visualId": "01a13003-f7f9-747a-9243-48b8eedac418"
     }
   ]
 }

@@ -243,14 +243,18 @@ table sales
 		annotation SummarizationSetBy = Automatic
 
 	column discount_gc
-		dataType: string
+		dataType: double
 		sourceProviderType: varchar(-1)
 		lineageTag: 54693b2a-a5d4-4c3c-b1e9-26cd014f274d
 		sourceLineageTag: discount_gc
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: discount_gc
 
+		changedProperty = DataType
+
 		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column net_revenue_gc
 		dataType: string
@@ -283,14 +287,18 @@ table sales
 		annotation SummarizationSetBy = Automatic
 
 	column gross_profit_gc
-		dataType: string
+		dataType: double
 		sourceProviderType: varchar(-1)
 		lineageTag: 3f51ba28-7154-4ceb-a9fd-bac31944b312
 		sourceLineageTag: gross_profit_gc
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: gross_profit_gc
 
+		changedProperty = DataType
+
 		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column selling_price_lc
 		dataType: string
