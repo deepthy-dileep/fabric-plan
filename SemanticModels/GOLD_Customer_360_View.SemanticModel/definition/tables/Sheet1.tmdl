@@ -1,0 +1,88 @@
+table Sheet1
+	lineageTag: 5ae2f207-a22c-420e-9434-919c5edfb85c
+
+	column 'Quantity AC'
+		dataType: int64
+		formatString: 0
+		lineageTag: 465b7626-8754-4ed6-81bf-afa31fd9f862
+		summarizeBy: sum
+		sourceColumn: Quantity AC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quantity TGT'
+		dataType: int64
+		formatString: 0
+		lineageTag: 400b0c73-c1c9-4250-991d-63234f13dc92
+		summarizeBy: sum
+		sourceColumn: Quantity TGT
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Profit AC'
+		dataType: int64
+		formatString: 0
+		lineageTag: f08bc37b-0571-42eb-83eb-96f7103794b7
+		summarizeBy: sum
+		sourceColumn: Profit AC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Profit TGT'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d317ad7-b60e-4466-902d-c75a5aa19876
+		summarizeBy: sum
+		sourceColumn: Profit TGT
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cost AC'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e963ac0-0714-45d0-9fa8-d04dc63dfdc0
+		summarizeBy: sum
+		sourceColumn: Cost AC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cost TGT'
+		dataType: int64
+		formatString: 0
+		lineageTag: d5804adb-dfef-4ce7-89c4-d1b969534fc6
+		summarizeBy: sum
+		sourceColumn: Cost TGT
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales AC'
+		dataType: int64
+		formatString: 0
+		lineageTag: 13764e2b-225a-4af2-85d2-f20ce52af533
+		summarizeBy: sum
+		sourceColumn: Sales AC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales TGT'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a045ed7-0997-4fbe-adf7-286515e791e7
+		summarizeBy: sum
+		sourceColumn: Sales TGT
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sheet1 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\DeepthyDileep\Downloads\MultiMeasureBulletChart.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Quantity AC", Int64.Type}, {"Quantity TGT", Int64.Type}, {"Profit AC", Int64.Type}, {"Profit TGT", Int64.Type}, {"Cost AC", Int64.Type}, {"Cost TGT", Int64.Type}, {"Sales AC", Int64.Type}, {"Sales TGT", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

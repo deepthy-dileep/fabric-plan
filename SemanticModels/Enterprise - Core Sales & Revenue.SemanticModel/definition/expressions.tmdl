@@ -1,0 +1,6 @@
+/// Path to CSV folder. Update before deploying.
+expression DatasetFolder = "C:\\Users\\LogeshkumarSivakumar\\OneDrive - Lumel Technologies Inc\\Lumel\\Datasets\\Claude Datasets\\SAAS Demo Dataset 2.0\\Dataset" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: eae2e301-8799-41bc-9435-d0bfaaff255e
+
+	annotation PBI_ResultType = Text
+

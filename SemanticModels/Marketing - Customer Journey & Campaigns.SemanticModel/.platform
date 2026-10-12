@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Marketing - Customer Journey & Campaigns"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7fc1af30-c666-b657-4de0-d2b0a75b88f9"
+  }
+}

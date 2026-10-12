@@ -1,0 +1,73 @@
+/// The three planning scenarios: Actuals (reported results), Budget (annual locked plan), Latest Forecast (rolling reforecast). Drives Fabric Plan sheet configuration and DAX scenario switching.
+table '[Dim] Scenario'
+	lineageTag: b193d716-078e-4d95-9af1-7444c6136073
+
+	/// Surrogate key. Hidden.
+	column 'Scenario Key'
+		dataType: string
+		isHidden
+		lineageTag: 4440b295-bdc7-477b-9430-b12fe7a10f46
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Scenario label — Actuals, Budget, or Latest Forecast. Use in slicers.
+	column 'Scenario Name'
+		dataType: string
+		lineageTag: 358f5390-3eba-43ee-bff5-0b6fdd20730e
+		sourceColumn: ScenarioName
+
+		annotation SummarizationSetBy = User
+
+	/// Classification — Actuals, Budget, or Forecast.
+	column 'Scenario Type'
+		dataType: string
+		lineageTag: 040159b5-924b-4b7a-be3b-1ad9ba853c65
+		sourceColumn: ScenarioType
+
+		annotation SummarizationSetBy = User
+
+	/// True when the scenario is finalised and frozen. Budget is locked at year start.
+	column 'Is Locked'
+		dataType: string
+		lineageTag: 53eea97e-36c0-4ae2-9e2b-151d9bc0d5dd
+		summarizeBy: none
+		sourceColumn: IsLocked
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Display order (1=Actuals, 2=Budget, 3=Forecast). Hidden — used for sort configuration.
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8ad7da57-b904-4e3c-a720-90cfdfcca745
+		summarizeBy: sum
+		sourceColumn: SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Plain-English description of when and how this scenario is produced.
+	column Description
+		dataType: string
+		lineageTag: 48801962-0e85-4a5d-bdf4-7405e6fb7fb7
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = User
+
+	partition DimScenario = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimScenario.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SortOrder", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

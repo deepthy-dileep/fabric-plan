@@ -1,0 +1,49 @@
+table 'R_LM Parameter'
+	lineageTag: d3c62c3e-0c8c-420c-b476-c9805d6536f1
+
+	column 'LM Parameter'
+		lineageTag: d171538e-6a3a-472e-8543-ab7b25e30d71
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'LM Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'LM Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LM Parameter Fields'
+		isHidden
+		lineageTag: 93a1796c-cae2-47f0-b46b-3b37eaea4976
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'LM Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'LM Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: cbba715b-49b3-48d7-a71a-4eb804251cce
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'R_LM Parameter' = calculated
+		mode: import
+		source =
+				{
+				    ("Sale LM", NAMEOF('Measure'[Sale LM]), 0),
+				    ("Order LM", NAMEOF('Measure'[Order LM]), 1),
+				    ("Quantity LM", NAMEOF('Measure'[Quantity LM]), 2)
+				}
+
+	annotation PBI_Id = 6faf6b93ddbb4e2bb71854de7b157a5a
+

@@ -1,0 +1,28 @@
+/// Enterprise PBIX Model Builder v2.0 | Designed & Developed by Logeshkumar Sivakumar | elogu2001@outlook.com | Industry: FMCG — Fast-Moving Consumer Goods | Company: Inforiver Demo — NovaSphere FMCG | Generated: 2026-06-09 | © 2026 Logeshkumar Sivakumar. All rights reserved. This semantic model design, DAX architecture, display folder structure, relationship mapping, and documentation are the original intellectual work of Logeshkumar Sivakumar. Unauthorised reproduction or redistribution is prohibited. Contact: elogu2001@outlook.com
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["[Dim] Product","[Dim] Geography","[Dim] Date","[Fact] Sales","DatasetFolder"]
+
+annotation _TM_ExtProp_DbContextType = PowerBI
+
+annotation __TEdtr = 1
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table '[Dim] Product'
+ref table '[Dim] Geography'
+ref table '[Dim] Date'
+ref table '[Fact] Sales'
+ref table Measure
+ref table DateTableTemplate_e9a61890-ab34-4df2-9439-d3d5ae6c0e32
+ref table LocalDateTable_2897fb9d-a92b-40fc-a2f5-bd5c21062c9d
+
+ref cultureInfo en-US
+

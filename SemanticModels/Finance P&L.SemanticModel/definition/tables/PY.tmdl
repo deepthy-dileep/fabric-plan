@@ -1,0 +1,48 @@
+table PY
+	lineageTag: 36c77feb-d5fb-4403-ae47-f9804175bb33
+
+	column PY
+		lineageTag: 68e57fd9-d2f7-4d55-ba9b-7b1e9b4d64da
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'PY Order'
+
+		relatedColumnDetails
+			groupByColumn: 'PY Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PY Fields'
+		isHidden
+		lineageTag: 9074970a-a467-4cfc-a000-a18ea44302a4
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'PY Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PY Order'
+		isHidden
+		formatString: 0
+		lineageTag: 17e7526a-8fb7-4b72-9206-21b01826c948
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PY = calculated
+		mode: import
+		source =
+				{
+				    ("2022 Actuals", NAMEOF('Acme - Values'[2022 Actuals]), 0),
+				    ("2023 Actuals", NAMEOF('Acme - Values'[2023 Actuals]), 1)
+				}
+
+	annotation PBI_Id = 3193f986edae4df6b2eb8af72ecfc3d1
+

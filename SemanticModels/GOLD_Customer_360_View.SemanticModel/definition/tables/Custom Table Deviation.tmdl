@@ -1,0 +1,46 @@
+table 'Custom Table Deviation'
+	lineageTag: 26662f0f-994d-42fa-979d-c521663da7e1
+
+	column Quarter
+		lineageTag: d1206b64-4792-4e06-a008-1dea985ae431
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 2020
+		formatString: 0
+		lineageTag: e6134179-79cc-4d09-a229-348aa89490e1
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [2020]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 2021
+		formatString: 0
+		lineageTag: 1c3a7081-0c7e-48f7-9445-63f90cac3613
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [2021]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Custom Table Deviation' = calculated
+		mode: import
+		source = ```
+				DATATABLE(
+				        "Quarter", STRING,
+				        "2020", INTEGER,
+				        "2021", INTEGER,
+				    {
+				        {"Q1", 200000, 321320}, 
+				        {"Q2", 194500, 334532},
+				        {"Q3", 156324, 340456},
+				        {"Q4", 176899, 104000}
+				})
+				```
+
+	annotation PBI_Id = 1e2b1b23bdbd413cb77ecb979bb5629c
+

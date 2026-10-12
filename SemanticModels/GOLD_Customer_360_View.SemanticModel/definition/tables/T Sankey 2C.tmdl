@@ -1,0 +1,59 @@
+table 'T Sankey 2C'
+	lineageTag: 7df88dbb-c918-4d43-a4b5-c535ce60825c
+
+	column Source
+		dataType: string
+		lineageTag: c130136a-1e59-499b-9a1e-0d070336ed0d
+		summarizeBy: none
+		sourceColumn: Source
+
+		annotation SummarizationSetBy = Automatic
+
+	column Target
+		dataType: string
+		lineageTag: 5b7bf299-030a-4ebc-b918-f2b76a45bf85
+		summarizeBy: none
+		sourceColumn: Target
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: 1020f415-d291-4103-97d3-403be309837f
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Step From'
+		dataType: int64
+		formatString: 0
+		lineageTag: d26ea523-9839-4053-af1e-8fd796ed5963
+		summarizeBy: sum
+		sourceColumn: Step From
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Step To'
+		dataType: int64
+		formatString: 0
+		lineageTag: d1b55bf3-e203-40c8-9bda-2f17e5a48dae
+		summarizeBy: sum
+		sourceColumn: Step To
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'T Sankey 2C' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCs4vLUpOVXBU0lHyzCtJLcpNTclMLElVMAQKGBoYAEkQNlSK1cGt1gikwhSrWids5hphNxdDrTFuNzhjc4MRmhswLHZJLS7JzEssyczPU4iAOxrsJEwNRmgaIoF8YwM8GozRNETBnQ/VEAsA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Source = _t, Target = _t, Value = _t, #"Step From" = _t, #"Step To" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Source", type text}, {"Target", type text}, {"Value", Int64.Type}, {"Step From", Int64.Type}, {"Step To", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

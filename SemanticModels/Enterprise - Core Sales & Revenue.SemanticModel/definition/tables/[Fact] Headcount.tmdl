@@ -1,0 +1,160 @@
+/// Monthly headcount and cost at Department × Scenario grain — 3,528 rows. Actuals headcount derived from DimEmployee hire/term dates — exact reconciliation to DimEmployee IsActive count for every period. Budget and Forecast rows are planning inputs in Fabric Plan Headcount Sheet.
+table '[Fact] Headcount'
+	lineageTag: 00bfa284-7fb9-41ea-a395-9084f77eafbb
+
+	/// Row surrogate key. Hidden.
+	column 'Fact Headcount Key'
+		dataType: string
+		lineageTag: 2a7d31ae-4e84-4112-927a-4cd6ca552705
+		summarizeBy: none
+		sourceColumn: FactHeadcountKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Department. Hidden.
+	column 'Dept Key'
+		dataType: string
+		isHidden
+		lineageTag: 541cca0f-bd1d-4ebe-9dbd-e3b97b01fd43
+		summarizeBy: none
+		sourceColumn: DeptKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Date. Hidden.
+	column 'Date Key'
+		dataType: string
+		isHidden
+		lineageTag: 950718d3-c4ce-4d9b-852b-0c86699ceb00
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Scenario. Hidden.
+	column 'Scenario Key'
+		dataType: string
+		isHidden
+		lineageTag: 1fa495ee-c548-49ca-ae98-865f74d23025
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Number of employees in this department for this scenario and month. Actuals (ScenarioKey=1) are derived from DimEmployee and reconcile exactly to DimEmployee active count. Budget/Forecast rows are planning targets.
+	column Headcount
+		dataType: int64
+		formatString: 0
+		lineageTag: 9783404c-d17d-414c-bede-0db95a9f424e
+		summarizeBy: sum
+		sourceColumn: Headcount
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Approved but unfilled positions in this department and month. High open roles alongside high actual headcount signals unplanned hiring above the approved plan.
+	column 'Open Roles'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a95b69c-72d6-4838-8744-e5f33a1be1df
+		summarizeBy: sum
+		sourceColumn: OpenRoles
+
+		annotation SummarizationSetBy = Automatic
+
+	/// New employees who joined this department in the month.
+	column Hires
+		dataType: int64
+		formatString: 0
+		lineageTag: 419040ff-65a5-4104-87f2-144e4a9a97a8
+		summarizeBy: sum
+		sourceColumn: Hires
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Employees who left this department in the month.
+	column Attrition
+		dataType: int64
+		formatString: 0
+		lineageTag: da208188-22c6-4959-b529-fe45d60e822b
+		summarizeBy: sum
+		sourceColumn: Attrition
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Total monthly cost: Headcount × (average BaseSalary_USD from DimEmployee / 12) × 1.35 employer burden multiplier. Single cost measure in this fact table. Connect to DimDeptAccountBridge to map costs to payroll accounts in FactFinancial.
+	column 'Fully Loaded Cost'
+		dataType: double
+		lineageTag: 0cf940c2-d408-4a06-acb3-c9c6ab2040b6
+		summarizeBy: sum
+		sourceColumn: FullyLoadedCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// True from January 2026 onward.
+	column 'Is Forecast Period'
+		dataType: string
+		lineageTag: 7e71c835-672a-4c09-9ac6-09c85e6a532d
+		summarizeBy: none
+		sourceColumn: IsForecastPeriod
+
+		annotation SummarizationSetBy = Automatic
+
+	column VersionKey
+		dataType: string
+		lineageTag: a64e2ff8-9d86-4ced-916b-df1b7cd9b6aa
+		summarizeBy: none
+		sourceColumn: VersionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeKey
+		dataType: string
+		lineageTag: 6ceefad8-3fcf-4aef-9940-4a48dbe943f8
+		summarizeBy: none
+		sourceColumn: EmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeoKey
+		dataType: string
+		lineageTag: 08373469-ede1-4e03-ae23-75f0967c8493
+		summarizeBy: none
+		sourceColumn: GeoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column EntityKey
+		dataType: string
+		lineageTag: 3da22ffe-a1fd-427f-978f-bc1c928d00bf
+		summarizeBy: none
+		sourceColumn: EntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountKey
+		dataType: string
+		lineageTag: 128cefca-93e0-433c-b27f-1bbc6761bc15
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactHeadcount = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\FactHeadcount.csv" ),
+				        [ Delimiter = ",", Columns = 15, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"FullyLoadedCost", type number}, {"Attrition", Int64.Type}, {"Hires", Int64.Type}, {"OpenRoles", Int64.Type}, {"Headcount", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

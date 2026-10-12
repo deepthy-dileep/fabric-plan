@@ -1,0 +1,50 @@
+/// Product dimension with three-level hierarchy (Category > Sub Category > Product Name) and commercial attributes including cost, price, margin, and shelf life. Joined to [Fact] Sales on Product Key.
+table Product
+	lineageTag: 654ad055-da3e-4fe0-831a-d6edb96af7f6
+
+	/// Surrogate primary key. Hidden — used for relationship join only.
+	column 'Product Key'
+		dataType: string
+		isHidden
+		lineageTag: d01a6e16-37ce-41b1-a102-ff9ac1ddbbf8
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Level 1 of the product hierarchy. The five FMCG categories: Beverages, Snacks & Confectionery, Dairy & Chilled, Personal Care, Household Care.
+	column Category
+		dataType: string
+		lineageTag: 08b36c61-2275-47c7-993e-24cf7a943881
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = User
+
+	/// Level 2 of the product hierarchy. Groups products within a category — e.g. Chips & Crisps within Snacks, Shampoo & Conditioner within Personal Care.
+	column 'Sub Category'
+		dataType: string
+		lineageTag: 96ca1478-b6fd-4e79-99fd-d200eccf213f
+		summarizeBy: none
+		sourceColumn: SubCategory
+
+		annotation SummarizationSetBy = User
+
+	partition Product = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimProduct.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"UnitCostUSD", type number}, {"RetailSellPriceUSD", type number}, {"GrossMarginPct", type number}, {"ShelfLifeDays", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Gross Margin Pct", "Variance Personality", "Brand", "Shelf Life Days", "Product Name", "Selling Price", "Unit Cost", "Pack Size"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navigation
+

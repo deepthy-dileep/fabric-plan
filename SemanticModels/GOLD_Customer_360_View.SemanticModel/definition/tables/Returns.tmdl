@@ -1,0 +1,48 @@
+table Returns
+	isHidden
+	lineageTag: 160cd4df-e016-4602-99d7-ec67d958ff01
+
+	column 'Order ID'
+		dataType: string
+		isHidden
+		lineageTag: 4b6d49a2-aa2d-410b-9015-2736ce8f1c39
+		summarizeBy: none
+		sourceColumn: Order ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Returned
+		dataType: string
+		isHidden
+		lineageTag: 84778c52-b80c-4888-ae61-debe77d51384
+		summarizeBy: none
+		sourceColumn: Returned
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Returns-40b11a57-875d-4826-ba30-4255ef37eea0 = m
+		mode: import
+		queryGroup: Orders
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\KavithaB\Desktop\Social Media Post\MondayMakeover\Power BI Samples\Sample - Superstore 14-17.xlsx"), null, true),
+				    Returns_Sheet = Source{[Item="Returns",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Returns_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Returned", type text}, {"Order ID", type text}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Order ID"}, Orders, {"Order ID"}, "Orders", JoinKind.LeftOuter),
+				    #"Expanded {0}" = Table.ExpandTableColumn(#"Merged Queries", "Orders", {"Row ID"}, {"Row ID"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Expanded {0}",{"Row ID"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Columns", {"Order ID"})
+				in
+				    #"Removed Duplicates"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

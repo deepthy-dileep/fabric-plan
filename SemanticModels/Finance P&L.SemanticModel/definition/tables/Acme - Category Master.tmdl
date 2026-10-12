@@ -1,0 +1,137 @@
+table 'Acme - Category Master'
+	lineageTag: 7bef0ad0-cc50-4cad-982d-cffef3b5e1f0
+
+	measure FILTERCONTEXT =
+			
+			VAR OutSubCategory = CALCULATE ( IF ( ISCROSSFILTERED ( 'Acme - Category Master'[Sub Category] ), CONCATENATEX(VALUES('Acme - Category Master'[Sub Category] ), 'Acme - Category Master'[Sub Category] , "',' "), "ALL MEMBERS" ), ALLSELECTED ( 'Acme - Category Master' ) )
+			VAR OutCategory = CALCULATE ( IF ( ISCROSSFILTERED ( 'Acme - Category Master'[Category] ), CONCATENATEX(VALUES('Acme - Category Master'[Category] ), 'Acme - Category Master'[Category] , "',' "), "ALL MEMBERS" ), ALLSELECTED ( 'Acme - Category Master' ) )
+			RETURN
+			        "{'Acme - Category Master.Sub Category' : ['" & OutSubCategory&"'], 'Acme - Category Master.Category' : ['" & OutCategory&"']}"
+		lineageTag: ce4d9ac9-2d36-4814-b8d3-e8fd07567ba9
+
+	column ID
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: c2e8158b-7388-4a39-80af-3590a024831f
+		summarizeBy: none
+		sourceColumn: ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: 4519e072-1dd5-4b72-9291-1d0613bc7cb9
+		summarizeBy: none
+		sourceColumn: Description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parent ID'
+		dataType: string
+		isHidden
+		sourceProviderType: nvarchar(max)
+		lineageTag: e01f85ce-6c99-4335-8c38-40397e5a2348
+		summarizeBy: none
+		sourceColumn: Parent ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category =
+			LOOKUPVALUE('Acme - Category Master'[Description],'Acme - Category Master'[ID], PATHITEM(
+			'Acme - Category Master'[Path],3,0))
+		isHidden
+		lineageTag: b7569b5e-7692-443c-a6a9-e84118a2454a
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sub Category' =
+			LOOKUPVALUE('Acme - Category Master'[Description],'Acme - Category Master'[ID], PATHITEM(
+			'Acme - Category Master'[Path],4,0))
+		isHidden
+		lineageTag: a93bf23c-50df-4cce-8192-0c556312fcfe
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Path = PATH('Acme - Category Master'[ID],'Acme - Category Master'[Parent ID])
+		isHidden
+		lineageTag: cbe894b6-742c-43bf-b2f9-0067b469a555
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Path Length' = PATHLENGTH('Acme - Category Master'[Path])
+		isHidden
+		formatString: 0
+		lineageTag: e14b03ff-afc7-4098-b203-1cfee9ea9f56
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hierarchy Level 1' =
+			LOOKUPVALUE('Acme - Category Master'[Description],'Acme - Category Master'[ID], PATHITEM(
+			'Acme - Category Master'[Path],1,0))
+		isHidden
+		lineageTag: 56175f9c-53e8-4294-8c91-c5683254e101
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hierarchy Level 2' =
+			LOOKUPVALUE('Acme - Category Master'[Description],'Acme - Category Master'[ID], PATHITEM(
+			'Acme - Category Master'[Path],2,0))
+		isHidden
+		lineageTag: 2f84a2f1-2f36-4996-ac22-080da5687adc
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Category Hierarchy'
+		lineageTag: 9978efee-68f5-4b37-8afb-ad3986c1844b
+
+		level Category
+			lineageTag: 9433b78d-89d7-4eba-883c-d69b88548e4e
+			column: Category
+
+		level 'Sub Category'
+			lineageTag: b9773c24-189c-45c0-9e9e-a177679a542d
+			column: 'Sub Category'
+
+		changedProperty = IsHidden
+
+	partition 'Acme - Category Master-def7b6a8-c5f4-424d-ac46-0002b4436585' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("infosuitesandbox.database.windows.net", "infosuite"),
+				    #"dbo_Acme - Category Master" = Source{[Schema="dbo",Item="Acme - Category Master"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(#"dbo_Acme - Category Master",{"Category", "Sub Category", "Path", "Path Length", "Hierarchy Level 1", "Hierarchy Level 2"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Customer - Acquisition & Retention"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e481d0a9-6cf8-9a90-46a1-ecf9eb3ccd4d"
+  }
+}

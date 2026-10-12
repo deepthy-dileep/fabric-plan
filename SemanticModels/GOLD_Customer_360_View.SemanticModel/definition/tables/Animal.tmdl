@@ -1,0 +1,43 @@
+table Animal
+	lineageTag: b328ed19-dd43-451b-b6b2-210fbe101691
+
+	column Animal
+		dataType: string
+		lineageTag: 6435f029-51b3-4519-aaf3-4e354f05c5e7
+		summarizeBy: none
+		sourceColumn: Animal
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Average Weight (kg)'
+		dataType: double
+		lineageTag: aa911e5c-e87c-4bfb-bd13-67513eeff4bc
+		summarizeBy: sum
+		sourceColumn: Average Weight (kg)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Gestation Period (months)'
+		dataType: double
+		lineageTag: 84f83ecd-dc10-4aeb-9d20-17fb55554350
+		summarizeBy: sum
+		sourceColumn: Gestation Period (months)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Animal = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\KavithaB\Desktop\Analytics Test Data\Inforiver Datasets Test.xlsx"), null, true),
+				    Animal_Table = Source{[Item="Animal",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Animal_Table,{{"Animal", type text}, {"Average Weight (kg)", type number}, {"Gestation Period (months)", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

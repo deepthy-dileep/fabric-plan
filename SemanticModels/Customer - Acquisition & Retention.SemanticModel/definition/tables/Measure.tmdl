@@ -1,0 +1,363 @@
+/// All DAX measures for the FMCG demo model. The _ column is a hidden placeholder — only the measures inside the display folders are visible to report users. Organised into 10 folders: 00 Base, 01 Revenue & Pricing, 02 Profitability & Margin, 03 Variance vs Plan, 04 Period Trends & YTD, 05 Volume & Returns, 06 Promotional Analytics, 07 Distribution & Inventory, 08 Ranking & TopN, 09 Navigation & Labels.
+table Measure
+	lineageTag: c0b95280-41cc-4075-ab3c-b5b9656846ce
+
+	/// Total net revenue in USD after promotional discounts. The primary top-line measure. Higher is better; compare across product hierarchy, geography, and time to identify revenue concentration.
+	measure 'Total Sales USD' = SUM( '[Fact] Sales'[Sales Amount USD] )
+		formatString: \$#,##0.00
+		displayFolder: 00 | Base Measures
+		lineageTag: 4b4cec53-31e5-4600-9218-0560137aec66
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total units sold across all products, geographies, and channels. The primary volume measure — use alongside Total Sales USD to compute average selling price and identify volume vs price mix effects.
+	measure 'Total Units' = SUM( '[Fact] Sales'[Units Actual] )
+		formatString: #,##0
+		displayFolder: 00 | Base Measures
+		lineageTag: 0fc918ab-4b8e-4cc3-9296-739cc235efec
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total budgeted revenue in USD. The denominator for all variance percentage calculations. Compared against Total Sales USD to compute Variance USD and Variance Pct.
+	measure 'Total Plan USD' = SUM( '[Fact] Sales'[Plan Amount USD] )
+		formatString: \$#,##0.00
+		displayFolder: 00 | Base Measures
+		lineageTag: 605b3b01-421c-4e9b-ae42-34f477360d4c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total cost of goods sold in USD. Subtracted from Total Sales USD to derive Gross Profit USD. A rising COGS without corresponding revenue growth compresses margins.
+	measure 'Total COGS USD' = SUM( '[Fact] Sales'[COGS Amount USD] )
+		formatString: \$#,##0.00
+		displayFolder: 00 | Base Measures
+		lineageTag: 704d5c5d-22d0-42ef-9726-eea5b00b0f1a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Revenue after deducting the value of returned units. The most conservative top-line measure — reflects cash actually retained. A persistent gap between Total Sales USD and this measure signals returns rate issues in specific SKUs.
+	measure 'Net Sales After Returns' = SUM( '[Fact] Sales'[Net Sales After Returns] )
+		formatString: \$#,##0.00
+		displayFolder: 01 | Revenue & Pricing
+		lineageTag: 3c7cb514-9226-43db-a6fd-ab1627b303ca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Effective price per unit after discounts: Total Sales USD divided by Total Units. A declining ASP without corresponding volume growth signals pricing pressure or promotional overuse. Compare by category to track premium vs value positioning.
+	measure 'Average Selling Price USD' = DIVIDE( [Total Sales USD], [Total Units] )
+		formatString: \$#,##0.00
+		displayFolder: 01 | Revenue & Pricing
+		lineageTag: 1ef3f812-c46b-4f44-bb60-8d2998611ffc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total revenue given up through promotional discounts — the difference between list price and achieved price across all units. A growing gap relative to Total Sales USD indicates increasing trade spend and margin erosion risk.
+	measure 'Retail Sell Price vs Net Sell Price Gap' = SUM( '[Fact] Sales'[Retail Sell Price USD] ) - SUM( '[Fact] Sales'[Net Sell Price USD] )
+		formatString: \$#,##0.00
+		displayFolder: 01 | Revenue & Pricing
+		lineageTag: 21d82d8a-6f45-4732-8932-b6d70ac49c2d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Revenue grossed up by local VAT or GST rate. Represents the consumer-facing total spend. Use for pricing compliance checks and retail audit submissions where gross consumer price is required.
+	measure 'Sales Incl VAT' = SUM( '[Fact] Sales'[Sales Amount Incl VAT] )
+		formatString: \$#,##0.00
+		displayFolder: 01 | Revenue & Pricing
+		lineageTag: 8aecca35-bb2c-4d6e-821c-db0bc7798ca3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Net revenue minus cost of goods sold in USD. The primary profitability measure for FMCG portfolio analysis. Personal Care delivers the highest gross profit per unit; Dairy the lowest. Use in TopN by profit demos.
+	measure 'Gross Profit USD' = SUM( '[Fact] Sales'[Gross Profit USD] )
+		formatString: \$#,##0.00
+		displayFolder: 02 | Profitability & Margin
+		lineageTag: 7c8e7849-e7ad-41b5-a880-b0945cccc4e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Gross profit as a percentage of net revenue. Higher is better. FMCG benchmarks: Personal Care 52–65%, Snacks 40–52%, Dairy 22–32%. A declining margin signals COGS inflation, promotional overuse, or unfavourable category mix shift.
+	measure 'Gross Margin %' = DIVIDE( [Gross Profit USD], [Total Sales USD] )
+		displayFolder: 02 | Profitability & Margin
+		lineageTag: 66e2a401-4355-49fd-818c-9dc9b7b6777a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Gross profit earned per unit sold. Combines price, cost, and discount into a single per-unit profitability figure. More actionable than Gross Margin % for range review decisions — a high-volume low-profit SKU can destroy portfolio margin even with an acceptable margin rate.
+	measure 'Gross Profit per Unit' = DIVIDE( [Gross Profit USD], [Total Units] )
+		formatString: \$#,##0.00
+		displayFolder: 02 | Profitability & Margin
+		lineageTag: f550c121-6456-4228-b168-336841abc2cd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// This category's share of total gross profit across all five FMCG categories. Identifies which categories are carrying the portfolio and which are diluting it. A single category consistently above 35% indicates over-dependence.
+	measure 'Contribution by Category %' =
+			VAR _total = CALCULATE( [Gross Profit USD], ALL( '[Dim] Product'[Category] ) )
+			RETURN DIVIDE( [Gross Profit USD], _total )
+		formatString: 0.0%
+		displayFolder: 02 | Profitability & Margin
+		lineageTag: eab17bc5-e104-48aa-ac22-853770c9c4fb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total revenue versus plan in USD: Total Sales USD minus Total Plan USD. Positive = beat plan; negative = missed. The central measure for Inforiver variance waterfall and conditional formatting demos. Hero products drive positive variance; Laggard products drive negative.
+	measure 'Variance USD' = SUM( '[Fact] Sales'[Variance USD] )
+		formatString: \$#,##0.00
+		displayFolder: 03 | Variance vs Plan
+		lineageTag: 0d955aae-b7a3-4863-b651-bea0f71c6d81
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Revenue variance as a percentage of plan. Positive = outperformed; negative = underperformed. Hero products average +14%; Laggard products average -16%. Use this column in Inforiver Sort and TopN demos to produce dramatically ranked views with clear winners and underperformers.
+	measure 'Variance %' = DIVIDE( [Variance USD], [Total Plan USD] )
+		formatString: 0.0%
+		displayFolder: 03 | Variance vs Plan
+		lineageTag: da4424a8-c7de-4b37-bbe0-f3c0246a2691
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Actual units sold minus planned units. Isolates the volume component of the total revenue variance. When volume variance is positive but revenue variance is negative, it indicates a price/mix effect — the business sold more units but at lower prices or in lower-margin products.
+	measure 'Volume Variance' = SUM( '[Fact] Sales'[Units Variance] )
+		formatString: #,##0
+		displayFolder: 03 | Variance vs Plan
+		lineageTag: 3df84945-d58a-452f-9db2-95c02727ecb7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// The portion of total revenue variance attributable to promotional rows. A large share of total variance being promo-driven indicates the business is over-relying on discounting to hit plan rather than organic demand growth.
+	measure 'Promo Driven Variance' = CALCULATE( [Variance USD], '[Fact] Sales'[Is Promo] = "Yes" )
+		formatString: \$#,##0.00
+		displayFolder: 03 | Variance vs Plan
+		lineageTag: 2df33057-ddb7-425f-ab03-0b86c927397f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Cumulative net revenue from the start of the calendar year to the selected period end. Tracks full-year trajectory and is the standard measure for annual performance reviews and board packs. Compare against Plan YTD to assess full-year landing.
+	measure 'Sales YTD' = CALCULATE( [Total Sales USD], DATESYTD( '[Dim] Date'[Year Month] ) )
+		formatString: \$#,##0.00
+		displayFolder: 04 | Period Trends & YTD
+		lineageTag: b83eb59a-d60b-4292-9834-c51f514fb085
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Cumulative budget revenue from the start of the calendar year to the selected period. The YTD denominator for full-year plan attainment tracking.
+	measure 'Plan YTD' = CALCULATE( [Total Plan USD], DATESYTD( '[Dim] Date'[Date]) )
+		formatString: \$#,##0.00
+		displayFolder: 04 | Period Trends & YTD
+		lineageTag: 966fbb11-210c-4925-99b2-568d7588ca95
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Year-to-date revenue versus year-to-date plan. The forward-looking version of Variance USD — tells leadership how much the business needs to recover or can afford to give back for the remainder of the year.
+	measure 'Variance YTD USD' = [Sales YTD] - [Plan YTD]
+		formatString: \$#,##0.00
+		displayFolder: 04 | Period Trends & YTD
+		lineageTag: e24d4638-149d-4d4d-8300-4486e3980c5e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Month-over-month revenue growth rate. Captures short-cycle momentum — whether the business is accelerating or decelerating. Seasonal peaks (Christmas, summer) are visible as positive spikes; promotional valleys as dips.
+	measure 'Sales MoM Growth %' =
+			VAR _current = [Total Sales USD]
+			VAR _prior = CALCULATE( [Total Sales USD], DATEADD( '[Dim] Date'[Year Month], -1, MONTH ) )
+			RETURN DIVIDE( _current - _prior, _prior )
+		formatString: 0.0%
+		displayFolder: 04 | Period Trends & YTD
+		lineageTag: c12af639-c7c2-4999-8a0f-b5ef8b55cb68
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Year-over-year revenue growth rate comparing the same period across 2025 and 2026. Strips out seasonality and shows structural growth. The primary growth metric for category and geography performance reviews.
+	measure 'Sales YoY Growth %' =
+			VAR _current = [Total Sales USD]
+			VAR _prior = CALCULATE( [Total Sales USD], DATEADD( '[Dim] Date'[Year Month], -12, MONTH ) )
+			RETURN DIVIDE( _current - _prior, _prior )
+		formatString: 0.0%
+		displayFolder: 04 | Period Trends & YTD
+		lineageTag: 22d66206-f428-46c3-8b09-a4c06787ba90
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Three-month rolling average of net revenue. Smooths monthly volatility from promotions and seasonal events to reveal the underlying demand trend. Useful for identifying whether a strong month is structural growth or a one-time promotional spike.
+	measure 'Sales 3M Rolling Avg' = CALCULATE( [Total Sales USD], DATESINPERIOD( '[Dim] Date'[Year Month], LASTDATE( '[Dim] Date'[Year Month] ), -3, MONTH ) ) / 3
+		formatString: \$#,##0.00
+		displayFolder: 04 | Period Trends & YTD
+		lineageTag: f8d29f3a-c7d7-495b-b03a-c7bf72c0d70f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Planned units for the selected period. Paired with Total Units to compute Volume Variance — the unit-level equivalent of the revenue variance analysis.
+	measure 'Units Plan' = SUM( '[Fact] Sales'[Units Plan] )
+		formatString: #,##0
+		displayFolder: 05 | Volume & Returns
+		lineageTag: 9ae219ee-e6d5-46c2-a735-5c31a28cde5a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total units returned by customers or trade partners. An elevated return rate for Dairy products (3%) is normal due to short shelf life; high returns in Personal Care (2%+) may indicate quality or ranging issues.
+	measure 'Units Returned' = SUM( '[Fact] Sales'[Units Returned] )
+		formatString: #,##0
+		displayFolder: 05 | Volume & Returns
+		lineageTag: dced3596-1778-4259-9f77-f1697902d45c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Units returned as a percentage of units sold. FMCG benchmarks by category: Dairy 2.5–3.5%, Personal Care 1.5–2.5%, Beverages 0.8–1.5%. A rising rate above benchmark signals freshness, quality, or distribution temperature issues.
+	measure 'Return Rate %' = DIVIDE( SUM( '[Fact] Sales'[Units Returned] ), [Total Units] )
+		formatString: 0.00%
+		displayFolder: 05 | Volume & Returns
+		lineageTag: 65e3b48b-e6fc-4539-931e-6d3c4f0eb889
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Units actually retained by the trade after returns are deducted. The volume equivalent of Net Sales After Returns — the cleanest measure of real consumer offtake.
+	measure 'Net Units Sold' = [Total Units] - [Units Returned]
+		formatString: #,##0
+		displayFolder: 05 | Volume & Returns
+		lineageTag: 54f4b9e1-48c5-48c2-be72-3736d3e716cb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Revenue generated from promotional rows (DiscountPct > 0). Use to quantify how much of total revenue is discount-dependent. A business deriving more than 35% of FMCG revenue from promotions may be training consumers to wait for deals.
+	measure 'Promo Sales USD' = CALCULATE( [Total Sales USD], '[Fact] Sales'[Is Promo] = "Yes" )
+		formatString: \$#,##0.00
+		displayFolder: 06 | Promotional Analytics
+		lineageTag: 12a730bf-08b7-40cd-9d42-ad87cdc748d4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Promotional revenue as a share of total net revenue. Higher proportions indicate greater dependence on trade promotion to drive demand. Compare by category: Snacks typically run higher promotional intensity than Personal Care premium products.
+	measure 'Promo Sales %' = DIVIDE( [Promo Sales USD], [Total Sales USD] )
+		formatString: 0.0%
+		displayFolder: 06 | Promotional Analytics
+		lineageTag: 17a65ea0-9670-448e-ac75-7f73feb0da67
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Average uplift in units sold during promotional periods versus the non-promotional baseline. Positive lift justifies the promotional discount investment. Hero products show consistent high lift; Laggard products show near-zero lift, indicating poor promotional ROI.
+	measure 'Avg Promo Lift %' = CALCULATE( AVERAGE( '[Fact] Sales'[Promo Lift Pct] ), '[Fact] Sales'[Is Promo] = "Yes" )
+		formatString: 0.0%
+		displayFolder: 06 | Promotional Analytics
+		lineageTag: 63984154-25ab-4ea1-81ee-d1c1bae2cdb6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Total revenue given up through promotional discounts — the difference between what revenue would have been at list price and what was actually achieved. The direct cost of the trade promotion programme. Rising trade spend without corresponding volume uplift signals inefficient promotional investment.
+	measure 'Trade Spend USD' = SUM( '[Fact] Sales'[Retail Sell Price USD] ) * SUM( '[Fact] Sales'[Units Actual] ) - [Total Sales USD]
+		formatString: \$#,##0.00
+		displayFolder: 06 | Promotional Analytics
+		lineageTag: 8c44570e-595e-4039-9443-c021aba86d3a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Average proportion of outlets in the channel and region that stock this SKU. A key FMCG metric — revenue cannot grow beyond the ceiling set by distribution. Coverage below 70% in Modern Trade typically indicates a ranging or listing issue. Higher is better.
+	measure 'Avg Distribution Coverage %' = AVERAGE( '[Fact] Sales'[Distribution Coverage] )
+		formatString: 0.0%
+		displayFolder: 07 | Distribution & Inventory
+		lineageTag: f54275c6-6463-4b8c-a3dd-3a454b33143c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Average estimated days of stock on hand at current sell-through rate. FMCG targets: Fresh (7–14 days), Ambient Grocery (21–45 days), Non-food (30–60 days). Values above upper bound signal overstock and markdown risk; values near zero signal stockout risk.
+	measure 'Avg Inventory Days' = AVERAGE( '[Fact] Sales'[Inventory Days Estimate] )
+		formatString: #,##0
+		displayFolder: 07 | Distribution & Inventory
+		lineageTag: 9052dfa2-29a4-4219-8714-d93d6061f479
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Rank of this product by net revenue, descending (Rank 1 = highest revenue). Refreshes dynamically with all active filters. Use this measure in the Inforiver TopN demo to show top 5, 10, or 15 products by revenue.
+	measure 'Product Revenue Rank' = RANKX( ALL( '[Dim] Product'[Product Name] ), [Total Sales USD], , DESC, DENSE )
+		formatString: #,##0
+		displayFolder: 08 | Ranking & TopN
+		lineageTag: a50cf5f2-d0c7-4424-865f-62c9aab4badf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Rank of this product by gross profit, descending. Rank 1 = highest profit contributor. Different products lead this ranking versus the revenue ranking — the gap between the two reveals mix quality. Use in the TopN by multiple measures demo.
+	measure 'Product Profit Rank' = RANKX( ALL( '[Dim] Product'[Product Name] ), [Gross Profit USD], , DESC, DENSE )
+		formatString: #,##0
+		displayFolder: 08 | Ranking & TopN
+		lineageTag: c7970055-7050-4419-85b8-c013127a5926
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Rank of this product by variance percentage versus plan, descending (Rank 1 = most ahead of plan). Separates hero products (top of list) from laggard products (bottom) with a dramatic spread of +14% to -16%. The ideal measure for the Inforiver Sort and TopN by variance demo.
+	measure 'Product Variance Rank' = RANKX( ALL( '[Dim] Product'[Product Name] ), [Variance %], , DESC, DENSE )
+		formatString: #,##0
+		displayFolder: 08 | Ranking & TopN
+		lineageTag: 4e49b1aa-af4d-4cfd-8e0c-a7a219a554b2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Rank of this city by net revenue, descending (Rank 1 = highest). With 39 cities in the dataset, filtering to TopN cities is visually impactful. Use in the Inforiver TopN demo to show top 10 cities by revenue.
+	measure 'City Revenue Rank' = RANKX( ALL( '[Dim] Geography'[City] ), [Total Sales USD], , DESC, DENSE )
+		formatString: #,##0
+		displayFolder: 08 | Ranking & TopN
+		lineageTag: 3935d50d-ccc2-40b2-9426-c6a396ba991f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// This category's share of total portfolio revenue. Use alongside Total Sales USD in the Inforiver matrix to show both absolute value and relative contribution simultaneously — a key feature of the Inforiver Row Grouping and column totals demo.
+	measure 'Category Revenue Share %' =
+			VAR _total = CALCULATE( [Total Sales USD], ALL( '[Dim] Product'[Category] ) )
+			RETURN DIVIDE( [Total Sales USD], _total )
+		formatString: 0.0%
+		displayFolder: 08 | Ranking & TopN
+		lineageTag: f7bc989e-bc71-4ac8-b864-a78cfe5684ba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Date and time the dataset was last refreshed. Use in report headers so viewers know how current the data is.
+	measure 'Report Refreshed' = "Data as at: " & FORMAT( NOW(), "DD MMM YYYY HH:MM" )
+		formatString: @
+		displayFolder: 09 | Navigation & Labels
+		lineageTag: 83774c67-bb32-499e-9ffe-90b8093a2664
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Returns the selected period label when one month is active in the slicer; 'Multiple Periods' when more than one is selected. Use in page titles to make the time context explicit.
+	measure 'Selected Period' = IF( HASONEVALUE( '[Dim] Date'[Year Month] ), SELECTEDVALUE( '[Dim] Date'[Year Month] ), "Multiple Periods" )
+		formatString: @
+		displayFolder: 09 | Navigation & Labels
+		lineageTag: 9add8448-b030-4a68-a80d-7bfa92b7fb42
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Returns the selected country name when one country is active in the slicer. Use in page titles and card headings to confirm the geography context of the displayed data.
+	measure 'Selected Geography' = IF( HASONEVALUE( '[Dim] Geography'[Country] ), SELECTEDVALUE( '[Dim] Geography'[Country] ), "All Geographies" )
+		formatString: @
+		displayFolder: 09 | Navigation & Labels
+		lineageTag: 9cf0a83b-c422-4396-a8cf-3db4afc438c1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Returns the active product category when one is selected. Use in visual titles during the Inforiver Filter demo to confirm which category is being shown.
+	measure 'Selected Category' = IF( HASONEVALUE( '[Dim] Product'[Category] ), SELECTEDVALUE( '[Dim] Product'[Category] ), "All Categories" )
+		formatString: @
+		displayFolder: 09 | Navigation & Labels
+		lineageTag: 6642aecb-966f-446c-b9b9-f3c39550e037
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	/// Returns a user-friendly message when the current slicer combination returns no data. Use in card visuals to avoid blank or zero placeholders that confuse report viewers.
+	measure 'No Data Message' = IF( ISBLANK( [Total Sales USD] ), "No data available for this selection", BLANK() )
+		formatString: @
+		displayFolder: 09 | Navigation & Labels
+		lineageTag: 3ed1587c-66ad-4ca8-938a-eb016e875ab7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":false}
+
+	column _
+		isHidden
+		lineageTag: 226a152d-97d2-46fa-8652-f7196b3197cf
+		isNameInferred
+		sourceColumn: [_]
+
+	partition Measure = calculated
+		mode: import
+		source = DATATABLE( "_", STRING, {{""}} )
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

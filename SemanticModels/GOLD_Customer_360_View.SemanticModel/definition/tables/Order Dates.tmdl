@@ -1,0 +1,200 @@
+table 'Order Dates'
+	lineageTag: 09baf748-be21-416b-868e-a5fc2dba725b
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: dd-mm-yyyy
+		lineageTag: 98b02594-14a8-4fd8-8c2d-9547564e9e3a
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: dede35c6-b80f-4505-9c5f-4fed1a843d4b
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	column Quarter
+		dataType: string
+		lineageTag: 32209987-a8c5-48e8-a4a6-7767ecd98f35
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter & Year'
+		dataType: string
+		lineageTag: 4266e7ea-07ee-4777-a442-8147c04e709a
+		summarizeBy: none
+		sourceColumn: Quarter & Year
+		sortByColumn: QuarternYear
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarternYear
+		dataType: int64
+		formatString: 0
+		lineageTag: ce5734c1-f814-408a-ab39-f608aaee4fde
+		summarizeBy: sum
+		sourceColumn: QuarternYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ba37f3a-7f08-4d54-98a8-440da4004486
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month & Year'
+		dataType: string
+		lineageTag: 607a2971-cb88-45f0-a0a9-c61349a34982
+		summarizeBy: none
+		sourceColumn: Month & Year
+		sortByColumn: MonthnYear
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthnYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 83cf489b-7ccd-43e9-8a54-d88f51d1b1f9
+		summarizeBy: sum
+		sourceColumn: MonthnYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 4b99da20-c044-4391-9f4b-21079e861b64
+		summarizeBy: none
+		sourceColumn: Month Name
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Short'
+		dataType: string
+		lineageTag: fd67e564-c395-4822-9dc4-745c0b2e455b
+		summarizeBy: none
+		sourceColumn: Month Short
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: 67efc180-9e50-419d-8f14-a09b0d88323c
+		summarizeBy: sum
+		sourceColumn: Day of Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 90009a3e-8e7e-4769-bf60-a89f6e0c84fb
+		summarizeBy: none
+		sourceColumn: Week Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeeknYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 55856edb-49a1-434a-8fbb-ff7cfd3f7181
+		summarizeBy: sum
+		sourceColumn: WeeknYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: a9674d50-9710-416b-9042-898e583a596f
+		summarizeBy: sum
+		sourceColumn: Day of Week Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week Name'
+		dataType: string
+		lineageTag: aa5e16d9-8339-4c7a-ba25-577d8b766d64
+		summarizeBy: none
+		sourceColumn: Day of Week Name
+		sortByColumn: 'Day of Week Number'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week Initial'
+		dataType: string
+		lineageTag: 5bdfb684-505c-4697-afd1-7c62acc89d5b
+		summarizeBy: none
+		sourceColumn: Day of Week Initial
+		sortByColumn: 'Day of Week Number'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Type'
+		dataType: string
+		lineageTag: 1f1246df-a237-4439-b8d8-510f7e9d7abe
+		summarizeBy: none
+		sourceColumn: Day Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Initial'
+		dataType: string
+		lineageTag: 31cbd236-8eba-4993-ab2d-1532b4728589
+		summarizeBy: none
+		sourceColumn: Month Initial
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Order Dates-f5e0f893-0d4d-4231-ba53-5a767b1be24c' = m
+		mode: import
+		queryGroup: Orders
+		source =
+				let
+				    Source = #"Date Query"(#date(2016, 1, 1), #date(2024, 12, 31), 1, null, null, null),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Date", "Year", "Quarter Number", "Quarter", "Start of Quarter", "End of Quarter", "Quarter & Year", "QuarternYear", "CurrQuarterOffset", "QuarterCompleted", "Month", "Start of Month", "End of Month", "Month & Year", "MonthnYear", "CurrMonthOffset", "MonthCompleted", "Month Name", "Month Short", "Month Initial", "Day of Month", "Week Number", "Start of Week", "End of Week", "Week & Year", "WeeknYear", "CurrWeekOffset", "WeekCompleted", "Day of Week Number", "Day of Week Name", "Day of Week Initial", "DateInt", "CurrDayOffset", "IsAfterToday", "IsWeekDay", "IsHoliday", "IsBusinessDay", "Day Type", "ISO Year", "ISO CurrYearOffset", "ISO Quarter", "ISO Quarter & Year", "ISO QuarternYear", "ISO CurrQuarterOffset", "Fiscal Year", "Fiscal CurrYearOffset", "Fiscal Quarter", "FQuarternYear", "Fiscal Period", "FPeriodnYear", "Fiscal Week", "FWeeknYear", "IsCurrentFY", "IsCurrentFQ", "IsCurrentFP", "IsCurrentFW", "IsPYTD", "IsPFYTD"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Removed Other Columns",{"Start of Quarter", "End of Quarter", "Quarter Number", "CurrQuarterOffset", "QuarterCompleted", "Start of Month", "End of Month", "MonthCompleted", "CurrMonthOffset", "Start of Week", "End of Week", "Week & Year", "CurrWeekOffset", "WeekCompleted", "DateInt", "CurrDayOffset", "IsAfterToday", "IsHoliday", "IsBusinessDay", "IsWeekDay", "ISO Year", "ISO CurrYearOffset", "ISO Quarter", "ISO Quarter & Year", "ISO QuarternYear", "ISO CurrQuarterOffset", "Fiscal Year", "Fiscal CurrYearOffset", "Fiscal Quarter", "FQuarternYear", "Fiscal Period", "FPeriodnYear", "Fiscal Week", "FWeeknYear", "IsCurrentFY", "IsCurrentFQ", "IsCurrentFP", "IsCurrentFW", "IsPYTD", "IsPFYTD"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each [Date] <> null and [Date] <> ""),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [Month Name] <> null and [Month Name] <> "")
+				in
+				    #"Filtered Rows1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

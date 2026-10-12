@@ -1,0 +1,258 @@
+table 'T Sankey BankChruners_clustered'
+	lineageTag: fd3c8b12-9178-4889-91f2-1753c00e8c68
+
+	column Attrition_Flag
+		dataType: int64
+		formatString: 0
+		lineageTag: 913fb821-9fdb-4fb9-9492-15c4f5a52696
+		summarizeBy: sum
+		sourceColumn: Attrition_Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Age
+		dataType: int64
+		formatString: 0
+		lineageTag: 80802994-f0db-467a-b895-3af4516c4df8
+		summarizeBy: sum
+		sourceColumn: Customer_Age
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"T Sankey BankChruners_clustered","TableItemName":"Customer_Age (bins)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column Gender
+		dataType: string
+		lineageTag: 0228b999-fe41-4598-99ef-2271ec7fc771
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dependent_count
+		dataType: int64
+		formatString: 0
+		lineageTag: c98f2b70-d72a-417c-88fe-037ca330f0b8
+		summarizeBy: sum
+		sourceColumn: Dependent_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Education_Level
+		dataType: int64
+		formatString: 0
+		lineageTag: cf1af2e4-39f6-4d46-a4e2-819182c680c9
+		summarizeBy: sum
+		sourceColumn: Education_Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marital_Status
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dd87928-4214-43ce-b0ac-2e6d5fadb56b
+		summarizeBy: sum
+		sourceColumn: Marital_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Income_Category
+		dataType: int64
+		formatString: 0
+		lineageTag: ac75c321-cfa5-483c-adc4-ec9495803bec
+		summarizeBy: sum
+		sourceColumn: Income_Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Card_Category
+		dataType: string
+		lineageTag: 165d6954-acb7-460c-ace3-fbd17cecb0d9
+		summarizeBy: none
+		sourceColumn: Card_Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Months_on_book
+		dataType: int64
+		formatString: 0
+		lineageTag: af89f359-b079-4978-8705-32e1209b7359
+		summarizeBy: sum
+		sourceColumn: Months_on_book
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Relationship_Count
+		dataType: int64
+		formatString: 0
+		lineageTag: d1428fa8-533b-4592-9886-d408dbd6bd28
+		summarizeBy: sum
+		sourceColumn: Total_Relationship_Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Months_Inactive_12_mon
+		dataType: int64
+		formatString: 0
+		lineageTag: a5a1fad5-c773-475a-a42c-c6aa38bda91d
+		summarizeBy: sum
+		sourceColumn: Months_Inactive_12_mon
+
+		annotation SummarizationSetBy = Automatic
+
+	column Contacts_Count_12_mon
+		dataType: int64
+		formatString: 0
+		lineageTag: 26fc9f15-f282-4e61-a4c0-8e6ad25187ab
+		summarizeBy: sum
+		sourceColumn: Contacts_Count_12_mon
+
+		annotation SummarizationSetBy = Automatic
+
+	column Credit_Limit
+		dataType: double
+		lineageTag: deecb55a-04b5-46e6-a53f-4c1c92377687
+		summarizeBy: sum
+		sourceColumn: Credit_Limit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total_Revolving_Bal
+		dataType: int64
+		formatString: 0
+		lineageTag: 95aa301a-d209-4554-ae4f-5fba706ffcbb
+		summarizeBy: sum
+		sourceColumn: Total_Revolving_Bal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Avg_Open_To_Buy
+		dataType: double
+		lineageTag: b48971ec-aeda-4e01-9c8b-c65ef5adf726
+		summarizeBy: sum
+		sourceColumn: Avg_Open_To_Buy
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total_Amt_Chng_Q4_Q1
+		dataType: double
+		lineageTag: bbf954ec-93cc-4265-aa5b-f3e27386d2c8
+		summarizeBy: sum
+		sourceColumn: Total_Amt_Chng_Q4_Q1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Total_Trans_Amt
+		dataType: int64
+		formatString: 0
+		lineageTag: aeaf0409-b5e6-48f7-b888-ab4a3965a259
+		summarizeBy: sum
+		sourceColumn: Total_Trans_Amt
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Trans_Ct
+		dataType: int64
+		formatString: 0
+		lineageTag: f3172f2e-171a-4bbd-8ad1-2f7b73f7ad46
+		summarizeBy: sum
+		sourceColumn: Total_Trans_Ct
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Ct_Chng_Q4_Q1
+		dataType: double
+		lineageTag: c9b98bd2-789a-4164-8ade-39bf9da487b7
+		summarizeBy: sum
+		sourceColumn: Total_Ct_Chng_Q4_Q1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Avg_Utilization_Ratio
+		dataType: double
+		lineageTag: c742634f-1729-4058-ad28-83f87b39b12d
+		summarizeBy: sum
+		sourceColumn: Avg_Utilization_Ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cluster_
+		dataType: int64
+		formatString: 0
+		lineageTag: c3896054-1bcd-4a85-a4c5-113d9f8bdef5
+		summarizeBy: sum
+		sourceColumn: cluster_
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer_Age (bins)' = ```
+			VAR __Count = 10
+			
+			VAR __Min = MIN('T Sankey BankChruners_clustered'[Customer_Age])
+			
+			VAR __Max = MAX('T Sankey BankChruners_clustered'[Customer_Age])
+			
+			VAR __Difference = (__Max - __Min)
+			
+			VAR __Size = IF(__Difference > 0, __Difference / __Count, 1)
+			
+			VAR __BinNumber = 
+				INT(('T Sankey BankChruners_clustered'[Customer_Age] - __Min) / __Size)
+			
+			RETURN
+				IF(
+					ISBLANK('T Sankey BankChruners_clustered'[Customer_Age]),
+					BLANK(),
+					__Min + (MIN(__BinNumber, __Count - 1) * __Size)
+				)
+			```
+		lineageTag: 1d78c701-ed09-436e-8428-71014305ab18
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "T Sankey BankChruners_clustered"
+				          }
+				        },
+				        "Property": "Customer_Age"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"t","Entity":"T Sankey BankChruners_clustered"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"t"}},"Property":"Customer_Age"}}],"BinItem":{"Expression":{"Member":{"Expression":{"Discretize":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"t"}},"Property":"Customer_Age"}},"Count":10}},"Member":"Min"}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'T Sankey BankChruners_clustered' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\KavithaB\Downloads\BankChruners_clustered.csv"),[Delimiter=",", Columns=21, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Attrition_Flag", Int64.Type}, {"Customer_Age", Int64.Type}, {"Gender", type text}, {"Dependent_count", Int64.Type}, {"Education_Level", Int64.Type}, {"Marital_Status", Int64.Type}, {"Income_Category", Int64.Type}, {"Card_Category", type text}, {"Months_on_book", Int64.Type}, {"Total_Relationship_Count", Int64.Type}, {"Months_Inactive_12_mon", Int64.Type}, {"Contacts_Count_12_mon", Int64.Type}, {"Credit_Limit", type number}, {"Total_Revolving_Bal", Int64.Type}, {"Avg_Open_To_Buy", type number}, {"Total_Amt_Chng_Q4_Q1", type number}, {"Total_Trans_Amt", Int64.Type}, {"Total_Trans_Ct", Int64.Type}, {"Total_Ct_Chng_Q4_Q1", type number}, {"Avg_Utilization_Ratio", type number}, {"cluster_", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

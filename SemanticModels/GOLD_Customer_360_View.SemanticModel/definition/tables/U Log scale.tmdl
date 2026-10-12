@@ -1,0 +1,67 @@
+table 'U Log scale'
+	isHidden
+	lineageTag: 7ba1b6fe-4cbc-444b-b84d-17892b92b438
+
+	column category
+		dataType: string
+		isHidden
+		lineageTag: 0caea019-45c0-4f69-8ba6-c3d31e2d4110
+		summarizeBy: none
+		sourceColumn: category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6aaf1a32-2980-4767-a235-ac8a18a2e405
+		summarizeBy: sum
+		sourceColumn: value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column group
+		dataType: string
+		isHidden
+		lineageTag: 12f91157-5193-4817-91cf-db2361d59522
+		summarizeBy: none
+		sourceColumn: group
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column v2
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 537aefc9-aa47-4fb0-8923-c3b67008417c
+		summarizeBy: sum
+		sourceColumn: v2
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	partition 'U Log scale' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WSlTSUTI0NgADIDMxJQUkoBSrE62UhJCCyxiBZZJhMkA6PwehA8wyNUCWMAVLpEIk4KJmYNE0kDzCbHOl2FgA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [category = _t, value = _t, group = _t, v2 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"category", type text}, {"value", Int64.Type}, {"group", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,134 @@
+table Date
+	lineageTag: 85dff8ee-31ad-4031-912e-1cdd03630a5b
+
+	column 'Date Key'
+		formatString: 0
+		lineageTag: 2152de27-eb76-4075-9081-9c8acee99fcb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date Key]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: f5651981-1dc6-4620-a94f-5370299b138e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		formatString: 0
+		lineageTag: 8376d1e7-8bed-4aa5-9721-45abac8e1522
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		lineageTag: ec0a1f8f-b76f-4bf6-ba34-a47c091e90d5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: ad5e921e-573b-43a4-b808-469f8b3d20c0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Quarter'
+		lineageTag: 01658716-ca41-46bf-a54d-9045537a8b95
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month'
+		lineageTag: 0b3d2b4c-9cdb-4ca2-9f33-1cf11f8116d8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Half Year'
+		lineageTag: 3b908e05-affc-4df9-b64d-c088dbbacbb5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Half Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Short'
+		lineageTag: 5da6e32c-340d-4251-a83c-7ec3863a8c9e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Short]
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Date Hierarchy'
+		lineageTag: 8cfa5b29-121d-4edd-9a86-6ec2cbc87bac
+
+		level Year
+			lineageTag: 05327959-8e5c-4140-a99c-ae98324354aa
+			column: Year
+
+		level Quarter
+			lineageTag: f7ea4f97-44e2-483b-8f6c-d00558a6eda8
+			column: Quarter
+
+		level 'Month Short'
+			lineageTag: 5e21a266-5944-4f29-9b80-b2970b0a97dc
+			column: 'Month Short'
+
+	partition Date = calculated
+		mode: import
+		source =
+				
+				VAR StartYear = 2023
+				VAR EndYear = 2026
+				
+				VAR Years =
+				    SELECTCOLUMNS(
+				        GENERATESERIES(StartYear, EndYear, 1),
+				        "Year", [Value]
+				    )
+				
+				VAR Months =
+				    SELECTCOLUMNS(
+				        GENERATESERIES(1, 12, 1),
+				        "Month", [Value]
+				    )
+				
+				VAR YearMonths =
+				    GENERATE(
+				        Years,
+				        Months
+				    )
+				
+				RETURN
+				SELECTCOLUMNS(
+				    YearMonths,
+				    "Date Key", [Year] * 100 + [Month],
+				    "Year", [Year],
+				    "Month", [Month],
+				    "Month Name", FORMAT(DATE([Year], [Month], 1), "MMMM"),
+				    "Quarter", "Q" & ROUNDUP([Month] / 3, 0),
+				    "Year Quarter", FORMAT([Year], "0000") & "-Q" & ROUNDUP([Month] / 3, 0),
+				    "Year Month", FORMAT(DATE([Year], [Month], 1), "yyyy-MM"),
+				    "Half Year", IF([Month] <= 6, "H1", "H2"),
+				    "Month Short", FORMAT(DATE([Year], [Month], 1), "MMM")
+				)
+
+	annotation PBI_Id = 91f53b8e8e7e48eda3aac9285d118f71
+

@@ -1,0 +1,81 @@
+table SankeyT5
+	lineageTag: 13f291c9-bf94-4f81-924b-24eff97faf02
+
+	measure 'Value 2' = SUM(SankeyT5[Value]) - 10
+		lineageTag: 7a0930d0-cb59-46d1-aeda-9cdb40de6c5e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Level 1'
+		dataType: string
+		lineageTag: 3766ac30-2b0a-4e7c-b3ee-dbe997f63224
+		summarizeBy: none
+		sourceColumn: Level 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Level2
+		dataType: string
+		lineageTag: a483fa97-19ba-49c0-890b-722e69d75ef5
+		summarizeBy: none
+		sourceColumn: Level2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Level3
+		dataType: string
+		lineageTag: 15d37695-d239-4bd6-8552-1b895d21a5ff
+		summarizeBy: none
+		sourceColumn: Level3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Level4
+		dataType: string
+		lineageTag: 2792cfd4-8f8b-498b-ba01-3ac2559a6443
+		summarizeBy: none
+		sourceColumn: Level4
+
+		annotation SummarizationSetBy = Automatic
+
+	column Level5
+		dataType: string
+		lineageTag: 98bce1ed-e77b-430d-8bcd-2bcd2af94602
+		summarizeBy: none
+		sourceColumn: Level5
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: dbabfc34-1e5e-49d2-8482-e99e8f8b582e
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Level6
+		dataType: string
+		lineageTag: 63a10d83-9d8d-4447-a206-3f6c45f8617e
+		summarizeBy: none
+		sourceColumn: Level6
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SankeyT5 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\KavithaB\Desktop\Analytics Test Data\Inforiver Datasets Test.xlsx"), null, true),
+				    SankeyT5_Table = Source{[Item="SankeyT5",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SankeyT5_Table,{{"Level 1", type text}, {"Level2", type text}, {"Level3", type text}, {"Level4", type text}, {"Level5", type text}, {"Level6", type text}, {"Value", type number}}),
+				    #"Capitalized Each Word" = Table.TransformColumns(#"Changed Type",{{"Level 1", Text.Proper, type text}, {"Level2", Text.Proper, type text}, {"Level3", Text.Proper, type text}, {"Level4", Text.Proper, type text}, {"Level5", Text.Proper, type text}, {"Level6", Text.Proper, type text}})
+				in
+				    #"Capitalized Each Word"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

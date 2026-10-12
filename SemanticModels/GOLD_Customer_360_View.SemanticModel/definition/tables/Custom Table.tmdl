@@ -1,0 +1,46 @@
+table 'Custom Table'
+	lineageTag: d904bd3a-89e0-43aa-bd0c-23b254fef10f
+
+	column C1
+		lineageTag: 46f14379-ae29-4358-9604-e8cace6e4131
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [C1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column C2
+		formatString: 0
+		lineageTag: b6c9596d-bfbe-4947-a26a-67dad4f96b91
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [C2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column C3
+		formatString: 0
+		lineageTag: 8ef30190-be57-4abe-a47e-9c106866941d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [C3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Custom Table' = calculated
+		mode: import
+		source = ```
+				DATATABLE(
+				        "C1", STRING,
+				        "C2", INTEGER,
+				        "C3", INTEGER,
+				    {
+				        {"Quantity", 10, 20}, 
+				        {"Profit", 400, 300},
+				        {"Cost", 40000, 30000},
+				        {"Sale", 4000, 5000}
+				})
+				```
+
+	annotation PBI_Id = 76ad9dd711dc49ca82ce9b5b26f84f96
+

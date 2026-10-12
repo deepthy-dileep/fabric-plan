@@ -1,0 +1,395 @@
+table Orders
+	lineageTag: 9db82159-2b9c-49f9-805a-b7581acc81a4
+
+	measure __SALE = [Total Sale]
+		formatString: #,0
+		lineageTag: 95e5ef46-344b-4ef0-8622-84eb9c3adf77
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Orders","TableItemName":"Sub-Category (clusters)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	measure __CountRow = COUNTROWS(Orders)
+		formatString: 0
+		lineageTag: a7da47f5-7a3a-4f91-821f-9f089d262845
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Orders","TableItemName":"Sub-Category (clusters)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	measure __Images =
+			SWITCH(MIN('Orders'[Category]),
+			"Technology", "https://cdn-icons-png.flaticon.com/512/1087/1087927.png",
+			"Office Supplies", "https://cdn-icons-png.flaticon.com/512/1584/1584911.png",
+			"Furniture", "https://cdn-icons-png.flaticon.com/512/632/632407.png"
+			)
+		lineageTag: d3e23f38-2724-438c-a287-5844081638e6
+		dataCategory: ImageUrl
+
+	measure __LM = [Sale LM]
+		lineageTag: 8f9d1c4a-3b8d-4a56-8c9d-b4452de5f0db
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Row ID'
+		dataType: int64
+		formatString: 0
+		displayFolder: z Product
+		lineageTag: ef763dd9-f7f8-46e4-964c-546aa4e795cc
+		summarizeBy: none
+		sourceColumn: Row ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column Discount
+		dataType: double
+		formatString: 0%;-0%;0%
+		displayFolder: z Value
+		lineageTag: e2a776a8-e1ee-4238-901f-c45f08d3a51d
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: string
+		displayFolder: z Customer
+		lineageTag: c1f6ab1a-f4ce-4af6-b210-45c5dff2f7c8
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		displayFolder: z Customer
+		lineageTag: f16ce972-1940-414d-8171-9d4e1c6fa381
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Mode'
+		dataType: string
+		lineageTag: eb82642a-ea8b-487c-b0f5-b4d6dea76c46
+		summarizeBy: none
+		sourceColumn: Ship Mode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Name'
+		dataType: string
+		displayFolder: z Product
+		lineageTag: 4938359f-d37d-41c4-a5bd-926f06bc30a6
+		summarizeBy: none
+		sourceColumn: Product Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 0a301e66-c877-4368-a966-ffc2d97a08bf
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Region
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		displayFolder: z Location
+		lineageTag: c052b3c7-388d-4536-8398-eefa243a675c
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: City
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Postal Code'
+		dataType: int64
+		formatString: 0
+		displayFolder: z Location
+		lineageTag: 70317e20-381a-4f24-9ab3-c5a03f55808b
+		summarizeBy: count
+		sourceColumn: Postal Code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e7b144f1-fd43-4d34-8f0f-e33c9d0211ed
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ship Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 52a324c7-bda5-464f-84fd-e6348149c45e
+		summarizeBy: none
+		sourceColumn: Ship Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Sales
+		dataType: double
+		formatString: 0.00
+		displayFolder: z Value
+		lineageTag: 1bcfb2d2-a645-495a-ac34-58ce350a72cd
+		summarizeBy: sum
+		sourceColumn: Sales
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order ID'
+		dataType: string
+		displayFolder: z Product
+		lineageTag: b38bd716-0f3d-484b-ac39-f1a92cbe5b14
+		summarizeBy: none
+		sourceColumn: Order ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_City First Letter' = LEFT(Orders[City],1)
+		lineageTag: c7640373-301b-4c28-988d-4785ddad1740
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_Delivery days' = int(Orders[Ship Date] - orders[Order Date])
+		formatString: 0
+		lineageTag: 16f5e104-c495-4e15-a012-cc2d1f4e64d8
+		summarizeBy: sum
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: 15c8147d-81d5-457a-990c-d67e802a4191
+		summarizeBy: none
+		sourceColumn: Segment
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		displayFolder: z Location
+		lineageTag: 7cd4e4fb-03bd-4431-b818-6123a46b7c7c
+		summarizeBy: none
+		sourceColumn: Country
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		displayFolder: z Location
+		lineageTag: a767d194-a040-491e-ae19-b55349674a0d
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: State
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product ID'
+		dataType: string
+		displayFolder: z Product
+		lineageTag: 4aab6655-d451-4d6b-a018-817d05929af8
+		summarizeBy: none
+		sourceColumn: Product ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 31885df8-15b5-414b-9d36-7c56dfe31c34
+		summarizeBy: none
+		sourceColumn: Category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sub-Category
+		dataType: string
+		lineageTag: 08c58d3b-9cd4-4021-b163-f146c9c5b6bb
+		summarizeBy: none
+		sourceColumn: Sub-Category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"Orders","TableItemName":"Sub-Category (clusters)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		displayFolder: z Value
+		lineageTag: 3ed47218-c554-445f-8d86-d327ce01ec09
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column _Colors = ```
+			
+			    SWITCH(Orders[_Delivery days],
+			        1 , "Red",
+			        2 , "Orange",
+			        3 , "Yellow",
+			        4 , "Green",
+			        5 , "Blue",
+			        6 , "Purple",
+			        7 , "Pink",
+			        "Black"
+			    )
+			```
+		lineageTag: 4c71d111-cb6a-4178-9459-5aec06558ad3
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Profit
+		dataType: double
+		formatString: 0.0
+		displayFolder: z Value
+		lineageTag: 3c6f9131-67c9-4a8a-aa85-ab188f84d09c
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Clusters for Sub-Category
+	column 'Sub-Category (clusters)' = ```
+			VAR __ClusterValue = 
+				LOOKUPVALUE(
+					'ClusterMappingTable'[ClusterId],
+					'ClusterMappingTable'[Sub_Category],
+					'Orders'[Sub-Category]
+				)
+			
+			RETURN
+				SWITCH(
+					__ClusterValue,
+					BLANK(),
+					BLANK(),
+					CONCATENATE("Cluster", __ClusterValue)
+				)
+			```
+		lineageTag: f8b68f13-26b3-49c9-a12e-a39c7e356107
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "Orders"
+				          }
+				        },
+				        "Property": "Sub-Category"
+				      }
+				    }
+				  ]
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"o","Entity":"Orders"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"o"}},"Property":"Sub-Category"}}],"PartitionTable":{"Definition":{"TableDefinition":{"Version":2,"From":[{"Name":"o","Entity":"Orders"}],"Where":[],"OrderBy":[],"Select":[{"Column":{"Expression":{"TransformTableRef":{"Source":"output0"}},"Property":"Orders.Sub-Category"},"Name":"Orders.Sub-Category"},{"Column":{"Expression":{"TransformTableRef":{"Source":"output0"}},"Property":"clusterId"},"Name":"clusterId"}],"GroupBy":[],"Transform":[{"Name":"KMeansClustering","Algorithm":"KMeansClustering","Input":{"Parameters":[{"Literal":{"Value":"5L"},"Name":"NumberOfClusters"}],"Table":{"Name":"input0","Columns":[{"Role":"Attribute","Expression":{"Measure":{"Expression":{"SourceRef":{"Source":"o"}},"Property":"__SALE"},"Name":"Orders.__sale"}},{"Role":"Attribute","Expression":{"Measure":{"Expression":{"SourceRef":{"Source":"o"}},"Property":"__CountRow"},"Name":"Orders.__CountRow"}},{"Role":"Item","Expression":{"Column":{"Expression":{"SourceRef":{"Source":"o"}},"Property":"Sub-Category"},"Name":"Orders.Sub-Category"}}]}},"Output":{"Table":{"Name":"output0","Columns":[{"Expression":{"Column":{"Expression":{"TransformTableRef":{"Source":"input0"}},"Property":"Orders.Sub-Category"},"Name":"Orders.Sub-Category"}},{"Role":"Series","Expression":{"TransformOutputRoleRef":{"Role":"ClusterId"},"Name":"clusterId"}}]}}}]},"ItemIdColumns":["Orders.Sub-Category"],"PartitionIdColumn":"clusterId","Partitions":[{"PartitionIds":[{"Literal":{"Value":"null"}}]}],"DefaultPartitionPrefix":"Cluster"},"Result":{"TableName":"ClusterMappingTable","PartitionIdColumn":"ClusterId","ItemIdMappings":[[{"PartitionTableColumn":{"Column":{"Expression":{"SourceRef":{"Entity":"ClusterMappingTable"}},"Property":"Sub_Category"}},"SourceTableColumn":{"Column":{"Expression":{"SourceRef":{"Entity":"Orders"}},"Property":"Sub-Category"}}}]]}}}
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy '↣ Location Hierarchy'
+		lineageTag: a4d9a201-91eb-4687-ae20-f315801acf38
+
+		level Country
+			lineageTag: 74801833-1c3d-46ca-b65d-8f77bf0c9729
+			column: Country
+
+		level Region
+			lineageTag: d3bdc6ec-f757-47e9-ba6b-f2500105581a
+			column: Region
+
+		level State
+			lineageTag: 7000674d-d119-4127-a680-687bcc261e3d
+			column: State
+
+		level City
+			lineageTag: 9554bd2c-93d3-49ad-8373-b585b648ddba
+			column: City
+
+	hierarchy '↣ Category Hierarchy'
+		lineageTag: 1c9c1cd9-f40c-4831-a3b8-e5aba200b66c
+
+		level Category
+			lineageTag: 62883b77-e52d-4e95-b9a4-4c9e0e76a02d
+			column: Category
+
+		level Sub-Category
+			lineageTag: 87d02742-f546-449f-b4a1-e442bd53486b
+			column: Sub-Category
+
+		level 'Product Name'
+			lineageTag: 9ed1fac8-654c-4156-8537-662975283131
+			column: 'Product Name'
+
+	partition Orders-d6888b37-cd47-49ab-81fe-3d45961002d8 = m
+		mode: import
+		queryGroup: Orders
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\KavithaB\Desktop\Social Media Post\MondayMakeover\Power BI Samples\Sample - Superstore 14-17.xlsx"), null, true),
+				    Orders_Table = Source{[Item="Orders",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Orders_Table,{{"Row ID", Int64.Type}, {"Order ID", type text}, {"Order Date", type date}, {"Ship Date", type date}, {"Ship Mode", type text}, {"Customer ID", type text}, {"Customer Name", type text}, {"Segment", type text}, {"Country", type text}, {"City", type text}, {"State", type text}, {"Postal Code", Int64.Type}, {"Region", type text}, {"Product ID", type text}, {"Category", type text}, {"Sub-Category", type text}, {"Product Name", type text}, {"Sales", type number}, {"Quantity", Int64.Type}, {"Discount", type number}, {"Profit", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

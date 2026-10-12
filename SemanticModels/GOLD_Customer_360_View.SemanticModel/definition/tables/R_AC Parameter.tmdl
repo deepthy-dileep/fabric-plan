@@ -1,0 +1,49 @@
+table 'R_AC Parameter'
+	lineageTag: 9a0cf9e5-d4c6-411c-9930-a893527d82b2
+
+	column 'AC Parameter'
+		lineageTag: a92109de-d09f-4de7-ba75-9f78cb059a44
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'AC Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'AC Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AC Parameter Fields'
+		isHidden
+		lineageTag: 7335f06f-60d9-4300-b396-d10636a62ca6
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'AC Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'AC Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 310db39a-7084-4f3e-a261-b66f4fe85ecb
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'R_AC Parameter' = calculated
+		mode: import
+		source =
+				
+				{("Sale AC", NAMEOF('Measure'[Total Sale]), 0),
+				("Order AC", NAMEOF('Measure'[Total Order]), 1),
+				("Quantity AC", NAMEOF('Measure'[Total Quantity]), 2)
+				    }
+
+	annotation PBI_Id = 7cc6a35c2c754545bdbb39b45198a3c6
+

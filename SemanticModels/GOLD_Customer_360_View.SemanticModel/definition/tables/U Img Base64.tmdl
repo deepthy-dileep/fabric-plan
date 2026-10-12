@@ -1,0 +1,76 @@
+table 'U Img Base64'
+	isHidden
+	lineageTag: d5bb1d9b-3be6-4571-a353-9787d12e0e23
+
+	measure #Count = COUNTROWS('U Img Base64')
+		formatString: 0
+		isHidden
+		lineageTag: 33334c61-f5d3-47bf-b39e-98c76713a8b7
+
+		changedProperty = IsHidden
+
+	column Name
+		dataType: string
+		isHidden
+		lineageTag: 3fb93484-da35-4c44-b6f2-746e1840c7f2
+		summarizeBy: none
+		sourceColumn: Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Extension
+		dataType: string
+		isHidden
+		lineageTag: 0c8c942a-b76f-4cec-9517-f6bd807bfc7b
+		summarizeBy: none
+		sourceColumn: Extension
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Characters'
+		dataType: string
+		isHidden
+		lineageTag: 6a0fb234-8c70-4688-97d5-912203294e09
+		summarizeBy: none
+		sourceColumn: First Characters
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column BinarytoImage
+		dataType: string
+		isHidden
+		lineageTag: 31cf66cb-f1a4-4e1d-bc1e-a1ebb2a9bb3a
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: BinarytoImage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'U Img Base64' = m
+		mode: import
+		queryGroup: Images
+		source =
+				let
+				    Source = Folder.Files("C:\Users\KavithaB\Desktop\Social Media Post\Icon\mobile icon set\64"),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"Date accessed", "Date modified", "Date created", "Attributes", "Folder Path"}),
+				    #"Inserted First Characters" = Table.AddColumn(#"Removed Columns", "First Characters", each Text.Start([Name], 1), type text),
+				    #"Invoked Custom Function" = Table.AddColumn(#"Inserted First Characters", "BinarytoImage", each BinarytoImage([Content]))
+				in
+				    #"Invoked Custom Function"
+
+	changedProperty = Name
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

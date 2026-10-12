@@ -1,0 +1,105 @@
+table 'Acme 2023 2024'
+	isHidden
+	lineageTag: 56eca84f-f9c8-4b1e-8638-3d6da6a850f0
+
+	column 'Region ID'
+		dataType: string
+		isHidden
+		lineageTag: aa8302b3-463d-4557-bb4c-0fdb7280bf9e
+		summarizeBy: none
+		sourceColumn: Region ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Category ID'
+		dataType: string
+		isHidden
+		lineageTag: feaf90c6-faec-4d28-b13d-89b86d685cff
+		summarizeBy: none
+		sourceColumn: Category ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Period
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: ab9125ed-c609-429e-bec4-236099807084
+		summarizeBy: none
+		sourceColumn: Period
+
+		variation Variation
+			isDefault
+			relationship: f5f7e1f1-7694-4998-b81c-30eb0ad0cd5c
+			defaultHierarchy: LocalDateTable_02f54c92-c6b8-40bb-8102-7d75f147ef5f.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account ID'
+		dataType: string
+		isHidden
+		lineageTag: e1ccd4f8-f635-4c1f-8fb4-91266741a31e
+		summarizeBy: none
+		sourceColumn: Account ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Actuals
+		dataType: double
+		isHidden
+		lineageTag: 1ac53b4d-89ae-4158-80c9-391688fcc6cb
+		summarizeBy: sum
+		sourceColumn: Actuals
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Plan
+		dataType: double
+		isHidden
+		lineageTag: 1d6ae2f4-f9ad-45c8-8b38-ea084c05d85d
+		summarizeBy: sum
+		sourceColumn: Plan
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Acme 2023 2024' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\AswanthV\Downloads\ACME 2023.xlsx"), null, true),
+				    Acme___Transaction_Table = Source{[Item="Acme___Transaction",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Acme___Transaction_Table,{{"Region ID", type text}, {"Category ID", type text}, {"Period", type datetime}, {"Account ID", type text}, {"Actuals", type number}, {"Plan", type number}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"Period", Order.Ascending}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Sorted Rows",{{"Period", type text}}),
+				    #"Sorted Rows1" = Table.Sort(#"Changed Type1",{{"Period", Order.Ascending}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Sorted Rows1","2022","2025",Replacer.ReplaceText,{"Period"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","2023","2022",Replacer.ReplaceText,{"Period"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","2024","2023",Replacer.ReplaceText,{"Period"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","2025","2024",Replacer.ReplaceText,{"Period"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value3",{{"Period", type datetime}}),
+				    #"Sorted Rows2" = Table.Sort(#"Changed Type2",{{"Period", Order.Ascending}})
+				in
+				    #"Sorted Rows2"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,32 @@
+table 'Retail - People'
+	lineageTag: 721a1ed4-3300-4990-afef-05fdaecbfa90
+
+	column Person
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 78741588-bd4b-40f5-becd-2289f58cba80
+		summarizeBy: none
+		sourceColumn: Person
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: f6ee2e61-9509-4cb8-8a76-2720cd690dc6
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Retail - People-0368dff8-f2ea-4e01-9d35-553c2a3fbc54' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("infosuitesandbox.database.windows.net", "infosuite"),
+				    #"dbo_Retail - People" = Source{[Schema="dbo",Item="Retail - People"]}[Data]
+				in
+				    #"dbo_Retail - People"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,137 @@
+table '[Fact] Financial'
+	lineageTag: 886ae21b-a023-4d1b-a6a8-3e58682878d6
+
+	column FinancialFactId
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 05013c35-f374-4969-872f-6883398daba1
+		summarizeBy: count
+		sourceColumn: FinancialFactId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 5997fd44-7d8f-417c-bde2-997148eb2a00
+		summarizeBy: none
+		sourceColumn: Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column BusinessUnitKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c74a8111-47cb-450c-aa83-263d3a3bd68c
+		summarizeBy: none
+		sourceColumn: BusinessUnitKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepartmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: eb3f556d-7ba1-4cd3-8378-1ef293030169
+		summarizeBy: none
+		sourceColumn: DepartmentKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8523e789-72c7-4d45-8f19-63fedc4e1808
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dd63a6b5-6e62-406c-9d5a-545eb4eb517b
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SegmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cba42ca0-7844-4b1e-a818-65680ae74f5a
+		summarizeBy: none
+		sourceColumn: SegmentKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ScenarioKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6f6e6791-65dd-4763-a983-0576b3ad7065
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: acb3c01a-7d3a-4e26-bfc7-2257197918c3
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Amount
+		dataType: double
+		lineageTag: e9da1db3-8c12-4350-af10-45ba1de02fef
+		summarizeBy: sum
+		sourceColumn: Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition '[Fact] Financial' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\FactFinancial.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"FinancialFactId", Int64.Type}, {"Date", type date}, {"BusinessUnitKey", Int64.Type}, {"DepartmentKey", Int64.Type}, {"GeographyKey", Int64.Type}, {"ProductKey", Int64.Type}, {"SegmentKey", Int64.Type}, {"ScenarioKey", Int64.Type}, {"AccountKey", Int64.Type}, {"Amount", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
