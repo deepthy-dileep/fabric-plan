@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Planning/DataInput/1.0.0/schema.json",
+  "columns": [
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "1981741268933732095",
+        "label": "Sum of cogs_gc",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Sum of cogs_gc"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "1981741268933732095",
+      "name": "Sum of cogs_gc",
+      "visualId": "01a158ed-091c-763f-acbe-28fa41c38c5b"
+    }
+  ]
+}
