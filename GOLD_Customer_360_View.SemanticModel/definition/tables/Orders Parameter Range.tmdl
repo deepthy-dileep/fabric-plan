@@ -1,0 +1,27 @@
+table 'Orders Parameter Range'
+	lineageTag: 457aa7bf-93a5-4397-9114-4408c0360997
+
+	measure 'Parameter Value' = SELECTEDVALUE('Orders Parameter Range'[Parameter])
+		lineageTag: c519f119-6493-4a20-bcdb-f3918235796c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Parameter
+		formatString: 0%;-0%;0%
+		lineageTag: 91f63a75-7199-4c46-b61d-fd7a173dcf8c
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Orders Parameter Range' = calculated
+		mode: import
+		source = GENERATESERIES(-1, 1, 0.01)
+
+	annotation PBI_Id = 178cc3e70ded453093cc2e311598c42b
+

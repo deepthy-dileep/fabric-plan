@@ -1,0 +1,40 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["[Dim] Business Unit","[Dim] Customer Segment","[Dim] Department","[Dim] Geography","[Dim] Product","[Dim] Scenario","[Fact] Financial","[Fact] Invoice Line","[Fact] Operational","Measure","[Dim] Account","[Dim] Date","RLS Table"]
+
+ref table '[Dim] Business Unit'
+ref table '[Dim] Customer Segment'
+ref table '[Dim] Department'
+ref table '[Dim] Geography'
+ref table '[Dim] Product'
+ref table '[Dim] Scenario'
+ref table '[Fact] Financial'
+ref table DateTableTemplate_0a4502c5-f09a-4913-80f0-38cbe7af32b4
+ref table '[Fact] Invoice Line'
+ref table '[Fact] Operational'
+ref table Measure
+ref table '[Dim] Account'
+ref table '[Dim] Date'
+ref table LocalDateTable_621eeb36-4be2-44ec-8984-617bd0defefa
+ref table LocalDateTable_20987b8b-9203-4908-aa4a-3cd8af0cde7a
+ref table LocalDateTable_9b3230d2-5766-4c0b-ba6a-58825f77e83d
+ref table LocalDateTable_e2e0ff62-ea6c-49b8-8009-1930589f2de3
+ref table LocalDateTable_86d28f23-b9e3-4471-bcc4-e5f4850f0f59
+ref table LocalDateTable_e30eac66-74ba-4a85-bba3-4e945c7b8546
+ref table LocalDateTable_31b1d2a0-6cd0-4557-a75c-e5ea171ad540
+ref table LocalDateTable_56a671fe-7c0b-4b18-9918-cf5944b49e44
+ref table LocalDateTable_766b69d4-fada-4ffa-8803-09534783fa20
+ref table LocalDateTable_91f8b6bc-96c6-4c04-9607-6cca73f92894
+ref table 'RLS Table'
+
+ref cultureInfo en-US
+

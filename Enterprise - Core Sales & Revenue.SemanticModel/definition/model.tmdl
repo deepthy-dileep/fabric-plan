@@ -1,0 +1,49 @@
+/// Enterprise PBIX Model Builder v2.1 | Fabric Plan Integrated Planning Edition | Designed & Developed by: Logeshkumar Sivakumar | Contact: elogu2001@outlook.com | Generated: 2026-06-10 | Company: NovaTerra Financial Cloud | (c) 2026 Logeshkumar Sivakumar. All rights reserved.
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __TEdtr = 1
+
+annotation PBI_QueryOrder = ["[Dim] Date","[Dim] Scenario","[Dim] Version","[Dim] Entity","[Dim] Account","[Dim] Geography","[Dim] Department","[Dim] Employee","[Dim] Product","[Dim] Customer","[Dim] Activity Type","[Fact] Financial","[Fact] ARR","[Fact] Headcount","[Fact] Sales Activity","DatasetFolder","[Dim] Dept Account Bridge"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table '[Dim] Date'
+ref table '[Dim] Scenario'
+ref table '[Dim] Version'
+ref table '[Dim] Entity'
+ref table '[Dim] Account'
+ref table '[Dim] Geography'
+ref table '[Dim] Department'
+ref table '[Dim] Employee'
+ref table '[Dim] Product'
+ref table '[Dim] Customer'
+ref table '[Dim] Activity Type'
+ref table '[Fact] Financial'
+ref table '[Fact] ARR'
+ref table '[Fact] Headcount'
+ref table '[Fact] Sales Activity'
+ref table Measure
+ref table DateTableTemplate_90540e65-1632-4649-a98d-a2af82d65023
+ref table LocalDateTable_abe62a6d-2a84-4b80-91e5-56ec57370cbb
+ref table LocalDateTable_1a58cce4-6dde-4a89-b19a-13f8b3da2d8e
+ref table LocalDateTable_3013041d-252d-4b99-a748-8aca9ded8940
+ref table LocalDateTable_34fc314f-0d0d-4f43-9130-aba92db42e05
+ref table LocalDateTable_f659cdea-c46c-4745-94ae-3ec03e8c1ed3
+ref table LocalDateTable_f54af3a0-f63e-428e-957d-be9ca21e4f31
+ref table LocalDateTable_0ddc6423-2317-4123-a37d-b979d0280e3e
+ref table LocalDateTable_ab0f3a01-df25-46b0-918b-e355cfd89b05
+ref table LocalDateTable_d8207d29-0bca-4e4c-955a-e0a30b614ae1
+ref table LocalDateTable_c6c2d1d4-5776-4197-899b-74ecae433f0e
+ref table LocalDateTable_7c59de87-50d4-4dc1-a261-cffbc3366665
+ref table LocalDateTable_777ba950-a0f1-4a7d-b88f-07c171ec208b
+ref table LocalDateTable_4b116c72-dbd9-44b1-82f9-c869f6e4fa8f
+ref table LocalDateTable_d3725e34-5d1b-48b3-b122-a6975437eb1f
+ref table LocalDateTable_c89ef83e-d7f3-4363-9c78-e14ec0c0b34a
+ref table '[Dim] Dept Account Bridge'
+

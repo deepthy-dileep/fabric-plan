@@ -1,0 +1,101 @@
+table 'Retail - Values'
+	lineageTag: 78392bf1-0010-44f0-9947-708b35e1a720
+
+	measure '2021 Profit' = CALCULATE(SUM('Retail - Orders'[Profit]),YEAR('Retail - Orders'[Order Date])=2021)
+		lineageTag: dcedbafa-6253-4be5-aa72-eaf5bbb3c71f
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2021 Quantity' = CALCULATE(SUM('Retail - Orders'[Quantity]),YEAR('Retail - Orders'[Order Date])=2021)
+		formatString: 0
+		lineageTag: 5e36a371-28e5-43b0-bab2-5f2db5b582f5
+
+		changedProperty = IsHidden
+
+	measure '2021 Sales' = CALCULATE(SUM('Retail - Orders'[Sales]),YEAR('Retail - Orders'[Order Date])=2021)
+		lineageTag: eb7bb0bf-470c-4ec7-9c3f-ad7b6310f5ae
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Sales = CALCULATE(SUM('Retail - Orders'[Sales]))
+		lineageTag: 747a2d78-c5f9-48b3-89c6-98b65f95cfca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Profit = CALCULATE(SUM('Retail - Orders'[Profit]))
+		lineageTag: f48093f2-9a1c-4d95-bcbc-c052c6ed6b2a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Quantity = CALCULATE(SUM('Retail - Orders'[Quantity]))
+		formatString: 0
+		lineageTag: 7113e4e4-bc60-48c5-a19b-cf2b080dd7af
+
+	measure '2022 Profit' = CALCULATE(SUM('Retail - Orders'[Profit]),YEAR('Retail - Orders'[Order Date])=2022)
+		lineageTag: 22827555-5708-4a1d-9d4a-d0adc0ae3a51
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2022 Quantity' = CALCULATE(SUM('Retail - Orders'[Quantity]),YEAR('Retail - Orders'[Order Date])=2022)
+		formatString: 0
+		lineageTag: 032ea2df-901c-4040-a221-9687ce939ff5
+
+	measure '2022 Sales' = CALCULATE(SUM('Retail - Orders'[Sales]),YEAR('Retail - Orders'[Order Date])=2022)
+		lineageTag: 85e7598d-23d6-4c34-b152-031b6972d56a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2023 Profit' = CALCULATE(SUM('Retail - Orders'[Profit]),YEAR('Retail - Orders'[Order Date])=2023)
+		lineageTag: 569604b7-3cc3-44c1-8b35-41ef949d7701
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2023 Quantity' = CALCULATE(SUM('Retail - Orders'[Quantity]),YEAR('Retail - Orders'[Order Date])=2023)
+		formatString: 0
+		lineageTag: 9a639f6e-b0dd-4782-ac4c-5ccc223e6854
+
+	measure '2023 Sales' = CALCULATE(SUM('Retail - Orders'[Sales]),YEAR('Retail - Orders'[Order Date])=2023)
+		lineageTag: 6cbea397-300f-49df-a70e-65b163e211d1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2024 Profit' = CALCULATE(SUM('Retail - Orders'[Profit]),YEAR('Retail - Orders'[Order Date])=2024)
+		lineageTag: 18fc0460-f5a3-411b-a2ba-4ec7d98ad650
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2024 Quantity' = CALCULATE(SUM('Retail - Orders'[Quantity]),YEAR('Retail - Orders'[Order Date])=2024)
+		formatString: 0
+		lineageTag: e339586d-b090-4f8a-96ad-4bfb0bf5b8ff
+
+	measure '2024 Sales' = CALCULATE(SUM('Retail - Orders'[Sales]),YEAR('Retail - Orders'[Order Date])=2024)
+		lineageTag: 2df187e6-775c-41d2-96d7-2c3d72c7d9f7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column1
+		dataType: string
+		isHidden
+		lineageTag: 131c5e76-ca22-4e0a-a444-38c80c24e3df
+		summarizeBy: none
+		sourceColumn: Column1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Retail - Values-47e2a06a-38d0-4629-8c37-970694a52f88' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

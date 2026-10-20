@@ -1,0 +1,123 @@
+table 'T LG'
+	lineageTag: 6dce0aaa-bd34-436c-a2cc-e15e05932052
+
+	measure 'Pct AC/Tar' = DIVIDE(SUM('T LG'[Value]), SUM('T LG'[Target]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e6a30d22-cebc-4996-b1f5-4942fd1815ee
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: 769c6b7a-6990-4839-8724-dbb148bd6b77
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column Target
+		dataType: int64
+		formatString: 0
+		lineageTag: 8bb116ea-ee96-4d5f-af64-8a6322b0e386
+		summarizeBy: sum
+		sourceColumn: Target
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		formatString: 0
+		lineageTag: 16ae43f7-2c40-42fa-9734-9fed8fac2685
+		summarizeBy: sum
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Maximum
+		dataType: int64
+		formatString: 0
+		lineageTag: bd421be7-50ef-43a1-95dd-788542aea655
+		summarizeBy: sum
+		sourceColumn: Maximum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'M Max' = 'T LG'[Maximum] + 100
+		formatString: 0
+		lineageTag: 6a844938-8a9e-41e1-84f9-c3a21d696795
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'M Min' = -50
+		formatString: 0
+		lineageTag: e4f86886-a3e0-4a99-a035-72d9ab27dbc1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Value -ve' = 'T LG'[Value] - 50
+		formatString: 0
+		lineageTag: e663876e-9977-4644-869c-0a818c14d70a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 39340c4f-6c1b-4807-8f82-fecff327d98b
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column SM
+		dataType: string
+		lineageTag: 851bad64-83ca-475d-9ab9-f47e50645878
+		summarizeBy: none
+		sourceColumn: SM
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'xArc Length'
+		dataType: double
+		lineageTag: 0ce75a89-7cfe-458e-981d-ea21f42d61bd
+		summarizeBy: sum
+		sourceColumn: xArc Length
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column xPercentage
+		dataType: string
+		lineageTag: 600eb97d-cf64-423a-a39e-60371939edb9
+		summarizeBy: none
+		sourceColumn: xPercentage
+
+		annotation SummarizationSetBy = Automatic
+
+	column xResult
+		dataType: string
+		lineageTag: cc2386ce-2b21-4af0-8ecb-4d0a20ee3d35
+		summarizeBy: none
+		sourceColumn: xResult
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'T LG-ee148c70-672a-4203-8a99-f18968ea3afa' = m
+		mode: import
+		queryGroup: 'Testing Data'
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\KavithaB\Desktop\Social Media Post\MondayMakeover\_TestingData.xlsx"), null, true),
+				    Test1_Table = Source{[Item="Table2",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Test1_Table,{{"SM", type text}, {"Value", Int64.Type}, {"Category", type text}, {"Target", Int64.Type}, {"Maximum", Int64.Type}, {"Sort", Int64.Type}, {"xArc Length", type number}, {"xPercentage", type any}, {"xResult", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

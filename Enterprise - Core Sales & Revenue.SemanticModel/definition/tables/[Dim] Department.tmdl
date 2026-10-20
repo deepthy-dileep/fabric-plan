@@ -1,0 +1,74 @@
+/// NovaTerra's 14 internal departments organised into four function groups: Commercial, Delivery, R&D, and G&A. Row dimension for the Fabric Plan Headcount Planning Sheet. Linked to payroll accounts via DimDeptAccountBridge.
+table '[Dim] Department'
+	lineageTag: 65e286a6-cc45-497e-b7de-59e3239a1a3c
+
+	/// Surrogate key. Hidden.
+	column 'Dept Key'
+		dataType: int64
+		formatString: 0
+		lineageTag: e15b39ca-0d7f-47f3-bb31-dde8bf3b0132
+		summarizeBy: none
+		sourceColumn: DeptKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Full department name (e.g. Engineering, Customer Success, Finance).
+	column 'Department Name'
+		dataType: string
+		lineageTag: 5a737ebf-ab37-4ab8-9293-d1832bd5ea86
+		summarizeBy: none
+		sourceColumn: DeptName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Business function (e.g. Sales, Engineering, HR).
+	column 'Function Name'
+		dataType: string
+		lineageTag: 34461b38-ea2f-4fe6-8c55-8aa993055657
+		summarizeBy: none
+		sourceColumn: FunctionName
+
+		annotation SummarizationSetBy = Automatic
+
+	/// High-level grouping — Commercial, Delivery, R&D, or G&A. Aligns to OpEx line items in the P&L.
+	column 'Function Group'
+		dataType: string
+		lineageTag: 7e4b2792-0b8a-42a5-93c1-c8e3ce8d5c10
+		summarizeBy: none
+		sourceColumn: FunctionGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy '[H] Department Hierarchy'
+		lineageTag: d29c0732-11b5-441b-9a76-becb7fefb087
+
+		level 'Function Group'
+			lineageTag: 25fd0744-144b-4e21-9354-e4734b3e3ffe
+			column: 'Function Group'
+
+		level 'Function Name'
+			lineageTag: 8aaa09d4-9d4b-41d4-984f-cb0f829d74fb
+			column: 'Function Name'
+
+		level 'Department Name'
+			lineageTag: 8fd078bd-6796-4157-bed9-f57ce783e31e
+			column: 'Department Name'
+
+	partition DimDepartment = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\DimDepartment.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Replaced Value" = Table.ReplaceValue(#"Promoted Headers","—","-",Replacer.ReplaceText,{"DeptName"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Replaced Value",{{"DeptKey", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

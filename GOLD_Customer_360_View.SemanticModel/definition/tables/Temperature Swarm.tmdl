@@ -1,0 +1,79 @@
+table 'Temperature Swarm'
+	isHidden
+	lineageTag: 13779dfa-948f-4ee0-bf23-201af056694c
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: da3a2508-e430-465d-a096-f239cb217145
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 1a9d76ec-4a92-4ca6-adda-cc1d465ab6b8
+			defaultHierarchy: LocalDateTable_a56b6aac-d63d-40f7-88e8-b53d259b531b.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Temperature
+		dataType: double
+		isHidden
+		lineageTag: f6c47661-d083-4062-ab42-95f8fd04e712
+		summarizeBy: sum
+		sourceColumn: Temperature
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Day of Year'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a8dc620d-2556-4396-8016-1c023c0397ce
+		summarizeBy: sum
+		sourceColumn: Day of Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f0f05dac-003e-41e6-a64e-c7ce16288e88
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Temperature Swarm' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\KavithaB\Downloads\temperature_data.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Temperature", type number}}),
+				    #"Inserted Day of Year" = Table.AddColumn(#"Changed Type", "Day of Year", each Date.DayOfYear([Date]), Int64.Type),
+				    #"Inserted Year" = Table.AddColumn(#"Inserted Day of Year", "Year", each Date.Year([Date]), Int64.Type)
+				in
+				    #"Inserted Year"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

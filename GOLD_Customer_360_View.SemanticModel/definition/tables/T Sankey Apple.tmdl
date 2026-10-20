@@ -1,0 +1,55 @@
+table 'T Sankey Apple'
+	lineageTag: d16d284a-d8c7-4403-82e0-157abb5d0a32
+
+	column 'Level 1'
+		dataType: string
+		lineageTag: 7913ae3b-c85f-41ce-b6f8-ca2e70f8ed28
+		summarizeBy: none
+		sourceColumn: Level 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 2'
+		dataType: string
+		lineageTag: 00ec10df-d318-4255-894e-9314b3422dac
+		summarizeBy: none
+		sourceColumn: Level 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 3'
+		dataType: string
+		lineageTag: d2d0396e-fa37-4168-8418-61674bb6ca2f
+		summarizeBy: none
+		sourceColumn: Level 3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level 4'
+		dataType: string
+		lineageTag: 19ff225c-9458-46de-9107-4d43af19f3d4
+		summarizeBy: none
+		sourceColumn: Level 4
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: cbc1b238-1c51-4e6b-bc9c-5cfa34459b42
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'T Sankey Apple' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("hZJNb8IwDIb/StQzh9BBB0fG12mjAqQdgEPUGhoxxShJET8f2sKSglFysh2/j1852WyiJZxBlRB1olRjXmbW3EKZFqiq2hiNZbhnrivmCW9OtOu8kX+L7AvxSOp7PCiXqcjp2cOg9lfYrGBC5WwkdYq5oU10adAK9FlmYFzoiV4xnwMf47lYoxV/7F5gldC5rNOqaa7RmKppL2292JYpz0pDexi60/yUosU+7OlycQItrFQHqjS9nECZevAPWNfRb9kjEMttyXmcTHzCWlyeOXES4KzmDWgUAvUDoIUtQP8viCB88ACB0Mykuj1Gq9R133J3BQ==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Level 1" = _t, #"Level 2" = _t, #"Level 3" = _t, #"Level 4" = _t, Value = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Level 1", type text}, {"Level 2", type text}, {"Level 3", type text}, {"Level 4", type text}, {"Value", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

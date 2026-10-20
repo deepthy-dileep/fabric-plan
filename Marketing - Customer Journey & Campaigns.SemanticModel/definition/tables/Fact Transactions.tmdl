@@ -1,0 +1,308 @@
+table 'Fact Transactions'
+	lineageTag: 8ff8b1c1-89fe-41be-b1b2-5cbae6e39416
+
+	column 'Sales Key'
+		lineageTag: e41fbbf4-ab0a-48d3-806e-389b4a47f2e3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Sales Key]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Key'
+		lineageTag: 3bd68415-ac93-4a34-9658-eaf3e8be432b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Product Key]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Geography Key'
+		lineageTag: 54e9ca02-5693-476b-8519-0bf8dc196b01
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geography Key]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date Key'
+		lineageTag: f5a96097-8241-419e-9ad9-7ecc4806c304
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date Key]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Units Sold'
+		lineageTag: 8c5efeac-3612-441c-89f5-b48cdbee60af
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Units Sold]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gross Revenue'
+		lineageTag: 740a7787-7a3b-4b42-b905-237b504ec83b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Gross Revenue]
+
+		annotation SummarizationSetBy = Automatic
+
+	column COGS
+		lineageTag: 4e05bca7-951f-40af-8158-5f90bde97065
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [COGS]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gross Profit'
+		isHidden
+		lineageTag: a9acc7fa-5c99-45cc-8a21-9d16d39026ec
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Gross Profit]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Transactions' = calculated
+		mode: import
+		source =
+				
+				VAR SourceTable =
+				    '[Fact] Sales'
+				
+				VAR MaxSalesKey =
+				    MAXX(
+				        SourceTable,
+				        [Sales Key]
+				    )
+				
+				VAR Base2025 =
+				    FILTER(
+				        SourceTable,
+				        VALUE([Date Key]) >= 202501 &&
+				        VALUE([Date Key]) <= 202512
+				    )
+				
+				VAR Base2026H1 =
+				    FILTER(
+				        SourceTable,
+				        VALUE([Date Key]) >= 202601 &&
+				        VALUE([Date Key]) <= 202606
+				    )
+				
+				VAR Base2025Count =
+				    COUNTROWS(Base2025)
+				
+				
+				// --------------------------------------------------
+				// 2023 DATA
+				// 90% of comparable 2025 Units Sold
+				// --------------------------------------------------
+				
+				VAR Data2023 =
+				    ADDCOLUMNS(
+				        Base2025,
+				        "__Rank",
+				            RANKX(
+				                Base2025,
+				                [Sales Key],
+				                ,
+				                ASC,
+				                DENSE
+				            ),
+				        "__NewYear",
+				            2023,
+				        "__NewUnits",
+				            ROUND([Units Sold] * 0.90, 0),
+				        "__NewGrossRevenue",
+				            [Gross Revenue] * 0.90,
+				        "__NewCOGS",
+				            [COGS] * 0.90,
+				        "__NewDateKey",
+				            FORMAT(
+				                202300 + MOD(VALUE([Date Key]), 100),
+				                "0"
+				            )
+				    )
+				
+				
+				// --------------------------------------------------
+				// 2024 DATA
+				// 95% of comparable 2025 Units Sold
+				// --------------------------------------------------
+				
+				VAR Data2024 =
+				    ADDCOLUMNS(
+				        Base2025,
+				        "__Rank",
+				            RANKX(
+				                Base2025,
+				                [Sales Key],
+				                ,
+				                ASC,
+				                DENSE
+				            ),
+				        "__NewYear",
+				            2024,
+				        "__NewUnits",
+				            ROUND([Units Sold] * 0.95, 0),
+				        "__NewGrossRevenue",
+				            [Gross Revenue] * 0.95,
+				        "__NewCOGS",
+				            [COGS] * 0.95,
+				        "__NewDateKey",
+				            FORMAT(
+				                202400 + MOD(VALUE([Date Key]), 100),
+				                "0"
+				            )
+				    )
+				
+				
+				// --------------------------------------------------
+				// 2026 H2
+				// 105% of corresponding 2025 month
+				// --------------------------------------------------
+				
+				VAR Base2025H2 =
+				    FILTER(
+				        Base2025,
+				        MOD(VALUE([Date Key]), 100) >= 7
+				    )
+				
+				VAR Data2026H2 =
+				    ADDCOLUMNS(
+				        Base2025H2,
+				        "__Rank",
+				            RANKX(
+				                Base2025H2,
+				                [Sales Key],
+				                ,
+				                ASC,
+				                DENSE
+				            ),
+				        "__NewYear",
+				            2026,
+				        "__NewUnits",
+				            ROUND([Units Sold] * 1.05, 0),
+				        "__NewGrossRevenue",
+				            [Gross Revenue] * 1.05,
+				        "__NewCOGS",
+				            [COGS] * 1.05,
+				        "__NewDateKey",
+				            FORMAT(
+				                202600 + MOD(VALUE([Date Key]), 100),
+				                "0"
+				            )
+				    )
+				
+				
+				// --------------------------------------------------
+				// FINAL TABLE
+				// --------------------------------------------------
+				
+				RETURN
+				
+				UNION(
+				
+				    // 2025 ACTUAL + 2026 H1 ACTUAL
+				
+				    SELECTCOLUMNS(
+				        UNION(
+				            Base2025,
+				            Base2026H1
+				        ),
+				        "Sales Key",
+				            [Sales Key],
+				        "Product Key",
+				            [Product Key],
+				        "Geography Key",
+				            [Geography Key],
+				        "Date Key",
+				            [Date Key],
+				        "Units Sold",
+				            [Units Sold],
+				        "Gross Revenue",
+				            [Gross Revenue],
+				        "COGS",
+				            [COGS],
+				        "Gross Profit",
+				            [Gross Profit]
+				    ),
+				
+				    // 2023
+				
+				    SELECTCOLUMNS(
+				        Data2023,
+				        "Sales Key",
+				            MaxSalesKey + [__Rank],
+				        "Product Key",
+				            [Product Key],
+				        "Geography Key",
+				            [Geography Key],
+				        "Date Key",
+				            [__NewDateKey],
+				        "Units Sold",
+				            [__NewUnits],
+				        "Gross Revenue",
+				            [__NewGrossRevenue],
+				        "COGS",
+				            [__NewCOGS],
+				        "Gross Profit",
+				            [__NewGrossRevenue] - [__NewCOGS]
+				    ),
+				
+				    // 2024
+				
+				    SELECTCOLUMNS(
+				        Data2024,
+				        "Sales Key",
+				            MaxSalesKey
+				                + Base2025Count
+				                + [__Rank],
+				        "Product Key",
+				            [Product Key],
+				        "Geography Key",
+				            [Geography Key],
+				        "Date Key",
+				            [__NewDateKey],
+				        "Units Sold",
+				            [__NewUnits],
+				        "Gross Revenue",
+				            [__NewGrossRevenue],
+				        "COGS",
+				            [__NewCOGS],
+				        "Gross Profit",
+				            [__NewGrossRevenue] - [__NewCOGS]
+				    ),
+				
+				    // 2026 JULY-DECEMBER
+				
+				    SELECTCOLUMNS(
+				        Data2026H2,
+				        "Sales Key",
+				            MaxSalesKey
+				                + Base2025Count
+				                + Base2025Count
+				                + [__Rank],
+				        "Product Key",
+				            [Product Key],
+				        "Geography Key",
+				            [Geography Key],
+				        "Date Key",
+				            [__NewDateKey],
+				        "Units Sold",
+				            [__NewUnits],
+				        "Gross Revenue",
+				            [__NewGrossRevenue],
+				        "COGS",
+				            [__NewCOGS],
+				        "Gross Profit",
+				            [__NewGrossRevenue] - [__NewCOGS]
+				    )
+				)
+
+	annotation PBI_Id = c185cd5ef12847ffbe9286525363f6d6
+

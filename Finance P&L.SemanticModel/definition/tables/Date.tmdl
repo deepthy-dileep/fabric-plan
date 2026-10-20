@@ -1,0 +1,356 @@
+table Date
+	lineageTag: c98c1a91-9818-4a13-8d2e-d0758ff68645
+
+	column Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: eee9c14a-7adf-4312-a936-6e31515c7378
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 86158ee6-4e84-45c3-bb5f-3877d165ff5e
+			defaultHierarchy: LocalDateTable_1ba776bf-50a0-48b1-be30-2dbc21e9a595.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Past or Future'
+		dataType: string
+		isHidden
+		lineageTag: 65e56c2f-6c0f-4699-8284-633cb2c549ca
+		summarizeBy: none
+		sourceColumn: Past or Future
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days from Today'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 199abce7-2642-43b1-a104-963d31d4f820
+		summarizeBy: sum
+		sourceColumn: Days from Today
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: double
+		isHidden
+		lineageTag: be0cba5c-e044-4c30-8c32-588fc4a412cb
+		summarizeBy: sum
+		sourceColumn: Index
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Day
+		dataType: string
+		isHidden
+		lineageTag: 50b297e3-bbcb-4461-9c4d-5bbb5cb26d98
+		summarizeBy: none
+		sourceColumn: Day
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b307c035-436d-4998-91b6-61c42659166a
+		summarizeBy: sum
+		sourceColumn: Day Sort
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name'
+		dataType: string
+		isHidden
+		lineageTag: 71ab1d8b-eb0b-4431-ac1f-d14318ad97dd
+		summarizeBy: none
+		sourceColumn: Day Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name (Full)'
+		dataType: string
+		isHidden
+		lineageTag: 0b926860-a412-4b3f-ab30-ce4e303721b9
+		summarizeBy: none
+		sourceColumn: Day Name (Full)
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e094c045-d974-4a65-bdd6-eaaca1b5924b
+		summarizeBy: sum
+		sourceColumn: Day Name Sort
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a18b598b-c07f-43c6-8620-1148b04ab907
+		summarizeBy: sum
+		sourceColumn: Day of Week
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month No'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dab0ab9d-f0cc-4b1c-9cf6-bb71987cb6d3
+		summarizeBy: sum
+		sourceColumn: Month No
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		dataType: string
+		isHidden
+		lineageTag: 89392fcb-f233-495a-801f-c78e9b5879c8
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name (Full)'
+		dataType: string
+		isHidden
+		lineageTag: 10918414-abea-4a2b-92eb-c6eb64afc822
+		summarizeBy: none
+		sourceColumn: Month Name (Full)
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter No'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 987cea66-244b-41ab-a102-9cc83b29a9c9
+		summarizeBy: sum
+		sourceColumn: Quarter No
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Name'
+		dataType: string
+		isHidden
+		lineageTag: 6eed7550-ff49-44f3-bf81-c99c0d4567ab
+		summarizeBy: none
+		sourceColumn: Quarter Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week of Year'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1277597c-2cc1-43e1-b033-00e75ca555e8
+		summarizeBy: sum
+		sourceColumn: Week of Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week No'
+		dataType: string
+		isHidden
+		lineageTag: da844e2c-78c1-4646-b6b8-b0e4bc63cede
+		summarizeBy: none
+		sourceColumn: Week No
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3324f406-ca84-4c25-ab93-076558e56f6f
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Decade
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 44f0c160-e26a-4ec9-b163-957764c20d03
+		summarizeBy: sum
+		sourceColumn: Decade
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month
+		dataType: string
+		isHidden
+		lineageTag: 4f464d57-19cc-4513-b1fe-29b68dc034e9
+		summarizeBy: none
+		sourceColumn: Year-Month
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month-Sort
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 278ff658-42ae-4d2a-a65e-8d550f931de6
+		summarizeBy: sum
+		sourceColumn: Year-Month-Sort
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Quarter
+		dataType: string
+		isHidden
+		lineageTag: 2491cfda-3712-4094-937c-5a91224466c8
+		summarizeBy: none
+		sourceColumn: Year-Quarter
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year'
+		dataType: string
+		isHidden
+		lineageTag: 64fd4d25-9010-48a2-a715-72b89ecba0ed
+		summarizeBy: none
+		sourceColumn: Fiscal Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FY: Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 024d3390-e9c9-40d4-bd2f-59be68ab9fde
+		summarizeBy: sum
+		sourceColumn: FY: Sort Order
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Month'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4d725fe7-af2b-4b96-851c-897c936c024f
+		summarizeBy: sum
+		sourceColumn: Fiscal Month
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Month Name'
+		dataType: string
+		isHidden
+		lineageTag: 74a75ffa-2ea9-41d7-b010-656cdb823ad6
+		summarizeBy: none
+		sourceColumn: Fiscal Month Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Quarter'
+		dataType: string
+		isHidden
+		lineageTag: 8c2d8b43-11e4-4fa2-b1be-9a1ab2e15979
+		summarizeBy: none
+		sourceColumn: Fiscal Quarter
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FQ: Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f4a87170-7bd3-4212-9c7d-1087666b4b4e
+		summarizeBy: sum
+		sourceColumn: FQ: Sort Order
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Working Day'
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3a296717-4c5b-4ae3-b24a-608b27e4ba13
+		summarizeBy: none
+		sourceColumn: Working Day
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date-d3d1ae41-f8cd-420d-aad3-560005f75ed9 = m
+		mode: import
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"24eb1ba3-a295-4f4f-b345-c8b34ef750a9" = Workspaces{[workspaceId="24eb1ba3-a295-4f4f-b345-c8b34ef750a9"]}[Data],
+				    #"ce8b8411-a7f4-476a-bf4e-39846ab8b87f" = #"24eb1ba3-a295-4f4f-b345-c8b34ef750a9"{[dataflowId="ce8b8411-a7f4-476a-bf4e-39846ab8b87f"]}[Data],
+				    #"[Dim] Delivery Calendar_" = #"ce8b8411-a7f4-476a-bf4e-39846ab8b87f"{[entity="[Dim] Delivery Calendar",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(#"[Dim] Delivery Calendar_",{{"Date", type datetime}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

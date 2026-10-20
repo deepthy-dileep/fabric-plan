@@ -1,0 +1,41 @@
+table '[Dim] Scenario'
+	lineageTag: 351339ca-8df2-41af-ba55-81b70451376d
+
+	column ScenarioKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d8483c96-70d2-4de4-bf33-7bf65284f36c
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Scenario Name'
+		dataType: string
+		lineageTag: 95f52a18-fedf-4ba4-8fa2-748f05bd6f8a
+		summarizeBy: none
+		sourceColumn: Scenario Name
+		sortByColumn: ScenarioKey
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '[Dim] Scenario' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\LogeshkumarSivakumar\OneDrive - Lumel Technologies Inc\Lumel\Datasets\Enterprise Dataset\V4\DimScenario.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ScenarioKey", Int64.Type}, {"ScenarioName", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"ScenarioName", "Scenario Name"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,5 @@
+relationship 3231a822-c3b4-4b3b-826e-913842f6fc15
+	joinOnDateBehavior: datePartOnly
+	fromColumn: brewery_transactions_complete.date
+	toColumn: LocalDateTable_b410b86f-72ed-45e8-b9ab-07c4db983c8b.Date
+

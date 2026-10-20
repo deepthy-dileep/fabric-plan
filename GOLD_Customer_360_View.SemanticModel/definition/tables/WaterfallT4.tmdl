@@ -1,0 +1,53 @@
+table WaterfallT4
+	lineageTag: b89d9aad-0e50-46f6-a211-26cd2415516c
+
+	column Region
+		dataType: string
+		lineageTag: eb2ed77b-b322-4282-be95-35cf6415e8b0
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute
+		dataType: string
+		lineageTag: dfedfb71-b6cf-4156-8c17-5bf5d81af015
+		summarizeBy: none
+		sourceColumn: Attribute
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f942fd1-9e12-4118-962c-28c4c5c66711
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: eae96952-f790-44e9-99dc-f792fe85ec89
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition WaterfallT4 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\KavithaB\Desktop\Analytics Test Data\Inforiver Datasets Test.xlsx"), null, true),
+				    WaterfallT4_Table = Source{[Item="WaterfallT4",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(WaterfallT4_Table,{{"Year", Int64.Type}, {"Region", type text}, {"Whole Food", type number}, {"Others", type number}}),
+				    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Changed Type", {"Year", "Region"}, "Attribute", "Value")
+				in
+				    #"Unpivoted Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,82 @@
+table 'Gender Gap'
+	lineageTag: e73d67d7-ec10-42b4-846e-741afb99630d
+
+	column Occupation
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 8a37304b-3cb1-477e-83e6-92aea05df0e3
+		summarizeBy: none
+		sourceColumn: Occupation
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: f96dbb83-370a-41a2-a6d6-639e4cca99e1
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country '
+		dataType: string
+		sourceProviderType: nvarchar(max)
+		lineageTag: 8e7589e9-b7af-43a2-a690-93bfc93e22e7
+		summarizeBy: none
+		sourceColumn: "Country "
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Women average annual salary ($)'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 1253aeec-ef45-49c7-b3f2-9e95075041cc
+		summarizeBy: sum
+		sourceColumn: Women average annual salary ($)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Men average annual salary ($)'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 1f536331-0a0e-4bf6-bfc9-268aff6b3514
+		summarizeBy: sum
+		sourceColumn: Men average annual salary ($)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pay gap ($)'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: cb8583cc-5e09-4285-9bf9-de348f444b05
+		summarizeBy: sum
+		sourceColumn: Pay gap ($)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pay gap as a percentage'
+		dataType: double
+		sourceProviderType: float
+		lineageTag: ca67d960-13eb-4975-a052-696cd0c36444
+		summarizeBy: sum
+		sourceColumn: Pay gap as a percentage
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Gender Gap-90711d4a-fb38-4430-9ee0-5cc406284a18' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("infosuitesandbox.database.windows.net", "infosuite"),
+				    #"dbo_Gender Gap" = Source{[Schema="dbo",Item="Gender Gap"]}[Data]
+				in
+				    #"dbo_Gender Gap"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,16 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["brewery_transactions_complete"]
+
+ref table brewery_transactions_complete
+ref table DateTableTemplate_2aafbced-f6fa-498b-8454-9b9e3539d2dc
+ref table LocalDateTable_b410b86f-72ed-45e8-b9ab-07c4db983c8b
+

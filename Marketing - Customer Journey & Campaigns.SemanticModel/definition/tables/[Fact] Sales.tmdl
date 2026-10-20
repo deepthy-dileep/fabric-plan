@@ -1,0 +1,134 @@
+/// Primary transaction fact table at Product × City × Channel × Month grain. Contains only foreign keys and numeric or flag measures — no descriptive text. All labels resolve through the three dimension tables. 63,180 rows covering 18 months.
+table '[Fact] Sales'
+	isHidden
+	lineageTag: 1609937e-0745-4ef4-a93c-b83f2b369494
+
+	/// Surrogate primary key for FactSales. Hidden.
+	column 'Sales Key'
+		dataType: string
+		isHidden
+		lineageTag: 93364f27-5e2f-433f-bc08-8c2e3feefcd2
+		summarizeBy: none
+		sourceColumn: SalesKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Product. Hidden — relationship join only.
+	column 'Product Key'
+		dataType: string
+		isHidden
+		lineageTag: d44b5472-9746-4975-ab26-a3809d4deab2
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Geography. Hidden — relationship join only.
+	column 'Geography Key'
+		dataType: string
+		isHidden
+		lineageTag: 21067990-fe19-43dc-b013-89e374910df0
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Foreign key to [Dim] Date. Hidden — relationship join only.
+	column 'Date Key'
+		dataType: string
+		isHidden
+		lineageTag: 493f82bf-9108-4ca7-a369-8bcd26617e0c
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Actual units sold in the period. Primary volume measure for TopN by quantity demos.
+	column 'Units Sold'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: af06ab93-04ee-49ef-abdb-6262902a7107
+		summarizeBy: sum
+		sourceColumn: UnitsActual
+
+		changedProperty = Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Total net revenue in USD: NetSellPriceUSD × UnitsActual. Primary revenue measure for TopN, Sort, and variance analysis.
+	column 'Gross Revenue'
+		dataType: double
+		isHidden
+		lineageTag: 7fafef7b-3ab3-4660-bb7c-3b668d97ed71
+		summarizeBy: sum
+		sourceColumn: SalesAmountUSD
+
+		changedProperty = Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Cost of goods sold in USD: UnitCostUSD × UnitsActual. Subtracted from SalesAmountUSD to compute GrossProfitUSD.
+	column COGS
+		dataType: double
+		isHidden
+		lineageTag: 23fb0955-dfae-4cb1-88ab-e92c84e2ec10
+		summarizeBy: sum
+		sourceColumn: COGSAmountUSD
+
+		changedProperty = Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Revenue minus COGS in USD. Primary profitability measure — drives TopN by profit and gross margin analysis.
+	column 'Gross Profit'
+		dataType: double
+		isHidden
+		lineageTag: 5aba757a-a63b-4cfb-9346-db8e6baf332e
+		summarizeBy: sum
+		sourceColumn: GrossProfitUSD
+
+		changedProperty = Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition '[Fact] Sales' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document( File.Contents( DatasetFolder & "\\FactSales.csv" ),
+				        [ Delimiter = ",", Columns = null, Encoding = 65001, QuoteStyle = QuoteStyle.None ] ),
+				    #"Promoted Headers" = Table.PromoteHeaders( Source, [ PromoteAllScalars = true ] ),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"UnitsActual", Int64.Type}, {"UnitsPlan", Int64.Type}, {"UnitsVariance", Int64.Type}, {"UnitsReturned", Int64.Type}, {"RetailSellPriceUSD", type number}, {"DiscountPct", type number}, {"NetSellPriceUSD", type number}, {"SalesAmountUSD", type number}, {"PlanAmountUSD", type number}, {"COGSAmountUSD", type number}, {"GrossProfitUSD", type number}, {"VarianceUSD", type number}, {"VariancePct", type number}, {"SalesAmountLocal", type number}, {"PlanAmountLocal", type number}, {"ReturnsValueUSD", type number}, {"NetSalesAfterReturns", type number}, {"GrossMarginPct", type number}, {"PromoLiftPct", type number}, {"DistributionCoverage", type number}, {"InventoryDaysEstimate", Int64.Type}, {"SalesAmountInclVAT", type number}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Sales Amount Incl VAT", "Discount Pct", "Distribution Coverage", "Gross Margin Pct", "Inventory Days Estimate", "Is Promo", "Net Sales After Returns", "Net Sell Price USD", "Plan Amount Local", "Plan Amount USD", "Promo Lift Pct", "Retail Sell Price USD", "Returns Value USD", "Sales Amount Local", "Sales Channel", "Units Plan", "Units Returned", "Units Variance", "Variance Pct", "Variance USD"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

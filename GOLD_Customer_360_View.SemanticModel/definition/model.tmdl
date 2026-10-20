@@ -1,0 +1,80 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Orders
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Use Case'
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup Images
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Testing Data'
+
+	annotation PBI_QueryGroupOrder = 1
+
+/// Errors in queries that were loaded on 8/5/2024 12:40:45 PM.
+queryGroup 'Query Errors - 8/5/2024 12:40:45 PM'
+
+	annotation PBI_QueryGroupOrder = 4
+
+annotation PBI_QueryOrder = ["Orders","Returns","Measure","Order Dates","Date Query","U Img Trillion Company","T LG","U CIPLA","U Img Base64","Richest","BinarytoImage","T Histo","Table3 (2)","Errors in Table3 (2)","U Log scale","U Tornado","U ChartWizard","Animal","Top Salesman","T Treemap","SwarmT1","PP","WaterfallT4","Temperature Swarm","T Sankey 2C","T Sankey Uneven","T SankeyT1","T MAC","T SankeyT3","T Sankey BankChruners_clustered","SankeyT4","SankeyT5","T Sankey Apple","Sheet1"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop"]
+
+ref table Orders
+ref table DateTableTemplate_63d10b96-ea81-403c-99ff-1da47a64fa77
+ref table Returns
+ref table 'Orders Image'
+ref table Measure
+ref table 'Order Dates'
+ref table 'T LG'
+ref table 'U Img Trillion Company'
+ref table 'U Img Base64'
+ref table 'U CIPLA'
+ref table LocalDateTable_9bc3d5c6-a47f-4ce8-9865-f84f38449f9f
+ref table 'Orders Parameter'
+ref table 'Orders Parameter Range'
+ref table 'T Histo'
+ref table 'R_AC Parameter'
+ref table 'R_LM Parameter'
+ref table 'R_Measure Index'
+ref table 'Ranking Slider Parameter'
+ref table 'U Log scale'
+ref table ClusterMappingTable
+ref table 'U Tornado'
+ref table 'Custom Table'
+ref table 'U ChartWizard'
+ref table Animal
+ref table 'Top Salesman'
+ref table 'T Treemap'
+ref table SwarmT1
+ref table 'Custom Table Deviation'
+ref table PP
+ref table WaterfallT4
+ref table 'Temperature Swarm'
+ref table LocalDateTable_a56b6aac-d63d-40f7-88e8-b53d259b531b
+ref table 'T Sankey 2C'
+ref table 'T Sankey Uneven'
+ref table 'T SankeyT1'
+ref table 'T MAC'
+ref table 'T SankeyT3'
+ref table 'T Sankey BankChruners_clustered'
+ref table SankeyT4
+ref table SankeyT5
+ref table 'T Sankey Apple'
+ref table Sheet1
+
+ref cultureInfo en-IN
+

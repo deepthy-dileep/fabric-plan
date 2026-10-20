@@ -1,0 +1,80 @@
+table SankeyT4
+	lineageTag: bce5c15c-e2ee-4f69-942a-934830a81eef
+
+	column Con1
+		dataType: string
+		lineageTag: aceccfb6-db95-47ff-8116-22dfbcb9a458
+		summarizeBy: none
+		sourceColumn: Con1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Con2
+		dataType: string
+		lineageTag: f9ec4274-1823-42f7-aa73-e2b087a7a760
+		summarizeBy: none
+		sourceColumn: Con2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Con3
+		dataType: string
+		lineageTag: 3f4d51ed-fc03-4bc0-b3e8-456e23a140de
+		summarizeBy: none
+		sourceColumn: Con3
+
+		annotation SummarizationSetBy = Automatic
+
+	column Con4
+		dataType: string
+		lineageTag: 2c138c64-14af-4b2f-9d7a-3562f96e8847
+		summarizeBy: none
+		sourceColumn: Con4
+
+		annotation SummarizationSetBy = Automatic
+
+	column Con5
+		dataType: string
+		lineageTag: 01106ef1-ee0b-471b-9ad2-cabf0b7d334d
+		summarizeBy: none
+		sourceColumn: Con5
+
+		annotation SummarizationSetBy = Automatic
+
+	column Con6
+		dataType: string
+		lineageTag: 8c6ab94d-2a13-4d32-973e-d793734e6283
+		summarizeBy: none
+		sourceColumn: Con6
+
+		annotation SummarizationSetBy = Automatic
+
+	column Con7
+		dataType: string
+		lineageTag: 549a1ca8-dd5c-4c8c-8e8d-db59ac0e0022
+		summarizeBy: none
+		sourceColumn: Con7
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: int64
+		formatString: 0
+		lineageTag: 84f43c15-481d-40dd-b95e-77ef247b9af4
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SankeyT4 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\KavithaB\Desktop\Analytics Test Data\Inforiver Datasets Test.xlsx"), null, true),
+				    SankeyT4_Table = Source{[Item="SankeyT4",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SankeyT4_Table,{{"Con1", type text}, {"Con2", type text}, {"Con3", type text}, {"Con4", type text}, {"Con5", type text}, {"Con6", type text}, {"Con7", type text}, {"Value", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

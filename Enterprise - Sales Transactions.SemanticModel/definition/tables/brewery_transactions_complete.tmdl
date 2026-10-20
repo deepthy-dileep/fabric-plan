@@ -1,0 +1,347 @@
+table brewery_transactions_complete
+	lineageTag: 57454731-83ef-4f4e-b2b3-79fbb13ea364
+
+	column date_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8ff4f34c-80ac-4e66-8dcf-26feb13aa503
+		summarizeBy: sum
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6e49b9ee-0fc0-4a16-88e9-1047835a0723
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: 3231a822-c3b4-4b3b-826e-913842f6fc15
+			defaultHierarchy: LocalDateTable_b410b86f-72ed-45e8-b9ab-07c4db983c8b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 39732f6c-b8e2-4143-bc3c-431be47f3e72
+		summarizeBy: sum
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_rep_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ce1198f7-8b25-435e-978e-4a22a234e434
+		summarizeBy: sum
+		sourceColumn: sales_rep_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: c1f4aad6-5b1b-4a26-a84e-4c64b5102d00
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_type
+		dataType: string
+		lineageTag: 7c045409-3062-4f67-ae64-6c9b95984a3d
+		summarizeBy: none
+		sourceColumn: customer_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_region
+		dataType: string
+		lineageTag: 2abeb12f-af54-4766-9530-65f7090af04b
+		summarizeBy: none
+		sourceColumn: customer_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_country
+		dataType: string
+		lineageTag: 8b6a5a97-c67a-40d6-bf1f-13f942fea241
+		summarizeBy: none
+		sourceColumn: customer_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		lineageTag: 06f0f34f-6f50-4fa5-a252-eb47764fa006
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_sales_territory
+		dataType: string
+		lineageTag: 46761e37-2406-4f7d-96d5-a6d54792e993
+		summarizeBy: none
+		sourceColumn: customer_sales_territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_transaction_currency
+		dataType: string
+		lineageTag: fdb04895-f65a-4c32-bab0-baadd3df2ccf
+		summarizeBy: none
+		sourceColumn: customer_transaction_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column territory_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c344e697-1295-4d3c-bab6-544cc397e66d
+		summarizeBy: sum
+		sourceColumn: territory_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e4780da-bc1a-41c0-85ae-6700ed114ab5
+		summarizeBy: sum
+		sourceColumn: sku_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku_code
+		dataType: string
+		lineageTag: 69dac93d-18f6-49d9-b6f0-f04afe08840d
+		summarizeBy: none
+		sourceColumn: sku_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 03774207-41dd-4b27-9c7d-0a121f4262d7
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column variant
+		dataType: string
+		lineageTag: 1bdc5387-9b0a-4fa5-a5d9-d2c28f9353d8
+		summarizeBy: none
+		sourceColumn: variant
+
+		annotation SummarizationSetBy = Automatic
+
+	column pack_format
+		dataType: string
+		lineageTag: a3f00f74-7985-4954-b3c1-23c8cc9bd1e2
+		summarizeBy: none
+		sourceColumn: pack_format
+
+		annotation SummarizationSetBy = Automatic
+
+	column multipack
+		dataType: string
+		lineageTag: e9a67b88-583b-47dd-bd87-8ca6c1f41a76
+		summarizeBy: none
+		sourceColumn: multipack
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_id
+		dataType: string
+		lineageTag: 039f9efa-ced9-425a-a108-9fe55291723b
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_line_number
+		dataType: int64
+		formatString: 0
+		lineageTag: 41cca21f-7fa6-4ff4-9f94-1180be67c6a8
+		summarizeBy: sum
+		sourceColumn: invoice_line_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_sale_units
+		dataType: int64
+		formatString: 0
+		lineageTag: 1812f1df-6be5-4382-893d-e1fc97dbf594
+		summarizeBy: sum
+		sourceColumn: gross_sale_units
+
+		annotation SummarizationSetBy = Automatic
+
+	column exchange_rate
+		dataType: double
+		lineageTag: 47384817-bc6b-454f-bbca-20102e404cac
+		summarizeBy: sum
+		sourceColumn: exchange_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column selling_price_gc
+		dataType: double
+		lineageTag: 1808605f-d660-4616-a9e3-574c47fbf308
+		summarizeBy: sum
+		sourceColumn: selling_price_gc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gross_revenue_gc
+		dataType: double
+		lineageTag: 41e62614-9da2-45af-9ec3-1901f6604a7a
+		summarizeBy: sum
+		sourceColumn: gross_revenue_gc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_gc
+		dataType: double
+		lineageTag: 34eb5e33-0771-43af-bfb5-4ea4d5ce0102
+		summarizeBy: sum
+		sourceColumn: discount_gc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column net_revenue_gc
+		dataType: double
+		lineageTag: 1b705602-a445-40d6-b9c2-29a244e8e2ee
+		summarizeBy: sum
+		sourceColumn: net_revenue_gc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cogs_gc
+		dataType: double
+		lineageTag: 058c0601-98df-4ba8-b91c-2c98b3b0627c
+		summarizeBy: sum
+		sourceColumn: cogs_gc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_cogs_gc
+		dataType: double
+		lineageTag: d1b57cbc-5afe-4553-84d5-3dbf2592dd9f
+		summarizeBy: sum
+		sourceColumn: total_cogs_gc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gross_profit_gc
+		dataType: double
+		lineageTag: ade1e4df-1254-4860-8326-d1c2ec4f8ede
+		summarizeBy: sum
+		sourceColumn: gross_profit_gc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column selling_price_lc
+		dataType: double
+		lineageTag: 858d558f-809c-4d7d-8cab-38e58ef925fa
+		summarizeBy: sum
+		sourceColumn: selling_price_lc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gross_revenue_lc
+		dataType: double
+		lineageTag: 440f08f2-0002-449a-a8ca-370884130590
+		summarizeBy: sum
+		sourceColumn: gross_revenue_lc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_lc
+		dataType: double
+		lineageTag: 0c130d30-3127-4ae1-9eef-97c5734e897b
+		summarizeBy: sum
+		sourceColumn: discount_lc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column net_revenue_lc
+		dataType: double
+		lineageTag: bd0ebcf0-874e-471e-abeb-b0fe9af658b7
+		summarizeBy: sum
+		sourceColumn: net_revenue_lc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_cogs_lc
+		dataType: double
+		lineageTag: 4ff890c7-a2e3-492a-97d4-bd142c7c23b3
+		summarizeBy: sum
+		sourceColumn: total_cogs_lc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gross_profit_lc
+		dataType: double
+		lineageTag: ccb41a7f-6573-4276-89fe-e4d5e550b2b0
+		summarizeBy: sum
+		sourceColumn: gross_profit_lc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column promotion
+		dataType: string
+		lineageTag: 21c7b964-7386-487a-accb-4fd127fa70e6
+		summarizeBy: none
+		sourceColumn: promotion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition brewery_transactions_complete = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(Web.Contents("https://microsoftapc-my.sharepoint.com/personal/v-dedileep_microsoft_com/Documents/Apps/Microsoft Power Query/Uploaded Files/brewery_transactions_complete 2.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "brewery_transactions_complete", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"date_id", Int64.Type}, {"date", type date}, {"customer_id", Int64.Type}, {"sales_rep_id", Int64.Type}, {"customer_name", type text}, {"customer_type", type text}, {"customer_region", type text}, {"customer_country", type text}, {"customer_city", type text}, {"customer_sales_territory", type text}, {"customer_transaction_currency", type text}, {"territory_id", Int64.Type}, {"sku_id", Int64.Type}, {"sku_code", type text}, {"category", type text}, {"variant", type text}, {"pack_format", type text}, {"multipack", type text}, {"invoice_id", type text}, {"invoice_line_number", Int64.Type}, {"gross_sale_units", Int64.Type}, {"exchange_rate", type number}, {"selling_price_gc", type number}, {"gross_revenue_gc", type number}, {"discount_gc", type number}, {"net_revenue_gc", type number}, {"cogs_gc", type number}, {"total_cogs_gc", type number}, {"gross_profit_gc", type number}, {"selling_price_lc", type number}, {"gross_revenue_lc", type number}, {"discount_lc", type number}, {"net_revenue_lc", type number}, {"total_cogs_lc", type number}, {"gross_profit_lc", type number}, {"promotion", type text}})
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

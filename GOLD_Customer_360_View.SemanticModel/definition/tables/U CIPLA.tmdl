@@ -1,0 +1,241 @@
+table 'U CIPLA'
+	isHidden
+	lineageTag: c9a9c6f6-3e64-4a22-8ca7-fa866dfe2fe5
+
+	measure 'Chng %' = ```
+			
+			VAR one = SUM('U CIPLA'[Close])
+			
+			VAR two = SUM('U CIPLA'[Prev Close])
+			
+			VAR RESULT = DIVIDE(one - two, two, 0)
+			
+			RETURN
+			Result 
+			```
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		isHidden
+		lineageTag: 90ac8ab3-175f-411e-8e34-35b96affd7dd
+
+		changedProperty = IsHidden
+
+	measure 'Chng VAR' = ```
+			
+			VAR one = SUM('U CIPLA'[Close])
+			
+			VAR two = SUM('U CIPLA'[Prev Close])
+			
+			VAR RESULT = DIVIDE(one, two, 0)
+			
+			RETURN
+			one - two 
+			```
+		isHidden
+		lineageTag: 07008ef8-f1d8-428d-8767-986bb65ff881
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Previous High' = ```
+			
+			
+			VAR two = CALCULATE(MAX('U CIPLA'[High]), PREVIOUSDAY('U CIPLA'[Date]))
+			
+			RETURN
+			IF(ISBLANK(two), 0, two) 
+			```
+		isHidden
+		lineageTag: 46123244-0b52-4d8a-bc40-a9ec0550472c
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Previous Low' = ```
+			
+			
+			VAR two = CALCULATE(SUM('U CIPLA'[Low]), PREVIOUSDAY('U CIPLA'[Date]))
+			
+			RETURN
+			IF(ISBLANK(two), 0, two) 
+			```
+		isHidden
+		lineageTag: 4726d22a-2089-4610-b7cd-0daa0bc337c0
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: 4896f550-23c5-42bf-8192-8bf9bd8e34f7
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 49efe772-f7ca-44d3-babd-dd29c2364b91
+			defaultHierarchy: LocalDateTable_9bc3d5c6-a47f-4ce8-9865-f84f38449f9f.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Symbol
+		dataType: string
+		isHidden
+		lineageTag: 68d18622-a10c-4bc1-9f9f-675bb1467289
+		summarizeBy: none
+		sourceColumn: Symbol
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prev Close'
+		dataType: double
+		isHidden
+		lineageTag: f43285ab-4604-4c30-a5d9-a20f1528ea43
+		summarizeBy: sum
+		sourceColumn: Prev Close
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Open
+		dataType: double
+		isHidden
+		lineageTag: 79df47a9-180d-4909-8783-4348be996cb8
+		summarizeBy: sum
+		sourceColumn: Open
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column High
+		dataType: double
+		isHidden
+		lineageTag: 49725000-0842-4685-b231-cfaed027301a
+		summarizeBy: sum
+		sourceColumn: High
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Low
+		dataType: double
+		isHidden
+		lineageTag: 4e4a874f-9aa8-465a-b0e4-48cbd960b75f
+		summarizeBy: sum
+		sourceColumn: Low
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Last
+		dataType: double
+		isHidden
+		lineageTag: 3364143c-8808-4423-9965-25622305ccb7
+		summarizeBy: sum
+		sourceColumn: Last
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Close
+		dataType: double
+		isHidden
+		lineageTag: 86e3057e-345c-41ae-b91a-48a7b8052ae4
+		summarizeBy: sum
+		sourceColumn: Close
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VWAP
+		dataType: double
+		isHidden
+		lineageTag: 78830b68-3eb6-454a-a247-9d24c564eeb2
+		summarizeBy: sum
+		sourceColumn: VWAP
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Volume
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f562b2f1-a84c-4c8b-846b-504738f64268
+		summarizeBy: sum
+		sourceColumn: Volume
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date Format' = FORMAT('U CIPLA'[Date], "yyyy")
+		isHidden
+		lineageTag: 736bedab-d136-4fde-995a-d90677c08148
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearQuarter = FORMAT('U CIPLA'[Date], "YYQ")
+		isHidden
+		lineageTag: 58312cd9-0844-4d03-af43-4d6c3bbd67b9
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'U CIPLA' = m
+		mode: import
+		queryGroup: 'Use Case'
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\KavithaB\Desktop\Social Media Post\MondayMakeover\Stock Market Rate\CIPLA.csv"),[Delimiter=",", Columns=15, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Symbol", type text}, {"Series", type text}, {"Prev Close", type number}, {"Open", type number}, {"High", type number}, {"Low", type number}, {"Last", type number}, {"Close", type number}, {"VWAP", type number}, {"Volume", Int64.Type}, {"Turnover", type number}, {"Trades", type text}, {"Deliverable Volume", type text}, {"%Deliverble", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Series", "Turnover", "Trades", "Deliverable Volume", "%Deliverble"}),
+				    #"Filtered Rows2" = Table.SelectRows(#"Removed Columns", each [Date] > #date(2020, 9, 1)),
+				    #"Inserted Year" = Table.AddColumn(#"Filtered Rows2", "Year", each Date.Year([Date]), Int64.Type),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Inserted Year",{"Year"})
+				in
+				    #"Removed Columns1"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

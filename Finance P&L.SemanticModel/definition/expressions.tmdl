@@ -1,0 +1,13 @@
+expression 'Retail - Orders [OLD]' =
+		let
+		    Source = Sql.Database("infosuitesandbox.database.windows.net", "infosuite"),
+		    #"dbo_Retail - Orders" = Source{[Schema="dbo",Item="Retail - Orders"]}[Data],
+		    #"Sorted Rows" = Table.Sort(#"dbo_Retail - Orders",{{"Order Date", Order.Ascending}})
+		in
+		    #"Sorted Rows"
+	lineageTag: 972b5507-28c0-4ed2-9709-6becfbbe3465
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

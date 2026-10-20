@@ -1,0 +1,217 @@
+table 'Retail - Orders'
+	lineageTag: 01e399b0-352c-4ec0-8102-fa0bbd53f7b2
+
+	column 'Row ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: ebbd0c85-213f-4092-83b5-4d1949cdcd27
+		summarizeBy: count
+		sourceColumn: Row ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order ID'
+		dataType: string
+		lineageTag: 26d2f294-8202-42a5-9fc1-0cf6454b6058
+		summarizeBy: none
+		sourceColumn: Order ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9ada6754-99af-477d-9c0b-c2ffd2f5b2ed
+		summarizeBy: none
+		sourceColumn: Order Date
+
+		variation Variation
+			isDefault
+			relationship: 14bf2ef8-6d80-472a-921a-642709140c99
+			defaultHierarchy: LocalDateTable_e560809e-a629-4d83-a873-e62cd54aefc0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d1cf1928-36ea-4ad8-82af-a241aec873d3
+		summarizeBy: none
+		sourceColumn: Ship Date
+
+		variation Variation
+			isDefault
+			relationship: 16451cac-c2a2-41e6-8067-f422bef05a77
+			defaultHierarchy: LocalDateTable_090ed661-315c-4ca7-841f-84820a77987b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ship Mode'
+		dataType: string
+		lineageTag: 8bc18f98-900d-403e-81c8-57eebbad5bfb
+		summarizeBy: none
+		sourceColumn: Ship Mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: 580261cd-1075-450c-b69b-afd0efce7fc0
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: 8c42088f-3846-4176-9de2-9d78f5a8ebab
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: e82af55d-6073-47fa-8135-be507036e23c
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 42aa74e6-572d-4db6-9dfb-337cde682408
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 98c9624a-d19e-4679-b192-da1fea549493
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: 077b41f6-8e3a-4032-8836-47073c6280c4
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Postal Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: 80a8188c-a7da-41d7-9a08-89b12b367040
+		summarizeBy: count
+		sourceColumn: Postal Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 4181446c-ad6d-404b-8bea-390822776950
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product ID'
+		dataType: string
+		lineageTag: c1fbce41-acda-4a04-9ba9-efde1da49231
+		summarizeBy: none
+		sourceColumn: Product ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: e93b4814-3072-40a1-889a-6d8dc2c72a46
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sub-Category
+		dataType: string
+		lineageTag: 9d2e0dde-bad8-436c-ac39-414cb9799a5d
+		summarizeBy: none
+		sourceColumn: Sub-Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Name'
+		dataType: string
+		lineageTag: 14b826b0-104b-4028-926a-984eb2984ea9
+		summarizeBy: none
+		sourceColumn: Product Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales
+		dataType: double
+		lineageTag: 0d3ce02e-43ad-4146-8726-8cb0e583bde6
+		summarizeBy: sum
+		sourceColumn: Sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 81b7a949-ccf6-48c9-bd01-2fc018e65810
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column Discount
+		dataType: int64
+		formatString: 0
+		lineageTag: 013326e4-d84c-4ca5-846c-b72470e35ea1
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+	column Profit
+		dataType: double
+		lineageTag: b64fcc51-2935-4551-af80-12ccce09219f
+		summarizeBy: sum
+		sourceColumn: Profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Retail - Orders' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\AswanthV\Downloads\ACME 2023.xlsx"), null, true),
+				    Retail___Orders_Table = Source{[Item="Retail___Orders",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Retail___Orders_Table,{{"Row ID", Int64.Type}, {"Order ID", type text}, {"Order Date", type datetime}, {"Ship Date", type datetime}, {"Ship Mode", type text}, {"Customer ID", type text}, {"Customer Name", type text}, {"Segment", type text}, {"Country", type text}, {"City", type text}, {"State", type text}, {"Postal Code", Int64.Type}, {"Region", type text}, {"Product ID", type text}, {"Category", type text}, {"Sub-Category", type text}, {"Product Name", type text}, {"Sales", type number}, {"Quantity", Int64.Type}, {"Discount", Int64.Type}, {"Profit", type number}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"Order Date", Order.Ascending}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Sorted Rows",{{"Order Date", type text}}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Changed Type1","2024","2022",Replacer.ReplaceText,{"Order Date"}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Replaced Value4","2023","2021",Replacer.ReplaceText,{"Order Date"}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Replaced Value5","2016","2023",Replacer.ReplaceText,{"Order Date"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","2017","2024",Replacer.ReplaceText,{"Order Date"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","2018","2020",Replacer.ReplaceText,{"Order Date"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2"," 2/29/2022 12:00:00 AM"," 2/28/2022 12:00:00 AM",Replacer.ReplaceText,{"Order Date"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value3",{{"Order Date", type datetime}}),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type2", {"Order Date"}),
+				    #"Sorted Rows1" = Table.Sort(#"Removed Errors",{{"Order Date", Order.Ascending}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Sorted Rows1", each true)
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

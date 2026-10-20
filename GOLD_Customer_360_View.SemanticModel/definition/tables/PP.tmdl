@@ -1,0 +1,42 @@
+table PP
+	lineageTag: ac3f0d23-8246-4e83-b3cb-a7c9117d0c22
+
+	column Cat
+		dataType: string
+		lineageTag: 3b25aa4c-f797-4cb6-91cf-4d93e62f4633
+		summarizeBy: none
+		sourceColumn: Cat
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ac
+		dataType: double
+		lineageTag: 33001bbc-d8d3-4d7d-af04-757ab16f5cc4
+		summarizeBy: sum
+		sourceColumn: Ac
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Py
+		dataType: double
+		lineageTag: 7b2726ff-a0ec-471a-a41b-cb8dfd1736d2
+		summarizeBy: sum
+		sourceColumn: Py
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition PP = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WSlTSUTLQMwOTJkqxOtFKSWC2EZi0UIqNBQA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Cat = _t, Ac = _t, Py = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Cat", type text}, {"Ac", type number}, {"Py", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
