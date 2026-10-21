@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/valueSet/1.0.0/schema.json",
+  "name": "PROD",
+  "variableOverrides": [
+    {
+      "name": "var_semantic_model",
+      "value": {
+        "itemId": "50a46b40-7e5c-436f-aa71-3e02b163cd03",
+        "workspaceId": "451bd69c-3c63-467d-812b-ac3fd7999521"
+      }
+    }
+  ]
+}

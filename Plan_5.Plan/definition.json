@@ -1,0 +1,30 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Definition/1.0.0/schema.json",
+  "cube": {
+    "partitionRefIds": []
+  },
+  "semanticModelReference": {
+    "artifactId": null,
+    "datasetRelations": [],
+    "recordGuid": "01a15e50-1657-70d3-8e4d-e62b6af5ee8e",
+    "semanticModelVariable": "$(/**/SM Variables/var_semantic_model)",
+    "semanticModelVariableName": "var_semantic_model",
+    "sourceType": "WORKLOAD"
+  },
+  "sheets": [
+    {
+      "displayName": "Planning 1",
+      "isHidden": false,
+      "recordGuid": "01a15e5b-2378-7619-8e4d-5e49a96a6bd3",
+      "sheetType": "PLANNING",
+      "workloadItemEntityVisuals": [
+        {
+          "isEmbedded": false,
+          "visualId": "01a15e5b-2d58-703e-890f-6702b6010b93",
+          "visualType": "PLANNING"
+        }
+      ]
+    }
+  ],
+  "workloadItemName": "Plan_5"
+}
