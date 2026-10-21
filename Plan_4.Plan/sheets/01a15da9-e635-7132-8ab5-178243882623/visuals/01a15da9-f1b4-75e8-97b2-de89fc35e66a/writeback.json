@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Planning/Writeback/1.0.0/schema.json",
+  "autoWbEnabledScenarioIds": [],
+  "debounce": {
+    "duration": 5,
+    "isDebounceEnabled": 10
+  },
+  "destinations": [
+    {
+      "connectionId": "fa214d25-c960-415f-a387-1edd9a59c742",
+      "isEnabled": true,
+      "settings": {
+        "artifactRelations": [
+          {
+            "dependentArtifactObjectId": "4d027483-e45d-41e7-a3b2-b9a47599d66c",
+            "settings": "PushData"
+          }
+        ],
+        "dbDisplayName": "CRC",
+        "dbHost": "x6eps4xrq2xudenlfv6naeo3i4-wvw2mnyxdqtudkevfxacedkboe.dxt-database.fabric.microsoft.com",
+        "dbName": "CRC-4d027483-e45d-41e7-a3b2-b9a47599d66c",
+        "dbSchema": "dbo",
+        "sqlTargetArtifact": {
+          "artifactId": "4d027483-e45d-41e7-a3b2-b9a47599d66c",
+          "artifactType": "SQLDbNative",
+          "workspaceId": "37a66db5-1c17-4127-a895-2dc0220d4171"
+        }
+      },
+      "settingsHash": "25001db0d719e1fee74f44a89dfe57c3524ed88f897fb4b918e7a010ed117164",
+      "status": 10,
+      "tableName": "IDS_REVENUE",
+      "visualId": 1
+    }
+  ],
+  "excludedMeasureGuids": [],
+  "isAutoWritebackEnabled": 20,
+  "isSnapshotWbEnabled": 20,
+  "numberPrecision": {
+    "decimal": 2
+  },
+  "skippedDimensionIds": [],
+  "stringColumnLength": {
+    "length": "512",
+    "type": 1
+  },
+  "wbTableColumnMapping": {},
+  "writebackAsHTML": false,
+  "writebackFilter": {
+    "type": "none"
+  },
+  "writebackType": 2
+}

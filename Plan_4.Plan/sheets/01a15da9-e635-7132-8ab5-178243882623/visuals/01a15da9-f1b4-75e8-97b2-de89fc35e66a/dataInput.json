@@ -1,0 +1,65 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/plan/definition/Planning/DataInput/1.0.0/schema.json",
+  "columns": [
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "12735425719148766333",
+        "label": "Sum of gross_revenue_lc",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Sum of gross_revenue_lc"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "12735425719148766333",
+      "name": "Sum of gross_revenue_lc",
+      "visualId": "01a15da9-f1b4-75e8-97b2-de89fc35e66a"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "100580063433410848",
+        "label": "Sum of discount_gc",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Sum of discount_gc"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "100580063433410848",
+      "name": "Sum of discount_gc",
+      "visualId": "01a15da9-f1b4-75e8-97b2-de89fc35e66a"
+    },
+    {
+      "boundToFilterContext": 10,
+      "columnMeta": {
+        "data_type": "Number",
+        "description": null,
+        "id": "5810866893230341104",
+        "label": "Sum of gross_profit_gc",
+        "measure_type": {
+          "Native": {
+            "measure_role": "ACMeasure"
+          }
+        },
+        "name": "Sum of gross_profit_gc"
+      },
+      "dataInputType": 6,
+      "description": null,
+      "measureGuid": "5810866893230341104",
+      "name": "Sum of gross_profit_gc",
+      "visualId": "01a15da9-f1b4-75e8-97b2-de89fc35e66a"
+    }
+  ]
+}
